@@ -433,7 +433,7 @@ public struct Ruby {
                 return .String
             case .sym_integer, .sym_float:
                 return .Number
-            case .sym_comment:
+            case .sym_comment, .sym_begin_statement:
                 return .Comment
             case .anon_sym_do, .anon_sym_if, .anon_sym_else, .anon_sym_def, .anon_sym_nil, .anon_sym_NIL, .anon_sym_until, .anon_sym_end, .anon_sym_class, .anon_sym_module:
                 return .Keyword

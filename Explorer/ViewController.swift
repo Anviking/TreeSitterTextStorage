@@ -16,46 +16,9 @@ extension UnsafeMutablePointer where Memory: IntegerType {
         let replacementLength = replacementText.lengthOfBytesUsingEncoding(NSUTF8StringEncoding)
         let delta = replacementLength - range.length
         
-        memmove(self + range.location + delta, self + range.location, 80)
+        memmove(self + range.location + delta, self + range.location, 7000)
         memcpy(self + range.location, replacementText, replacementLength)
     }
-}
-
-public func tokenize2(document: COpaquePointer, textStorage: NSTextStorage, force: Bool = false, tokenizeClosure: Ruby.Symbol -> UIColor?) {
-    
-    
-    let root_node = ts_document_root_node(document);
-
-    if !force && !ts_node_has_changes(root_node) {
-        return
-    }
-    
-    func traverseNode(node: TSNode, depth: Int = 0) {
-        for i in 0 ..< ts_node_child_count(node) {
-            let child = ts_node_child(node, i)
-            
-            if !force && !ts_node_has_changes(child) {
-                continue
-            }
-            //let text = string.substringWithRange(string.startIndex.advancedBy(start) ..< string.startIndex.advancedBy(end))
-            //let name = String.fromCString(ts_node_name(child, document))!
-            //let stars = Array(count: depth * 3, repeatedValue: " ").joinWithSeparator("")
-            
-    
-            if let symbol = Ruby.Symbol(rawValue: ts_node_symbol(child)) {
-            if let color = tokenizeClosure(symbol) {
-                let start = ts_node_start_byte(child)
-                let end = ts_node_end_byte(child)
-                textStorage.addAttributes([NSForegroundColorAttributeName: color], range: NSMakeRange(start, end - start))
-            }
-            }
-            
-            traverseNode(child, depth: depth + 1)
-            
-        }
-    }
-    
-    traverseNode(root_node)
 }
 
 
@@ -64,8 +27,10 @@ class ViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var textView: UITextView!
     
     var string = UnsafeMutablePointer<CChar>.alloc(76163)
-    var index: UInt16 = 0
+    var index: UInt16 = 201
     var symbol: Symbol?
+    var previousRoot: TSNode?
+
     var document: COpaquePointer!
     
     override func viewDidLoad() {
@@ -76,7 +41,7 @@ class ViewController: UIViewController, UITextViewDelegate {
         
 
         // Do any additional setup after loading the view.
-        let url = NSBundle.mainBundle().URLForResource("testRuby", withExtension: "txt")!
+        let url = NSBundle.mainBundle().URLForResource("test", withExtension: "txt")!
         let str = try! String(contentsOfURL: url)
         
         let attributedString = NSMutableAttributedString(string: str, attributes: [
@@ -91,9 +56,9 @@ class ViewController: UIViewController, UITextViewDelegate {
         textView.attributedText = attributedString
         document = ts_document_make();
         ts_document_set_input_string(document, string);
-        ts_document_set_language(document, ts_language_ruby());
+        ts_document_set_language(document, ts_language_c());
         ts_document_parse(document);
-        tokenize(true)
+        tokenize()
     }
 
     override func didReceiveMemoryWarning() {
@@ -114,35 +79,94 @@ class ViewController: UIViewController, UITextViewDelegate {
         guard let index = UInt16(text) else { return }
         
         self.index = index
-        tokenize(true)
-        
+        tokenize()
     }
     
-    func tokenize(force: Bool = false) {
-        if let targetSymbol = Ruby.Symbol(rawValue: index) {
-            self.title = "\(targetSymbol)"
-            tokenize2(document, textStorage: textView.textStorage, force: force) { symbol in
-                if targetSymbol == symbol {
-                    return ColorTheme.Default[.Keyword]!
-                } else {
-                    return nil
+    func tokenize() {
+        
+        //self.textView.textStorage.setAttributes([NSForegroundColorAttributeName: UIColor.whiteColor(), NSBackgroundColorAttributeName: ColorTheme.Dusk[.Background]!], range: NSMakeRange(0, self.textView.textStorage.length))
+        let test = NSAttributedString(attributedString: self.textView.textStorage)
+        let root_node = ts_document_root_node(document);
+        
+        func traverseNode(node: TSNode) {
+            if ts_node_has_changes(node) {
+                print("CHANGES")
+            }
+
+            for i in 0 ..< ts_node_named_child_count(node) {
+                let child = ts_node_named_child(node, i)
+                if let symbol = C.Symbol(rawValue: ts_node_symbol(child)) {
+                    
+                        let start = ts_node_start_byte(child)
+                        let end = ts_node_end_byte(child)
+                        self.textView.textStorage.addAttribute(NSForegroundColorAttributeName, value: ColorTheme.Dusk[symbol.tokenType]!, range: NSMakeRange(start, end - start))
                 }
+                
+                traverseNode(child)
+                
             }
         }
-
+        
+        
+        
+        traverseNode(root_node)
+    }
+    
+    func clearNode(node: TSNode) {
+        let start = ts_node_start_byte(node)
+        let end = ts_node_end_byte(node)
+        textView.textStorage.setAttributes([NSForegroundColorAttributeName: UIColor.whiteColor(), NSBackgroundColorAttributeName: ColorTheme.Dusk[.Background]!], range: NSMakeRange(start, end - start))
+    }
+    
+    func tokenize(index index: Int, overrideColor: UIColor? = nil) {
+        print("--- tokenizing ---")
+        let root_node = ts_document_root_node(document);
+        var node = ts_node_descendant_for_range(root_node, index, index + 1)
+        var array = [TSNode]()
+        while !ts_node_eq(node, root_node) {
+            array.append(node)
+            node = ts_node_parent(node)
+        }
+        
+        let _ = array.last.map(clearNode)
+        
+        for node in array.reverse() {
+            if ts_node_has_changes(node) { print("CHANGES") }
+            if let symbol = C.Symbol(rawValue: ts_node_symbol(node)) {
+                let start = ts_node_start_byte(node)
+                let end = ts_node_end_byte(node)
+                let color = overrideColor ?? ColorTheme.Dusk[symbol.tokenType]!
+                self.textView.textStorage.addAttribute(NSForegroundColorAttributeName, value: color, range: NSMakeRange(start, end - start))
+            }
+        }
     }
     
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         
         let edit = TSInputEdit(position: range.location, chars_inserted: text.lengthOfBytesUsingEncoding(NSUTF8StringEncoding), chars_removed: range.length)
+        
         string.replaceCharactersInRange(range, replacementText: text)
-        print(UnsafePointer<[CChar]>(string))
         ts_document_edit(document, edit)
-        let a = ts_node_string(ts_document_root_node(document), document)
+        tokenize(index: range.location, overrideColor: UIColor.purpleColor())
         ts_document_parse(document)
-        tokenize()
-        print(a)
+        //let s = NSString(string: textView.text).stringByReplacingCharactersInRange(range, withString: text)
+        //memcpy(UnsafeMutablePointer(s.cStringUsingEncoding(NSUTF8StringEncoding)!), string, 7000)
+        
+        //print(String.fromCString(string))
+        //print(edit)
+        //ts_document_invalidate(document)
         return true
+    }
+    
+    func textViewDidChange(textView: UITextView) {
+        tokenize(index: textView.selectedRange.location)
+    }
+    
+    func visibleRangeOfTextView() -> NSRange {
+    let bounds = textView.bounds;
+    let start = textView.characterRangeAtPoint(bounds.origin)!.start
+    let end = textView.characterRangeAtPoint(CGPointMake(CGRectGetMaxX(bounds), CGRectGetMaxY(bounds)))!.end
+    return NSMakeRange(textView.offsetFromPosition(textView.beginningOfDocument, toPosition: start), textView.offsetFromPosition(start, toPosition: end));
     }
 
     /*
