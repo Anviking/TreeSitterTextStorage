@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol CategorizableTokenType {
+public protocol CategorizableTokenType {
     var tokenType: TokenType {get}
 }
 

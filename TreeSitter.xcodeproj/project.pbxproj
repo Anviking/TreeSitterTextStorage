@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F29AB1A1CD9682F00BBBEEA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F29AB191CD9682F00BBBEEA /* UIKit.framework */; };
+		8F29EE281CD968A400AE4A59 /* testRuby.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8F29EE271CD968A400AE4A59 /* testRuby.txt */; };
+		8F29EE291CD96AAE00AE4A59 /* testRuby.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8F29EE271CD968A400AE4A59 /* testRuby.txt */; };
+		8F29EE2B1CD96C2700AE4A59 /* Ruby.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F29EE2A1CD96C2700AE4A59 /* Ruby.swift */; };
+		8F29EE2D1CD96C7F00AE4A59 /* C.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F29EE2C1CD96C7F00AE4A59 /* C.swift */; };
+		8F29EE2F1CD96CB400AE4A59 /* Symbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F29EE2E1CD96CB400AE4A59 /* Symbol.swift */; };
 		8F81191C1CD8FA74006A9980 /* libruntime.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA5C6B81CD8365A00BF090B /* libruntime.a */; };
 		8F81191D1CD8FA84006A9980 /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = 8FA5C6BF1CD8F56700BF090B /* test.json */; };
 		8F8119351CD93149006A9980 /* alloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F81191F1CD93149006A9980 /* alloc.h */; };
@@ -57,6 +63,10 @@
 		8FFA49001CD94F4C00018FA6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFA48FF1CD94F4C00018FA6 /* ViewController.swift */; };
 		8FFA49011CD9503900018FA6 /* test.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8FFA48BE1CD93C5900018FA6 /* test.txt */; };
 		8FFA49021CD9529D00018FA6 /* test.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8FFA48BE1CD93C5900018FA6 /* test.txt */; };
+		8FFA49031CD9645700018FA6 /* TreeSitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA59A641CD80EBD0041E6C4 /* TreeSitter.framework */; };
+		8FFA49041CD9645700018FA6 /* TreeSitter.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA59A641CD80EBD0041E6C4 /* TreeSitter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8FFA49081CD9646600018FA6 /* libruntime.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA5C6B81CD8365A00BF090B /* libruntime.a */; };
+		8FFA490A1CD967A300018FA6 /* ruby_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FFA49091CD967A300018FA6 /* ruby_parser.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,9 +91,35 @@
 			remoteGlobalIDString = 8FFA48CA1CD94EE400018FA6;
 			remoteInfo = Explorer;
 		};
+		8FFA49051CD9645700018FA6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8FA59A5B1CD80EBD0041E6C4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8FA59A631CD80EBD0041E6C4;
+			remoteInfo = TreeSitter;
+		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		8FFA49071CD9645700018FA6 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				8FFA49041CD9645700018FA6 /* TreeSitter.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		8F29AB191CD9682F00BBBEEA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		8F29EE271CD968A400AE4A59 /* testRuby.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = testRuby.txt; sourceTree = "<group>"; };
+		8F29EE2A1CD96C2700AE4A59 /* Ruby.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ruby.swift; sourceTree = "<group>"; };
+		8F29EE2C1CD96C7F00AE4A59 /* C.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = C.swift; sourceTree = "<group>"; };
+		8F29EE2E1CD96CB400AE4A59 /* Symbol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Symbol.swift; sourceTree = "<group>"; };
 		8F81191F1CD93149006A9980 /* alloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = alloc.h; sourceTree = "<group>"; };
 		8F8119201CD93149006A9980 /* array.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = array.h; sourceTree = "<group>"; };
 		8F8119211CD93149006A9980 /* debugger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = debugger.h; sourceTree = "<group>"; };
@@ -140,6 +176,7 @@
 		8FFA48F11CD94EE500018FA6 /* ExplorerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerUITests.swift; sourceTree = "<group>"; };
 		8FFA48F31CD94EE500018FA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8FFA48FF1CD94F4C00018FA6 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		8FFA49091CD967A300018FA6 /* ruby_parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ruby_parser.c; path = TreeSitter/ruby_parser.c; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +184,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F29AB1A1CD9682F00BBBEEA /* UIKit.framework in Frameworks */,
 				8FA5C6B91CD8365A00BF090B /* libruntime.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -164,6 +202,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FFA49081CD9646600018FA6 /* libruntime.a in Frameworks */,
+				8FFA49031CD9645700018FA6 /* TreeSitter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,6 +228,7 @@
 		8F81191E1CD93149006A9980 /* runtime */ = {
 			isa = PBXGroup;
 			children = (
+				8FFA49091CD967A300018FA6 /* ruby_parser.c */,
 				8F8119571CD93543006A9980 /* arithmetic_parser.h */,
 				8F8119511CD93303006A9980 /* arithmetic_parser.c */,
 				8FFA48BC1CD93BD900018FA6 /* c_parser.c */,
@@ -221,6 +262,7 @@
 		8FA59A5A1CD80EBD0041E6C4 = {
 			isa = PBXGroup;
 			children = (
+				8F29AB191CD9682F00BBBEEA /* UIKit.framework */,
 				8FA5C6B81CD8365A00BF090B /* libruntime.a */,
 				8FA59A661CD80EBD0041E6C4 /* TreeSitter */,
 				8FA59A721CD80EBE0041E6C4 /* TreeSitterTests */,
@@ -248,6 +290,9 @@
 			children = (
 				8FA59A671CD80EBD0041E6C4 /* TreeSitter.h */,
 				8FA59A821CD80F540041E6C4 /* Test.swift */,
+				8F29EE2E1CD96CB400AE4A59 /* Symbol.swift */,
+				8F29EE2A1CD96C2700AE4A59 /* Ruby.swift */,
+				8F29EE2C1CD96C7F00AE4A59 /* C.swift */,
 				8FFA48C31CD94CCE00018FA6 /* JLTokenType.swift */,
 				8FFA48C41CD94CCE00018FA6 /* JLColorTheme.swift */,
 				8FA59A691CD80EBD0041E6C4 /* Info.plist */,
@@ -266,6 +311,7 @@
 				8FA5C6BF1CD8F56700BF090B /* test.json */,
 				8F8119591CD935AD006A9980 /* test.swift */,
 				8FFA48BE1CD93C5900018FA6 /* test.txt */,
+				8F29EE271CD968A400AE4A59 /* testRuby.txt */,
 				8FA59A731CD80EBE0041E6C4 /* TreeSitterTests.swift */,
 				8FA59A751CD80EBE0041E6C4 /* Info.plist */,
 			);
@@ -377,10 +423,12 @@
 				8FFA48C71CD94EE400018FA6 /* Sources */,
 				8FFA48C81CD94EE400018FA6 /* Frameworks */,
 				8FFA48C91CD94EE400018FA6 /* Resources */,
+				8FFA49071CD9645700018FA6 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				8FFA49061CD9645700018FA6 /* PBXTargetDependency */,
 			);
 			name = Explorer;
 			productName = Explorer;
@@ -487,6 +535,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F29EE281CD968A400AE4A59 /* testRuby.txt in Resources */,
 				8FFA48C11CD93D2700018FA6 /* test.swift in Resources */,
 				8FFA48C01CD93C7500018FA6 /* test.txt in Resources */,
 				8F81191D1CD8FA84006A9980 /* test.json in Resources */,
@@ -497,6 +546,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F29EE291CD96AAE00AE4A59 /* testRuby.txt in Resources */,
 				8FFA49021CD9529D00018FA6 /* test.txt in Resources */,
 				8FFA48DC1CD94EE400018FA6 /* LaunchScreen.storyboard in Resources */,
 				8FFA48D91CD94EE400018FA6 /* Assets.xcassets in Resources */,
@@ -526,12 +576,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F29EE2D1CD96C7F00AE4A59 /* C.swift in Sources */,
 				8F81193F1CD93149006A9980 /* node.c in Sources */,
 				8F81193D1CD93149006A9980 /* lexer.c in Sources */,
 				8F81193A1CD93149006A9980 /* language.c in Sources */,
 				8F8119381CD93149006A9980 /* document.c in Sources */,
+				8F29EE2F1CD96CB400AE4A59 /* Symbol.swift in Sources */,
 				8F8119491CD93149006A9980 /* utf16.c in Sources */,
 				8FFA48BD1CD93BD900018FA6 /* c_parser.c in Sources */,
+				8FFA490A1CD967A300018FA6 /* ruby_parser.c in Sources */,
+				8F29EE2B1CD96C2700AE4A59 /* Ruby.swift in Sources */,
 				8FFA48C51CD94CCE00018FA6 /* JLTokenType.swift in Sources */,
 				8F8119521CD93303006A9980 /* arithmetic_parser.c in Sources */,
 				8F8119431CD93149006A9980 /* stack.c in Sources */,
@@ -593,6 +647,11 @@
 			isa = PBXTargetDependency;
 			target = 8FFA48CA1CD94EE400018FA6 /* Explorer */;
 			targetProxy = 8FFA48EE1CD94EE500018FA6 /* PBXContainerItemProxy */;
+		};
+		8FFA49061CD9645700018FA6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8FA59A631CD80EBD0041E6C4 /* TreeSitter */;
+			targetProxy = 8FFA49051CD9645700018FA6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -784,6 +843,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = Explorer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -799,6 +859,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = Explorer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -893,6 +954,7 @@
 				8FFA48F61CD94EE500018FA6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8FFA48F71CD94EE500018FA6 /* Build configuration list for PBXNativeTarget "ExplorerTests" */ = {
 			isa = XCConfigurationList;
@@ -901,6 +963,7 @@
 				8FFA48F91CD94EE500018FA6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8FFA48FA1CD94EE500018FA6 /* Build configuration list for PBXNativeTarget "ExplorerUITests" */ = {
 			isa = XCConfigurationList;
@@ -909,6 +972,7 @@
 				8FFA48FC1CD94EE500018FA6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
