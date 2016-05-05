@@ -147,7 +147,7 @@ class ViewController: UIViewController, UITextViewDelegate {
         let attributedString = NSMutableAttributedString(string: str, attributes: [
             NSForegroundColorAttributeName: UIColor.whiteColor(),
             NSBackgroundColorAttributeName: ColorTheme.Dusk[.Background]!,
-            NSFontAttributeName: UIFont(name: "Menlo", size: 10)!
+            NSFontAttributeName: UIFont(name: "Menlo", size: 12)!
             ])
         
     
@@ -221,11 +221,15 @@ class ViewController: UIViewController, UITextViewDelegate {
             //print(String.fromCString(ts_node_name(node, self.document)))
             if let symbol = C.Symbol(rawValue: ts_node_symbol(node)) {
                 let start = node.start
-                var end = node.end
+                let end = node.end
                 let range = NSMakeRange(start, end - start)
                 if start < length && end < length && range.length > 0 {
                 let color = ColorTheme.Dusk[symbol.tokenType]!
-                self.textView.textStorage.setAttributes([NSForegroundColorAttributeName: color, NSBackgroundColorAttributeName: ColorTheme.Dusk[.Background]!], range: range)
+                    self.textView.textStorage.setAttributes([
+                        NSForegroundColorAttributeName: color,
+                        NSBackgroundColorAttributeName: ColorTheme.Dusk[.Background]!,
+                        NSFontAttributeName: UIFont(name: "Menlo", size: 12)!
+                        ], range: range)
                 }
             }
         }
@@ -235,16 +239,9 @@ class ViewController: UIViewController, UITextViewDelegate {
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         
         let edit = TSInputEdit(position: range.location, chars_inserted: text.characters.count, chars_removed: range.length)
-        print("Adding: \(text.characters.count), removing: \(range.length)")
         data.replaceCharactersInRange(range, replacementText: text)
         ts_document_edit(document, edit)
         ts_document_parse(document)
-        //let s = NSString(string: textView.text).stringByReplacingCharactersInRange(range, withString: text)
-        //memcpy(UnsafeMutablePointer(s.cStringUsingEncoding(CNSUTF16StringEncoding)!), string, 7000)
-        
-        //print(String.fromCString(string))
-        //print(edit)
-        //ts_document_invalidate(document)
         return true
     }
     
