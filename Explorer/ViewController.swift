@@ -17,57 +17,18 @@ struct Input {
     var length: Int
 }
 
-extension TSNode {
-    func forEach(block: TSNode -> Void) {
-        let count = ts_node_child_count(self)
-        guard count > 0 else { return }
-        var child = ts_node_child(self, 0)
-        for _ in 0 ..< count {
-            block(child)
-            child.forEach(block)
-            child = ts_node_next_sibling(child)
+extension NSRange {
+    func intersectsRange(range: NSRange) -> Bool
+    {
+        if location > range.location + range.length {
+            return false
         }
-    }
-    
-    func _unchangedIndexes(set: NSMutableIndexSet) {
-        let count = ts_node_child_count(self)
-        if !hasChanges {
-            set.addIndexesInRange(self.range)
-            return
+        if location > location + length {
+            return false
         }
-        guard count > 0 else { return }
-        var child = ts_node_child(self, 0)
-        for _ in 0 ..< count {
-            child._unchangedIndexes(set)
-            child = ts_node_next_sibling(child)
-        }
-    }
-    
-    var unchangedIndexes: NSMutableIndexSet {
-        let set = NSMutableIndexSet()
-        _unchangedIndexes(set)
-        return set
-    }
-    
-    var range: NSRange {
-        let start = ts_node_start_byte(self)
-        let end = ts_node_end_byte(self)
-        return NSMakeRange(start, end - start)
-    }
-    
-    var hasChanges: Bool {
-        return ts_node_has_changes(self)
-    }
-    
-    var start: Int {
-        return ts_node_start_char(self)
-    }
-    
-    var end: Int {
-        return ts_node_end_char(self)
+        return true
     }
 }
-
 
 extension UnsafeMutablePointer where Memory: IntegerType {
     func replaceCharactersInRange(range: NSRange, replacementText: String) {
@@ -100,21 +61,21 @@ extension NSMutableData {
         
         // ENDSTRING shifting delta
         let delta = replacement.length - byteRange.length
-
+        
         let endStringStart = byteRange.location + byteRange.length + delta
         let endStringEnd = length + delta
         let endStringRange = NSMakeRange(endStringStart, endStringEnd - endStringStart)
         replaceBytesInRange(endStringRange, withBytes: bytes + byteRange.location + byteRange.length)
-
+        
         
         // Replace RANGE with REPLACEMENT
         replaceBytesInRange(NSMakeRange(byteRange.location, replacement.length), withBytes: replacement.bytes)
-/*
-        let str = NSString(data: self, encoding: NSUTF16StringEncoding)!
-        let lineRange = str.lineRangeForRange(range)
-        let line = str.substringWithRange(lineRange)
-        print(str)
- */
+        /*
+         let str = NSString(data: self, encoding: NSUTF16StringEncoding)!
+         let lineRange = str.lineRangeForRange(range)
+         let line = str.substringWithRange(lineRange)
+         print(str)
+         */
     }
 }
 
@@ -150,7 +111,7 @@ class ViewController: UIViewController, UITextViewDelegate {
             NSFontAttributeName: UIFont(name: "Menlo", size: 12)!
             ])
         
-    
+        
         
         data = str.dataUsingEncoding(NSUTF16StringEncoding)!.mutableCopy() as! NSMutableData
         
@@ -171,7 +132,7 @@ class ViewController: UIViewController, UITextViewDelegate {
             read.memory = input.position - previousPosition
             pointer.memory = input
             return UnsafePointer(input.data.bytes + 2) + previousPosition;
-
+            
             }, seek_fn: { payload, character, byte in
                 
                 let pointer = UnsafeMutablePointer<Input>(payload)
@@ -183,7 +144,7 @@ class ViewController: UIViewController, UITextViewDelegate {
         ts_document_set_input(document, input);
         ts_document_set_language(document, ts_language_c());
         ts_document_parse(document);
-        tokenize()
+        tokenize(ts_document_root_node(document))
     }
     
     override func didReceiveMemoryWarning() {
@@ -204,7 +165,7 @@ class ViewController: UIViewController, UITextViewDelegate {
         guard let index = UInt16(text) else { return }
         
         self.index = index
-        tokenize()
+        tokenize(ts_document_root_node(document))
     }
     
     func clearNode(node: TSNode) {
@@ -213,18 +174,41 @@ class ViewController: UIViewController, UITextViewDelegate {
         textView.textStorage.setAttributes([NSForegroundColorAttributeName: UIColor.whiteColor(), NSBackgroundColorAttributeName: ColorTheme.Dusk[.Background]!], range: NSMakeRange(start, end - start))
     }
     
-    
-    func tokenize() {
+    func tokenize2(range: NSRange) {
+        
+        
         let length = self.textView.textStorage.length
         let root = ts_document_root_node(document)
-        root.forEach { node in
+        
+        let closure = { (node: TSNode) in
             //print(String.fromCString(ts_node_name(node, self.document)))
+            if node.hasChanges {
+                print("CHANGED")
+            }
+            if true {
+                if let symbol = C.Symbol(rawValue: ts_node_symbol(node)) {
+                    let start = node.start
+                    let end = node.end
+                    let range = NSMakeRange(start, end - start)
+                    if start < length && end < length && range.length > 0 {
+                        let color = ColorTheme.Dusk[.String]!
+                        self.textView.textStorage.setAttributes([
+                            NSForegroundColorAttributeName: color,
+                            NSBackgroundColorAttributeName: ColorTheme.Dusk[.Background]!,
+                            NSFontAttributeName: UIFont(name: "Menlo", size: 12)!
+                            ], range: range)
+                    }
+                }
+            }
+        }
+        
+        let closure2 = { (node: TSNode) in
             if let symbol = C.Symbol(rawValue: ts_node_symbol(node)) {
                 let start = node.start
                 let end = node.end
                 let range = NSMakeRange(start, end - start)
                 if start < length && end < length && range.length > 0 {
-                let color = ColorTheme.Dusk[symbol.tokenType]!
+                    let color = ColorTheme.Dusk[symbol.tokenType]!
                     self.textView.textStorage.setAttributes([
                         NSForegroundColorAttributeName: color,
                         NSBackgroundColorAttributeName: ColorTheme.Dusk[.Background]!,
@@ -233,27 +217,83 @@ class ViewController: UIViewController, UITextViewDelegate {
                 }
             }
         }
+        
+        
+        //defer { previousRoot = root }
+        let node = ts_node_descendant_for_range(root, range.location, NSMaxRange(range))
+        //print(node.stringInDocument(document))
+        node.forEachUpwards(root, block: closure)
+        if !ts_node_eq(node, root) {
+            node.forEach(closure)
+        }
+        //root.forEach(inRange: range, block: closure2)
+        
+    }
+    
+    func tokenize(node: Node) {
+        let length = self.textView.textStorage.length
+        print(node.stringInDocument(document))
+        guard let symbol = C.Symbol(rawValue: node.symbol) else { return }
+        if node.start < length && node.end < length && node.range.length > 0 {
+            if symbol == C.Symbol.sym_declaration {
+                if let index = node.children.indexOf({ C.Symbol(rawValue: $0.symbol)! == .sym_identifier }) {
+                    let type = node.children[index]
+                    let color = ColorTheme.Dusk[.OtherClassNames]!
+                    self.textView.textStorage.setAttributes([
+                        NSForegroundColorAttributeName: color,
+                        NSBackgroundColorAttributeName: ColorTheme.Dusk[.Background]!,
+                        NSFontAttributeName: UIFont(name: "Menlo", size: 12)!
+                        ], range: type.range)
+                    
+                    for (i, child) in node.children.enumerate() where i != index {
+                        tokenize(child)
+                    }
+                    return
+                }
+                
+            }
+            
+            let color = ColorTheme.Dusk[symbol.tokenType]!
+            
+            self.textView.textStorage.setAttributes([
+                NSForegroundColorAttributeName: color,
+                NSBackgroundColorAttributeName: ColorTheme.Dusk[.Background]!,
+                NSFontAttributeName: UIFont(name: "Menlo", size: 12)!
+                ], range: node.range)
+        }
+        
+        node.children.forEach(tokenize)
     }
     
     
+    var recentRange: NSRange?
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         
         let edit = TSInputEdit(position: range.location, chars_inserted: text.characters.count, chars_removed: range.length)
         data.replaceCharactersInRange(range, replacementText: text)
+        recentRange = NSMakeRange(range.location, max(range.length, 0) + text.characters.count)
         ts_document_edit(document, edit)
         ts_document_parse(document)
         return true
     }
     
     func textViewDidChange(textView: UITextView) {
+        let date = NSDate()
         textView.textStorage.beginEditing()
-        tokenize()
+        
+        let range = visibleRangeOfTextView()
+        //if let range = recentRange {
+        tokenize2(range)
+        //}
+        
+        
         textView.textStorage.endEditing()
+        print("Tokenizing took: \(abs(date.timeIntervalSinceNow * 1000)) ms")
     }
     
     func visibleRangeOfTextView() -> NSRange {
         let bounds = textView.bounds;
-        let start = textView.characterRangeAtPoint(bounds.origin)!.start
+        let start = textView.characterRangeAtPoint(bounds.origin)?.start ?? textView.beginningOfDocument
         let end = textView.characterRangeAtPoint(CGPointMake(CGRectGetMaxX(bounds), CGRectGetMaxY(bounds)))!.end
         return NSMakeRange(textView.offsetFromPosition(textView.beginningOfDocument, toPosition: start), textView.offsetFromPosition(start, toPosition: end));
     }

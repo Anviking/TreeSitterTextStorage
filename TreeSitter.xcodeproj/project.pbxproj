@@ -41,6 +41,9 @@
 		8F8119501CD93165006A9980 /* truntime.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F81194D1CD93165006A9980 /* truntime.h */; };
 		8F8119521CD93303006A9980 /* arithmetic_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F8119511CD93303006A9980 /* arithmetic_parser.c */; };
 		8F8119581CD93543006A9980 /* arithmetic_parser.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F8119571CD93543006A9980 /* arithmetic_parser.h */; };
+		8F9EF3FB1CDB722100F2A5A8 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9EF3FA1CDB722100F2A5A8 /* Node.swift */; };
+		8F9EF3FD1CDB724000F2A5A8 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9EF3FC1CDB724000F2A5A8 /* Extensions.swift */; };
+		8F9EF3FF1CDB72E500F2A5A8 /* Tokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9EF3FE1CDB72E500F2A5A8 /* Tokenizer.swift */; };
 		8FA59A681CD80EBD0041E6C4 /* TreeSitter.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FA59A671CD80EBD0041E6C4 /* TreeSitter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8FA59A6F1CD80EBE0041E6C4 /* TreeSitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA59A641CD80EBD0041E6C4 /* TreeSitter.framework */; };
 		8FA59A741CD80EBE0041E6C4 /* TreeSitterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA59A731CD80EBE0041E6C4 /* TreeSitterTests.swift */; };
@@ -148,6 +151,9 @@
 		8F8119571CD93543006A9980 /* arithmetic_parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = arithmetic_parser.h; path = "tree-sitter/language/arithmetic_parser.h"; sourceTree = SOURCE_ROOT; };
 		8F8119591CD935AD006A9980 /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
 		8F81195C1CD93829006A9980 /* cparser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cparser.h; sourceTree = "<group>"; };
+		8F9EF3FA1CDB722100F2A5A8 /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
+		8F9EF3FC1CDB724000F2A5A8 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		8F9EF3FE1CDB72E500F2A5A8 /* Tokenizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tokenizer.swift; sourceTree = "<group>"; };
 		8FA59A641CD80EBD0041E6C4 /* TreeSitter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TreeSitter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FA59A671CD80EBD0041E6C4 /* TreeSitter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TreeSitter.h; sourceTree = "<group>"; };
 		8FA59A691CD80EBD0041E6C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -286,9 +292,12 @@
 			children = (
 				8FA59A671CD80EBD0041E6C4 /* TreeSitter.h */,
 				8FA59A821CD80F540041E6C4 /* Test.swift */,
+				8F9EF3FC1CDB724000F2A5A8 /* Extensions.swift */,
 				8F29EE2E1CD96CB400AE4A59 /* Symbol.swift */,
 				8F29EE2A1CD96C2700AE4A59 /* Ruby.swift */,
+				8F9EF3FA1CDB722100F2A5A8 /* Node.swift */,
 				8F29EE2C1CD96C7F00AE4A59 /* C.swift */,
+				8F9EF3FE1CDB72E500F2A5A8 /* Tokenizer.swift */,
 				8FFA48C31CD94CCE00018FA6 /* JLTokenType.swift */,
 				8FFA48C41CD94CCE00018FA6 /* JLColorTheme.swift */,
 				8FA59A691CD80EBD0041E6C4 /* Info.plist */,
@@ -576,6 +585,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F29EE2D1CD96C7F00AE4A59 /* C.swift in Sources */,
+				8F9EF3FB1CDB722100F2A5A8 /* Node.swift in Sources */,
 				8F81193F1CD93149006A9980 /* node.c in Sources */,
 				8F81193D1CD93149006A9980 /* lexer.c in Sources */,
 				8F81193A1CD93149006A9980 /* language.c in Sources */,
@@ -584,11 +594,13 @@
 				8F8119491CD93149006A9980 /* utf16.c in Sources */,
 				8FFA48BD1CD93BD900018FA6 /* c_parser.c in Sources */,
 				8FFA490A1CD967A300018FA6 /* ruby_parser.c in Sources */,
+				8F9EF3FF1CDB72E500F2A5A8 /* Tokenizer.swift in Sources */,
 				8F29EE2B1CD96C2700AE4A59 /* Ruby.swift in Sources */,
 				8FFA48C51CD94CCE00018FA6 /* JLTokenType.swift in Sources */,
 				8F8119521CD93303006A9980 /* arithmetic_parser.c in Sources */,
 				8F8119431CD93149006A9980 /* stack.c in Sources */,
 				8F8119451CD93149006A9980 /* string_input.c in Sources */,
+				8F9EF3FD1CDB724000F2A5A8 /* Extensions.swift in Sources */,
 				8F8119471CD93149006A9980 /* tree.c in Sources */,
 				8FFA48C61CD94CCE00018FA6 /* JLColorTheme.swift in Sources */,
 				8F8119411CD93149006A9980 /* parser.c in Sources */,
