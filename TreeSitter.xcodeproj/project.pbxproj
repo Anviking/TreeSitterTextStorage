@@ -13,7 +13,6 @@
 		8F29EE2B1CD96C2700AE4A59 /* Ruby.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F29EE2A1CD96C2700AE4A59 /* Ruby.swift */; };
 		8F29EE2D1CD96C7F00AE4A59 /* C.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F29EE2C1CD96C7F00AE4A59 /* C.swift */; };
 		8F29EE2F1CD96CB400AE4A59 /* Symbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F29EE2E1CD96CB400AE4A59 /* Symbol.swift */; };
-		8F81191C1CD8FA74006A9980 /* libruntime.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA5C6B81CD8365A00BF090B /* libruntime.a */; };
 		8F81191D1CD8FA84006A9980 /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = 8FA5C6BF1CD8F56700BF090B /* test.json */; };
 		8F8119351CD93149006A9980 /* alloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F81191F1CD93149006A9980 /* alloc.h */; };
 		8F8119361CD93149006A9980 /* array.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F8119201CD93149006A9980 /* array.h */; };
@@ -46,9 +45,9 @@
 		8FA59A6F1CD80EBE0041E6C4 /* TreeSitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA59A641CD80EBD0041E6C4 /* TreeSitter.framework */; };
 		8FA59A741CD80EBE0041E6C4 /* TreeSitterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA59A731CD80EBE0041E6C4 /* TreeSitterTests.swift */; };
 		8FA59A831CD80F540041E6C4 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA59A821CD80F540041E6C4 /* Test.swift */; };
-		8FA5C6B91CD8365A00BF090B /* libruntime.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA5C6B81CD8365A00BF090B /* libruntime.a */; };
 		8FA5C6C01CD8F56700BF090B /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = 8FA5C6BF1CD8F56700BF090B /* test.json */; };
 		8FDCBA5F1CD9A42B009A829F /* Asynch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDCBA5E1CD9A42B009A829F /* Asynch.swift */; };
+		8FDCBA611CDA10B3009A829F /* LayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDCBA601CDA10B3009A829F /* LayoutManager.swift */; };
 		8FFA48BD1CD93BD900018FA6 /* c_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FFA48BC1CD93BD900018FA6 /* c_parser.c */; };
 		8FFA48C01CD93C7500018FA6 /* test.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8FFA48BE1CD93C5900018FA6 /* test.txt */; };
 		8FFA48C11CD93D2700018FA6 /* test.swift in Resources */ = {isa = PBXBuildFile; fileRef = 8F8119591CD935AD006A9980 /* test.swift */; };
@@ -66,7 +65,6 @@
 		8FFA49021CD9529D00018FA6 /* test.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8FFA48BE1CD93C5900018FA6 /* test.txt */; };
 		8FFA49031CD9645700018FA6 /* TreeSitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA59A641CD80EBD0041E6C4 /* TreeSitter.framework */; };
 		8FFA49041CD9645700018FA6 /* TreeSitter.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA59A641CD80EBD0041E6C4 /* TreeSitter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		8FFA49081CD9646600018FA6 /* libruntime.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA5C6B81CD8365A00BF090B /* libruntime.a */; };
 		8FFA490A1CD967A300018FA6 /* ruby_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FFA49091CD967A300018FA6 /* ruby_parser.c */; };
 /* End PBXBuildFile section */
 
@@ -158,9 +156,9 @@
 		8FA59A751CD80EBE0041E6C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8FA59A821CD80F540041E6C4 /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		8FA59B841CD812730041E6C4 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; name = module.modulemap; path = "tree-sitter/module.modulemap"; sourceTree = SOURCE_ROOT; };
-		8FA5C6B81CD8365A00BF090B /* libruntime.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libruntime.a; path = "tree-sitter/out/Release/libruntime.a"; sourceTree = "<group>"; };
 		8FA5C6BF1CD8F56700BF090B /* test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = test.json; path = ../TreeSitter/test.json; sourceTree = "<group>"; };
 		8FDCBA5E1CD9A42B009A829F /* Asynch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Asynch.swift; sourceTree = "<group>"; };
+		8FDCBA601CDA10B3009A829F /* LayoutManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutManager.swift; sourceTree = "<group>"; };
 		8FFA48BC1CD93BD900018FA6 /* c_parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = c_parser.c; sourceTree = "<group>"; };
 		8FFA48BE1CD93C5900018FA6 /* test.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.txt; sourceTree = "<group>"; };
 		8FFA48C31CD94CCE00018FA6 /* JLTokenType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JLTokenType.swift; sourceTree = "<group>"; };
@@ -187,7 +185,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F29AB1A1CD9682F00BBBEEA /* UIKit.framework in Frameworks */,
-				8FA5C6B91CD8365A00BF090B /* libruntime.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,7 +192,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F81191C1CD8FA74006A9980 /* libruntime.a in Frameworks */,
 				8FA59A6F1CD80EBE0041E6C4 /* TreeSitter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -204,7 +200,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8FFA49081CD9646600018FA6 /* libruntime.a in Frameworks */,
 				8FFA49031CD9645700018FA6 /* TreeSitter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -264,11 +259,10 @@
 		8FA59A5A1CD80EBD0041E6C4 = {
 			isa = PBXGroup;
 			children = (
+				8FFA48CC1CD94EE400018FA6 /* Explorer */,
 				8F29AB191CD9682F00BBBEEA /* UIKit.framework */,
-				8FA5C6B81CD8365A00BF090B /* libruntime.a */,
 				8FA59A661CD80EBD0041E6C4 /* TreeSitter */,
 				8FA59A721CD80EBE0041E6C4 /* TreeSitterTests */,
-				8FFA48CC1CD94EE400018FA6 /* Explorer */,
 				8FFA48E51CD94EE500018FA6 /* ExplorerTests */,
 				8FFA48F01CD94EE500018FA6 /* ExplorerUITests */,
 				8FA59A651CD80EBD0041E6C4 /* Products */,
@@ -325,6 +319,7 @@
 			children = (
 				8FFA48CD1CD94EE400018FA6 /* AppDelegate.swift */,
 				8FFA48FF1CD94F4C00018FA6 /* ViewController.swift */,
+				8FDCBA601CDA10B3009A829F /* LayoutManager.swift */,
 				8FDCBA5E1CD9A42B009A829F /* Asynch.swift */,
 				8FFA48D51CD94EE400018FA6 /* Main.storyboard */,
 				8FFA48D81CD94EE400018FA6 /* Assets.xcassets */,
@@ -492,6 +487,7 @@
 					};
 					8FFA48CA1CD94EE400018FA6 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = DQ69J4LB4T;
 					};
 					8FFA48E11CD94EE500018FA6 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -615,6 +611,7 @@
 				8FDCBA5F1CD9A42B009A829F /* Asynch.swift in Sources */,
 				8FFA49001CD94F4C00018FA6 /* ViewController.swift in Sources */,
 				8FFA48CE1CD94EE400018FA6 /* AppDelegate.swift in Sources */,
+				8FDCBA611CDA10B3009A829F /* LayoutManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -847,6 +844,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = Explorer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -856,6 +855,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.anviking.Explorer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -863,6 +863,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = Explorer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -872,6 +874,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.anviking.Explorer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

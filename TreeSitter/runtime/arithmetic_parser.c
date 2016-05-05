@@ -367,3 +367,7 @@ static TSParseActionEntry ts_parse_actions[] = {
 
 EXPORT_LANGUAGE(ts_language_arithmetic);
 
+int ts_language_test() {
+    return 42;
+}
+

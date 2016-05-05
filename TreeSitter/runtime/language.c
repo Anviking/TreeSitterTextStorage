@@ -1,4 +1,4 @@
-#include "parser.h"
+#include "tparser.h"
 
 const TSParseAction *ts_language_actions(const TSLanguage *language,
                                          TSStateId state, TSSymbol sym,
