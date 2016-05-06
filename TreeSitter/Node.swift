@@ -91,7 +91,6 @@ public struct TraverseInRangeGenerator: GeneratorType, SequenceType {
     
     public mutating func next() -> Node? {
         for child in children where child.range.containsIndex(index) {
-            print(child.range)
             children = child.children.generate()
             return child
         }

@@ -30,6 +30,7 @@ public class TextStorage: NSTextStorage {
         self.data = data
         self.document = Document(input: Input(data: data), language: Language.C)
         super.init()
+        _length = length
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -39,35 +40,65 @@ public class TextStorage: NSTextStorage {
     public var data: NSMutableData
     public var document: Document
     
+    private var _length = 0
+    
     public override var string: String {
         return String(data: data, encoding: NSUTF16StringEncoding)!
     }
     
     public override func attributesAtIndex(location: Int, effectiveRange range: NSRangePointer) -> [String : AnyObject] {
-    
+        
         /*
-        let node = document.rootNode.children.first!.children.first!
-        print(node.children.count)
-        for child in node.children {
-            print(child)
-        }
-        print(document.stringForNode(node))
+         let node = document.rootNode.children.first!.children.first!
+         print(node.children.count)
+         for child in node.children {
+         print(child)
+         }
+         print(document.stringForNode(node))
          */
         
-        var lastNode: Node!
+        //print("\(location) of \(length)")
+        
+
+        
+        //let str = NSString(string: string)
+        //let attr = NSMutableAttributedString(string: "")
+        //let repr = document.nodeRepresentation(document.rootNode, range: 0 ... 50, documentString: str as String)
+        
+        var lastNode = document.rootNode
         for node in TraverseInRangeGenerator(node: document.rootNode, index: location, document: document) {
-        // for node in document.rootNode.children {
+            // for node in document.rootNode.children {
             lastNode = node
             guard let symbol = C.Symbol(rawValue: node.symbol), color = ColorTheme.Dusk[symbol.tokenType] where symbol.tokenType != .Text else { continue }
-            guard node.start < length && node.end < length && node.range.length > 0  else { continue }
-            range.memory = node.range
+            guard node.start < _length && node.end < length && node.range.length > 0  else { continue }
+            if range != nil {
+                range.memory = node.range
+                //print(node.range)
+            }
+            
+            
+            //attr.appendAttributedString(NSAttributedString(string: str.substringWithRange(node.range), attributes: attributesForColor(color)))
+            
             return attributesForColor(color)
         }
         
-        if range != nil, let lastNode = lastNode {
+        guard range != nil else { return attributesForColor(textColor) }
+        
+        if let endNode = lastNode.children.filter({ $0.start > location }).first {
+            let r = NSMakeRange(location, endNode.start - location)
+            range.memory = r
+            if r.location < _length && r.location + r.length < _length && r.length > 0 {
+                //attr.appendAttributedString(NSAttributedString(string: str.substringWithRange(r), attributes: attributesForColor(textColor)))
+                //print(range.memory)
+            }
+        } else if ts_node_eq(document.rootNode, lastNode) {
+            range.memory = NSRange(location: lastNode.end, length: _length-lastNode.end)
+            //print(range.memory)
+        } else {
             range.memory = lastNode.range
+            //print(range.memory)
         }
- 
+        
         return attributesForColor(textColor)
     }
     
@@ -76,13 +107,21 @@ public class TextStorage: NSTextStorage {
     }
     
     public override func replaceCharactersInRange(range: NSRange, withString str: String) {
+        let date = NSDate()
         let edit = TSInputEdit(position: range.location, chars_inserted: str.characters.count, chars_removed: range.length)
+        let delta = str.characters.count - range.length
+        _length += delta
+        let actions: NSTextStorageEditActions = [.EditedCharacters, .EditedAttributes]
+        delegate?.textStorage?(self, willProcessEditing: actions, range: range, changeInLength: delta)
         document.makeInputEdit(edit)
         data.replaceCharactersInRange(range, replacementText: str)
+        document.parse()
+        delegate?.textStorage?(self, didProcessEditing: actions, range: range, changeInLength: delta)
+        print("Tokenizing took: \(abs(date.timeIntervalSinceNow * 1000)) ms")
     }
     
     public override func setAttributes(attrs: [String : AnyObject]?, range: NSRange) {
-        print("Can't set attributes \(attrs), range: \(range)")
+        //print("Can't set attributes \(attrs), range: \(range)")
     }
 }
 

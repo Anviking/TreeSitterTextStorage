@@ -26,21 +26,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TreeSitter/TextStorage.swift"
-            timestampString = "484194939.223185"
+            timestampString = "484211772.521786"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
             landmarkName = "attributesAtIndex(_:effectiveRange:)"
             landmarkType = "5">
-            <Actions>
-               <BreakpointActionProxy
-                  ActionExtensionID = "Xcode.BreakpointAction.DebuggerCommand">
-                  <ActionContent
-                     consoleCommand = "po location">
-                  </ActionContent>
-               </BreakpointActionProxy>
-            </Actions>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -50,69 +42,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TreeSitter/TextStorage.swift"
-            timestampString = "484194939.223185"
+            timestampString = "484211811.058215"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
-            landmarkName = "attributesAtIndex(_:effectiveRange:)"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
+            landmarkName = "replaceCharactersInRange(_:withString:)"
             landmarkType = "5">
-            <Actions>
-               <BreakpointActionProxy
-                  ActionExtensionID = "Xcode.BreakpointAction.DebuggerCommand">
-                  <ActionContent
-                     consoleCommand = "po node.range">
-                  </ActionContent>
-               </BreakpointActionProxy>
-            </Actions>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TreeSitter/TextStorage.swift"
-            timestampString = "484194961.757661"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "67"
-            endingLineNumber = "67"
-            landmarkName = "attributesAtIndex(_:effectiveRange:)"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TreeSitter.TextStorage.attributesAtIndex (Swift.Int, effectiveRange : Swift.UnsafeMutablePointer&lt;__C._NSRange&gt;) -&gt; Swift.Dictionary&lt;Swift.String, Swift.AnyObject&gt;"
-                  moduleName = "TreeSitter"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Johannes/Desktop/TreeSitter/TreeSitter/TextStorage.swift"
-                  timestampString = "484194966.173135"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "67"
-                  endingLineNumber = "67"
-                  offsetFromSymbolStart = "1588">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TreeSitter.TextStorage.attributesAtIndex (Swift.Int, effectiveRange : Swift.UnsafeMutablePointer&lt;__C._NSRange&gt;) -&gt; Swift.Dictionary&lt;Swift.String, Swift.AnyObject&gt;"
-                  moduleName = "TreeSitter"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Johannes/Desktop/TreeSitter/TreeSitter/TextStorage.swift"
-                  timestampString = "484194966.173272"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "67"
-                  endingLineNumber = "67"
-                  offsetFromSymbolStart = "1744">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
