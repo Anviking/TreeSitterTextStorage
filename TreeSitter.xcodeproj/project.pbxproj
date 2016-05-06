@@ -44,6 +44,10 @@
 		8F9EF3FB1CDB722100F2A5A8 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9EF3FA1CDB722100F2A5A8 /* Node.swift */; };
 		8F9EF3FD1CDB724000F2A5A8 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9EF3FC1CDB724000F2A5A8 /* Extensions.swift */; };
 		8F9EF3FF1CDB72E500F2A5A8 /* Tokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9EF3FE1CDB72E500F2A5A8 /* Tokenizer.swift */; };
+		8F9EF4011CDC0C8300F2A5A8 /* TextStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9EF4001CDC0C8300F2A5A8 /* TextStorage.swift */; };
+		8F9EF4031CDC0E2000F2A5A8 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9EF4021CDC0E2000F2A5A8 /* Document.swift */; };
+		8F9EF4051CDC184B00F2A5A8 /* Input.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9EF4041CDC184B00F2A5A8 /* Input.swift */; };
+		8F9EF4071CDC1E0000F2A5A8 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9EF4061CDC1E0000F2A5A8 /* Language.swift */; };
 		8FA59A681CD80EBD0041E6C4 /* TreeSitter.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FA59A671CD80EBD0041E6C4 /* TreeSitter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8FA59A6F1CD80EBE0041E6C4 /* TreeSitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA59A641CD80EBD0041E6C4 /* TreeSitter.framework */; };
 		8FA59A741CD80EBE0041E6C4 /* TreeSitterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA59A731CD80EBE0041E6C4 /* TreeSitterTests.swift */; };
@@ -154,6 +158,10 @@
 		8F9EF3FA1CDB722100F2A5A8 /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		8F9EF3FC1CDB724000F2A5A8 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		8F9EF3FE1CDB72E500F2A5A8 /* Tokenizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tokenizer.swift; sourceTree = "<group>"; };
+		8F9EF4001CDC0C8300F2A5A8 /* TextStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextStorage.swift; sourceTree = "<group>"; };
+		8F9EF4021CDC0E2000F2A5A8 /* Document.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
+		8F9EF4041CDC184B00F2A5A8 /* Input.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Input.swift; sourceTree = "<group>"; };
+		8F9EF4061CDC1E0000F2A5A8 /* Language.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
 		8FA59A641CD80EBD0041E6C4 /* TreeSitter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TreeSitter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FA59A671CD80EBD0041E6C4 /* TreeSitter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TreeSitter.h; sourceTree = "<group>"; };
 		8FA59A691CD80EBD0041E6C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -295,10 +303,14 @@
 				8F9EF3FC1CDB724000F2A5A8 /* Extensions.swift */,
 				8F29EE2E1CD96CB400AE4A59 /* Symbol.swift */,
 				8F29EE2A1CD96C2700AE4A59 /* Ruby.swift */,
+				8F9EF4001CDC0C8300F2A5A8 /* TextStorage.swift */,
+				8F9EF4041CDC184B00F2A5A8 /* Input.swift */,
 				8F9EF3FA1CDB722100F2A5A8 /* Node.swift */,
+				8F9EF4061CDC1E0000F2A5A8 /* Language.swift */,
 				8F29EE2C1CD96C7F00AE4A59 /* C.swift */,
 				8F9EF3FE1CDB72E500F2A5A8 /* Tokenizer.swift */,
 				8FFA48C31CD94CCE00018FA6 /* JLTokenType.swift */,
+				8F9EF4021CDC0E2000F2A5A8 /* Document.swift */,
 				8FFA48C41CD94CCE00018FA6 /* JLColorTheme.swift */,
 				8FA59A691CD80EBD0041E6C4 /* Info.plist */,
 				8FA59B841CD812730041E6C4 /* module.modulemap */,
@@ -590,11 +602,15 @@
 				8F81193D1CD93149006A9980 /* lexer.c in Sources */,
 				8F81193A1CD93149006A9980 /* language.c in Sources */,
 				8F8119381CD93149006A9980 /* document.c in Sources */,
+				8F9EF4051CDC184B00F2A5A8 /* Input.swift in Sources */,
+				8F9EF4011CDC0C8300F2A5A8 /* TextStorage.swift in Sources */,
 				8F29EE2F1CD96CB400AE4A59 /* Symbol.swift in Sources */,
 				8F8119491CD93149006A9980 /* utf16.c in Sources */,
 				8FFA48BD1CD93BD900018FA6 /* c_parser.c in Sources */,
+				8F9EF4071CDC1E0000F2A5A8 /* Language.swift in Sources */,
 				8FFA490A1CD967A300018FA6 /* ruby_parser.c in Sources */,
 				8F9EF3FF1CDB72E500F2A5A8 /* Tokenizer.swift in Sources */,
+				8F9EF4031CDC0E2000F2A5A8 /* Document.swift in Sources */,
 				8F29EE2B1CD96C2700AE4A59 /* Ruby.swift in Sources */,
 				8FFA48C51CD94CCE00018FA6 /* JLTokenType.swift in Sources */,
 				8F8119521CD93303006A9980 /* arithmetic_parser.c in Sources */,

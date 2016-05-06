@@ -27,7 +27,7 @@ extension Node {
             child = ts_node_next_sibling(child)
         }
     }
-
+    
     
     public func forEach(inRange range: NSRange, block: Node -> Void) {
         let count = ts_node_child_count(self)
@@ -143,7 +143,7 @@ public struct NodeChildrenCollection: CollectionType {
     
     /// A "past-the-end" element index; the successor of the last valid
     /// subscript argument.
-    public var endIndex: Int { return count - 1 }
+    public var endIndex: Int { return count }
     public subscript (index: Int) -> Node {
         return ts_node_child(node, index)
     }
@@ -160,17 +160,24 @@ public struct NodeChildrenCollection: CollectionType {
     //subscript (subRange: Range<Int>) -> ArraySlice<T>
 }
 
-public struct NodeChildrenGenerator: GeneratorType, SequenceType {
-    private var index = 0
-    let node: Node
-    public let count: Int
-    init(node: Node) {
-        self.count = ts_node_child_count(node)
-        self.node = node
+
+public struct TraverseInRangeGenerator: GeneratorType, SequenceType {
+    let index: Int
+    let document: Document
+    var children: IndexingGenerator<NodeChildrenCollection>
+    init(node: Node, index: Int, document: Document) {
+        self.index = index
+        self.document = document
+        
+        children = node.children.generate()
     }
     
     public mutating func next() -> Node? {
-        defer { index += 1 }
-        return ts_node_child(node, index)
+        for child in children where child.range.containsIndex(index) {
+            print(child.range)
+            children = child.children.generate()
+            return child
+        }
+        return nil
     }
 }
