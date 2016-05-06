@@ -9,7 +9,7 @@
 import Foundation
 
 public struct C {
-    public enum Symbol: UInt16, CategorizableTokenType {
+    public enum Symbol: UInt16, TreeSitter.Symbol {
         case sym_translation_unit = 2
         case sym__preproc_statement
         case sym_preproc_include
@@ -182,7 +182,7 @@ public struct C {
         case sym_identifier
         case sym_comment
         
-        public var tokenType: TokenType {
+        public var tokenType: TokenType? {
             switch self {
             case .sym_string_literal, .sym_system_lib_string:
                 return .String
@@ -197,8 +197,12 @@ public struct C {
             case .sym_type_name:
                 return .OtherMethodNames
             default:
-                return .Text
+                return nil
             }
+        }
+        
+        public var isOpaque: Bool {
+            return true
         }
     }
 }

@@ -427,7 +427,7 @@ public struct Ruby {
         case sym__line_break
         case anon_sym_SEMI
         
-        public var tokenType: TokenType {
+        public var tokenType: TokenType? {
             switch self {
             case .sym_string, .sym__quoted_string, .sym__literal:
                 return .String
@@ -440,8 +440,12 @@ public struct Ruby {
             case .sym_function_call, .sym__function_name, .sym_function, .sym_method_declaration:
                 return TokenType.ProjectMethodNames
             default:
-                return .Text
+                return nil
             }
+        }
+        
+        public var isOpaque: Bool {
+            return true
         }
     }
 }

@@ -8,10 +8,6 @@
 
 import UIKit
 
-public protocol CategorizableTokenType {
-    var tokenType: TokenType {get}
-}
-
 public enum TokenType {
     case None
     case Text

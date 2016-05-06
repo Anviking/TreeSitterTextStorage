@@ -48,37 +48,15 @@ public class TextStorage: NSTextStorage {
     
     public override func attributesAtIndex(location: Int, effectiveRange range: NSRangePointer) -> [String : AnyObject] {
         
-        /*
-         let node = document.rootNode.children.first!.children.first!
-         print(node.children.count)
-         for child in node.children {
-         print(child)
-         }
-         print(document.stringForNode(node))
-         */
-        
-        //print("\(location) of \(length)")
-        
-
-        
-        //let str = NSString(string: string)
-        //let attr = NSMutableAttributedString(string: "")
-        //let repr = document.nodeRepresentation(document.rootNode, range: 0 ... 50, documentString: str as String)
-        
         var lastNode = document.rootNode
         for node in TraverseInRangeGenerator(node: document.rootNode, index: location, document: document) {
-            // for node in document.rootNode.children {
             lastNode = node
-            guard let symbol = C.Symbol(rawValue: node.symbol), color = ColorTheme.Dusk[symbol.tokenType] where symbol.tokenType != .Text else { continue }
+            guard let symbol = C.Symbol(rawValue: node.symbol) where symbol.isOpaque else { continue }
+            guard let tokenType = symbol.tokenType, color = ColorTheme.Dusk[tokenType] else { continue }
             guard node.start < _length && node.end < length && node.range.length > 0  else { continue }
             if range != nil {
                 range.memory = node.range
-                //print(node.range)
             }
-            
-            
-            //attr.appendAttributedString(NSAttributedString(string: str.substringWithRange(node.range), attributes: attributesForColor(color)))
-            
             return attributesForColor(color)
         }
         
@@ -87,16 +65,10 @@ public class TextStorage: NSTextStorage {
         if let endNode = lastNode.children.filter({ $0.start > location }).first {
             let r = NSMakeRange(location, endNode.start - location)
             range.memory = r
-            if r.location < _length && r.location + r.length < _length && r.length > 0 {
-                //attr.appendAttributedString(NSAttributedString(string: str.substringWithRange(r), attributes: attributesForColor(textColor)))
-                //print(range.memory)
-            }
         } else if ts_node_eq(document.rootNode, lastNode) {
             range.memory = NSRange(location: lastNode.end, length: _length-lastNode.end)
-            //print(range.memory)
         } else {
             range.memory = lastNode.range
-            //print(range.memory)
         }
         
         return attributesForColor(textColor)

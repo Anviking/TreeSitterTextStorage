@@ -43,7 +43,7 @@ public func tokenize(string: String, tokenize: Symbol -> UIColor?) -> NSAttribut
             print(symbol)
             
             if symbol.tokenType != .Text {
-                attributedString.addAttributes([NSForegroundColorAttributeName: ColorTheme.Dusk[symbol.tokenType]!], range: NSMakeRange(start, end - start))
+                attributedString.addAttributes([NSForegroundColorAttributeName: ColorTheme.Dusk[symbol.tokenType!]!], range: NSMakeRange(start, end - start))
             }
             
             

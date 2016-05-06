@@ -9,7 +9,7 @@
 import Foundation
 import TreeSitterRuntime
 
-public struct Document {
+public class Document {
     let documentPointer: COpaquePointer
     var language: Language
     var input: Input
