@@ -20,7 +20,8 @@ extension NSRange {
     }
     
     func containsIndex(index: Int) -> Bool {
-        return location <= index && location + length > index
+        let range = location ..< (location + length)
+        return range.contains(index)
     }
 }
 

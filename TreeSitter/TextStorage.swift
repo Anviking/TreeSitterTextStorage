@@ -46,6 +46,8 @@ public class TextStorage: NSTextStorage {
         return String(data: data, encoding: NSUTF16StringEncoding)!
     }
     
+    var cache: [Int: (range: NSRange, color: UIColor)] = [:]
+    
     public override func attributesAtIndex(location: Int, effectiveRange range: NSRangePointer) -> [String : AnyObject] {
         
         var lastNode = document.rootNode
@@ -60,17 +62,20 @@ public class TextStorage: NSTextStorage {
             return attributesForColor(color)
         }
         
-        guard range != nil else { return attributesForColor(textColor) }
-        
-        if let endNode = lastNode.children.filter({ $0.start > location }).first {
-            let r = NSMakeRange(location, endNode.start - location)
-            range.memory = r
-        } else if ts_node_eq(document.rootNode, lastNode) {
-            range.memory = NSRange(location: lastNode.end, length: _length-lastNode.end)
-        } else {
-            range.memory = lastNode.range
+        guard range != nil else {
+            return attributesForColor(textColor)
         }
         
+        let r: NSRange
+        if let endNode = lastNode.children.filter({ $0.start > location }).first {
+            r = NSMakeRange(location, endNode.start - location)
+        } else if ts_node_eq(document.rootNode, lastNode) {
+            r = NSRange(location: lastNode.end, length: _length-lastNode.end)
+        } else {
+            r = lastNode.range
+        }
+        
+        range.memory = r
         return attributesForColor(textColor)
     }
     
@@ -82,10 +87,12 @@ public class TextStorage: NSTextStorage {
         let date = NSDate()
         let edit = TSInputEdit(position: range.location, chars_inserted: str.characters.count, chars_removed: range.length)
         let delta = str.characters.count - range.length
+        cache = [:]
         _length += delta
         let actions: NSTextStorageEditActions = [.EditedCharacters, .EditedAttributes]
         delegate?.textStorage?(self, willProcessEditing: actions, range: range, changeInLength: delta)
         document.makeInputEdit(edit)
+        self.edited(actions, range: range, changeInLength: delta)
         data.replaceCharactersInRange(range, replacementText: str)
         document.parse()
         delegate?.textStorage?(self, didProcessEditing: actions, range: range, changeInLength: delta)
@@ -94,6 +101,10 @@ public class TextStorage: NSTextStorage {
     
     public override func setAttributes(attrs: [String : AnyObject]?, range: NSRange) {
         //print("Can't set attributes \(attrs), range: \(range)")
+    }
+    
+    public override var fixesAttributesLazily: Bool {
+        return true
     }
 }
 

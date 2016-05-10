@@ -8,6 +8,7 @@
 
 import Foundation
 
+
 public protocol Symbol {
     init?(rawValue: UInt16)
     var tokenType: TokenType? {get} // REMOVE THIS
@@ -18,4 +19,6 @@ extension Symbol {
     public func colorForTheme(theme: ColorTheme) -> UIColor {
         return theme[tokenType!]!
     }
+    
+    
 }

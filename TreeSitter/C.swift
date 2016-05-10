@@ -204,5 +204,6 @@ public struct C {
         public var isOpaque: Bool {
             return true
         }
+        
     }
 }

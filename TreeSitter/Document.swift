@@ -31,6 +31,7 @@ public class Document {
     
     public func parse() {
         ts_document_parse(documentPointer)
+        print(ts_document_parse_count(documentPointer))
     }
     
     func makeInputEdit(edit: TSInputEdit) {
@@ -56,7 +57,7 @@ public class Document {
         let characters = Array(window.characters)
         var empty = Array(count: range.count, repeatedValue: " ")
         
-        for (index, char) in empty.enumerate() {
+        for (index, _) in empty.enumerate() {
             if localNodeRange.contains(index) {
                 empty[index] = String(characters[index])
             }

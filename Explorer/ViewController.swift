@@ -26,10 +26,6 @@ class ViewController: UIViewController, UITextViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print(ts_language_test())
-        
-        
-        
         // Do any additional setup after loading the view.
         let url = NSBundle.mainBundle().URLForResource("test", withExtension: "txt")!
         let str = try! String(contentsOfURL: url)

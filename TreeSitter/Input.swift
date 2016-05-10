@@ -25,7 +25,7 @@ public class Input {
 func asTSInput(payload: UnsafeMutablePointer<Void>) -> TSInput {
     return TSInput(payload: payload, read_fn: { payload, read in
         let pointer = UnsafeMutablePointer<Input>(payload)
-        print(pointer)
+        //print(pointer)
         var input = pointer.memory
         if (input.position >= input.length) {
             read.memory = 0;
@@ -35,7 +35,7 @@ func asTSInput(payload: UnsafeMutablePointer<Void>) -> TSInput {
         input.position = input.length;
         read.memory = input.position - previousPosition
         pointer.memory = input
-        print(input.position, input.length)
+        //print(input.position, input.length)
         return UnsafePointer(input.data.bytes + 2) + previousPosition;
         
         }, seek_fn: { payload, character, byte in
