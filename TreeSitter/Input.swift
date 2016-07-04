@@ -26,7 +26,7 @@ func asTSInput(_ payload: UnsafeMutablePointer<Void>) -> TSInput {
     return TSInput(payload: payload, read_fn: { payload, read in
         let pointer = UnsafeMutablePointer<Input>(payload)
         //print(pointer)
-        var input = pointer?.pointee
+        let input = pointer?.pointee
         if (input?.position >= input?.length) {
             read?.pointee = 0;
             return UnsafePointer(strdup(""))
@@ -37,12 +37,13 @@ func asTSInput(_ payload: UnsafeMutablePointer<Void>) -> TSInput {
         pointer?.pointee = input!
         //print(input.position, input.length)
         
-        return UnsafePointer(input?.data. + 2) + previousPosition;
+        let bytes: UnsafePointer<Void> = input!.data.withUnsafeBytes({ $0 })
+        return UnsafePointer(bytes + 2) + previousPosition!;
         
         }, seek_fn: { payload, character, byte in
             
             let pointer = UnsafeMutablePointer<Input>(payload)
-            var input = pointer?.pointee
+            let input = pointer?.pointee
             input?.position = byte;
             pointer?.pointee = input!
             return byte < input!.length ? 1 : 0

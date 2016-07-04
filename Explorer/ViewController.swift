@@ -21,14 +21,14 @@ class ViewController: UIViewController, UITextViewDelegate {
     var symbol: Symbol?
     var previousRoot: TSNode?
     
-    var document: COpaquePointer!
+    var document: OpaquePointer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        let url = NSBundle.mainBundle().URLForResource("test", withExtension: "txt")!
-        let str = try! String(contentsOfURL: url)
+        let url = Bundle.main().urlForResource("test", withExtension: "txt")!
+        let str = try! String(contentsOf: url)
              
         let textStorage = TextStorage(string: str)
         
@@ -41,8 +41,8 @@ class ViewController: UIViewController, UITextViewDelegate {
         textStorage.addLayoutManager(layoutManager)
         
         let textView = UITextView(frame: frame, textContainer: textContainer)
-        textView.autocapitalizationType = .None
-        textView.autocorrectionType = .No
+        textView.autocapitalizationType = .none
+        textView.autocorrectionType = .no
         
         self.view = textView
         
@@ -54,12 +54,12 @@ class ViewController: UIViewController, UITextViewDelegate {
     }
     
     @IBAction func textFieldDidChange(sender: UITextField) {
-        if sender.text!.containsString("+") {
-            sender.text = (Int(sender.text!.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "+")))! + 1).description
+        if sender.text!.contains("+") {
+            sender.text = ((Int(sender.text!.trimmingCharacters(in: CharacterSet(charactersIn: "+"))))! + 1).description
         }
         
-        if sender.text!.containsString("-") {
-            sender.text = (Int(sender.text!.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "-")))! - 1).description
+        if sender.text!.contains("-") {
+            sender.text = ((Int(sender.text!.trimmingCharacters(in: CharacterSet(charactersIn: "-"))))! - 1).description
         }
         
         guard let text = sender.text else { return }
@@ -75,12 +75,13 @@ class ViewController: UIViewController, UITextViewDelegate {
         print("Tokenizing took: \(abs(date.timeIntervalSinceNow * 1000)) ms")
     }
     
+    /*
     func visibleRangeOfTextView() -> NSRange {
         let bounds = textView.bounds;
         let start = textView.characterRangeAtPoint(bounds.origin)?.start ?? textView.beginningOfDocument
         let end = textView.characterRangeAtPoint(CGPointMake(CGRectGetMaxX(bounds), CGRectGetMaxY(bounds)))!.end
         return NSMakeRange(textView.offsetFromPosition(textView.beginningOfDocument, toPosition: start), textView.offsetFromPosition(start, toPosition: end));
-    }
+    }*/
     
     /*
      // MARK: - Navigation

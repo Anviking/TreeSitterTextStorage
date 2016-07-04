@@ -26,9 +26,8 @@ public class TextStorage: NSTextStorage {
     // MARK: Initialization
     
     public override init(string: String) {
-        let data = (string.data(using: String.Encoding.utf16)! as NSData).mutableCopy() as! NSMutableData
-        self.data = data
-        self.document = Document(input: Input(data: data as Data), language: Language.C)
+        self.data = string.data(using: String.Encoding.utf16)!
+        self.document = Document(input: Input(data: data), language: Language.C)
         super.init()
         _length = length
     }
@@ -37,7 +36,7 @@ public class TextStorage: NSTextStorage {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public var data: NSMutableData
+    public var data: Data
     public var document: Document
     
     private var _length = 0

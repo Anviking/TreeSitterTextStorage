@@ -25,16 +25,16 @@ extension NSRange {
     }
 }
 
-extension NSMutableData {
-    func replaceCharactersInRange(_ range: NSRange, replacementText: String) {
+extension Data {
+    mutating func replaceCharactersInRange(_ range: NSRange, replacementText: String) {
         
         // NSMutable string has a padding of 2 and a char per 2 bytes (utf16)
         let padding = 2
-        let byteRange = NSMakeRange(range.location * 2 + padding, range.length * 2)
+        let byteRange = NSMakeRange(range.location * 2 + padding, range.length * 2).toRange()!
         
         // Convert replacementText to utf16 bytes and remove padding
-        var replacement = replacementText.data(using: String.Encoding.utf16)!
-        replacement = replacement.subdata(in: NSMakeRange(padding, replacement.count - padding))
+        let r = replacementText.data(using: String.Encoding.utf16)!
+        let replacement = r.subdata(in: padding ..< r.endIndex - padding)
         
         
         // Strategy, 1) shift ENDSTRING to new location and 2) replace RANGE with REPLACEMENT
@@ -45,16 +45,20 @@ extension NSMutableData {
         
         
         // ENDSTRING shifting delta
-        let delta = replacement.count - byteRange.length
+        let delta = replacement.count - byteRange.count
         
-        let endStringStart = byteRange.location + byteRange.length + delta
-        let endStringEnd = length + delta
-        let endStringRange = NSMakeRange(endStringStart, endStringEnd - endStringStart)
-        replaceBytes(in: endStringRange, withBytes: bytes + byteRange.location + byteRange.length)
+        let endStringStart = byteRange.upperBound + delta
+        let endStringEnd = count + delta
+        
+        let endstring = subdata(in: byteRange.upperBound ..< endIndex)
+        
+        
+        replaceBytes(in: endStringStart ..< endStringEnd, with: endstring)
+        
         
         
         // Replace RANGE with REPLACEMENT
-        replaceBytes(in: NSMakeRange(byteRange.location, replacement.count), withBytes: replacement.bytes)
+        replaceBytes(in: byteRange.lowerBound ..< byteRange.lowerBound + replacement.count, with: replacement)
         /*
          let str = NSString(data: self, encoding: NSUTF16StringEncoding)!
          let lineRange = str.lineRangeForRange(range)

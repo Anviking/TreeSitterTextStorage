@@ -54,7 +54,6 @@
 		8FA59A741CD80EBE0041E6C4 /* TreeSitterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA59A731CD80EBE0041E6C4 /* TreeSitterTests.swift */; };
 		8FA59A831CD80F540041E6C4 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA59A821CD80F540041E6C4 /* Test.swift */; };
 		8FA5C6C01CD8F56700BF090B /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = 8FA5C6BF1CD8F56700BF090B /* test.json */; };
-		8FDCBA5F1CD9A42B009A829F /* Asynch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDCBA5E1CD9A42B009A829F /* Asynch.swift */; };
 		8FDCBA611CDA10B3009A829F /* LayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDCBA601CDA10B3009A829F /* LayoutManager.swift */; };
 		8FFA48BD1CD93BD900018FA6 /* c_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FFA48BC1CD93BD900018FA6 /* c_parser.c */; };
 		8FFA48C01CD93C7500018FA6 /* test.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8FFA48BE1CD93C5900018FA6 /* test.txt */; };
@@ -173,7 +172,6 @@
 		8FA59A821CD80F540041E6C4 /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		8FA59B841CD812730041E6C4 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; name = module.modulemap; path = "tree-sitter/module.modulemap"; sourceTree = SOURCE_ROOT; };
 		8FA5C6BF1CD8F56700BF090B /* test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = test.json; path = ../TreeSitter/test.json; sourceTree = "<group>"; };
-		8FDCBA5E1CD9A42B009A829F /* Asynch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Asynch.swift; sourceTree = "<group>"; };
 		8FDCBA601CDA10B3009A829F /* LayoutManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutManager.swift; sourceTree = "<group>"; };
 		8FFA48BC1CD93BD900018FA6 /* c_parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = c_parser.c; sourceTree = "<group>"; };
 		8FFA48BE1CD93C5900018FA6 /* test.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.txt; sourceTree = "<group>"; };
@@ -344,7 +342,6 @@
 				8FFA48CD1CD94EE400018FA6 /* AppDelegate.swift */,
 				8FFA48FF1CD94F4C00018FA6 /* ViewController.swift */,
 				8FDCBA601CDA10B3009A829F /* LayoutManager.swift */,
-				8FDCBA5E1CD9A42B009A829F /* Asynch.swift */,
 				8FFA48D51CD94EE400018FA6 /* Main.storyboard */,
 				8FFA48D81CD94EE400018FA6 /* Assets.xcassets */,
 				8FFA48DA1CD94EE400018FA6 /* LaunchScreen.storyboard */,
@@ -647,7 +644,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8FDCBA5F1CD9A42B009A829F /* Asynch.swift in Sources */,
 				8FFA49001CD94F4C00018FA6 /* ViewController.swift in Sources */,
 				8FFA48CE1CD94EE400018FA6 /* AppDelegate.swift in Sources */,
 				8FDCBA611CDA10B3009A829F /* LayoutManager.swift in Sources */,
