@@ -10,7 +10,7 @@ import Foundation
 import TreeSitterRuntime
 
 public class Document {
-    let documentPointer: COpaquePointer
+    let documentPointer: OpaquePointer
     var language: Language
     var input: Input
     
@@ -34,41 +34,41 @@ public class Document {
         print(ts_document_parse_count(documentPointer))
     }
     
-    func makeInputEdit(edit: TSInputEdit) {
+    func makeInputEdit(_ edit: TSInputEdit) {
         ts_document_edit(documentPointer, edit)
     }
     
-    func stringForNode(node: Node) -> String {
-        return String.fromCString(ts_node_string(node, documentPointer))!
+    func stringForNode(_ node: Node) -> String {
+        return String(cString: ts_node_string(node, documentPointer))
     }
     
-    func nodeRepresentation(node: Node, range: Range<Int>, documentString: String) -> NSAttributedString {
-        let start = node.start - range.startIndex
-        let nodeEnd = node.end - range.startIndex
-        let windowEnd = range.endIndex
+    func nodeRepresentation(_ node: Node, range: Range<Int>, documentString: String) -> AttributedString {
+        let start = node.start - range.lowerBound
+        let nodeEnd = node.end - range.lowerBound
+        let windowEnd = range.upperBound
         let end = min(nodeEnd, windowEnd)
         if start > end {
-            return NSAttributedString()
+            return AttributedString()
         }
         
         let localNodeRange = start ..< end
         
-        let window = documentString.substringWithRange(documentString.startIndex ..< documentString.startIndex.advancedBy(range.endIndex))
+        let window = documentString.substring(with: documentString.startIndex ..< documentString.characters.index(documentString.startIndex, offsetBy: range.upperBound))
         let characters = Array(window.characters)
-        var empty = Array(count: range.count, repeatedValue: " ")
+        var empty = Array(repeating: " ", count: range.count)
         
-        for (index, _) in empty.enumerate() {
+        for (index, _) in empty.enumerated() {
             if localNodeRange.contains(index) {
                 empty[index] = String(characters[index])
             }
         }
         
-        let string = empty.joinWithSeparator("")
+        let string = empty.joined(separator: "")
         
-        let attr = NSMutableAttributedString(string: string.stringByReplacingOccurrencesOfString("\n", withString: "¶") + "\n", attributes: node.attributes())
+        let attr = NSMutableAttributedString(string: string.replacingOccurrences(of: "\n", with: "¶") + "\n", attributes: node.attributes())
         
         for child in node.children {
-            attr.appendAttributedString(nodeRepresentation(child, range: range, documentString: documentString))
+            attr.append(nodeRepresentation(child, range: range, documentString: documentString))
         }
         
         return attr
@@ -84,7 +84,7 @@ public class Document {
 
 extension Node {
     func color() -> UIColor {
-        return ((C.Symbol(rawValue: symbol)?.tokenType).flatMap { ColorTheme.Default[$0] }) ?? UIColor.blackColor()
+        return ((C.Symbol(rawValue: symbol)?.tokenType).flatMap { ColorTheme.default[$0] }) ?? UIColor.black()
     }
     
     private func attributes() -> [String: AnyObject] {
@@ -96,9 +96,9 @@ extension Node {
 }
 
 extension NSRange {
-    func intersection(range: Range<Int>) -> Range<Int> {
-        let start = max(location, range.startIndex)
-        let end = min(location + length, range.endIndex)
+    func intersection(_ range: Range<Int>) -> CountableRange<Int> {
+        let start = max(location, range.lowerBound)
+        let end = min(location + length, range.upperBound)
         return start ..< end
     }
 }

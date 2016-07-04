@@ -10,11 +10,11 @@ import Foundation
 import TreeSitterRuntime
 import Language
 
-public func tokenize(string: String, tokenize: Symbol -> UIColor?) -> NSAttributedString {
+public func tokenize(_ string: String, tokenize: (Symbol) -> UIColor?) -> AttributedString {
     
     let attributedString = NSMutableAttributedString(string: string, attributes: [
-        NSForegroundColorAttributeName: UIColor.whiteColor(),
-         NSBackgroundColorAttributeName: ColorTheme.Dusk[.Background]!,
+        NSForegroundColorAttributeName: UIColor.white(),
+         NSBackgroundColorAttributeName: ColorTheme.dusk[.background]!,
          NSFontAttributeName: UIFont(name: "Menlo", size: 14)!
         ])
     
@@ -28,7 +28,7 @@ public func tokenize(string: String, tokenize: Symbol -> UIColor?) -> NSAttribut
     let root_node = ts_document_root_node(document);
     
     print(ts_node_child_count(root_node))
-    func traverseNode(node: TSNode, depth: Int = 0) {
+    func traverseNode(_ node: TSNode, depth: Int = 0) {
         for i in 0 ..< ts_node_child_count(node) {
             let child = ts_node_child(node, i)
             let start = ts_node_start_byte(child)
@@ -42,8 +42,8 @@ public func tokenize(string: String, tokenize: Symbol -> UIColor?) -> NSAttribut
             let symbol = Ruby.Symbol(rawValue: ts_node_symbol(child))!
             print(symbol)
             
-            if symbol.tokenType != .Text {
-                attributedString.addAttributes([NSForegroundColorAttributeName: ColorTheme.Dusk[symbol.tokenType!]!], range: NSMakeRange(start, end - start))
+            if symbol.tokenType != .text {
+                attributedString.addAttributes([NSForegroundColorAttributeName: ColorTheme.dusk[symbol.tokenType!]!], range: NSMakeRange(start, end - start))
             }
             
             

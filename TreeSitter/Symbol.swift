@@ -16,7 +16,7 @@ public protocol Symbol {
 }
 
 extension Symbol {
-    public func colorForTheme(theme: ColorTheme) -> UIColor {
+    public func colorForTheme(_ theme: ColorTheme) -> UIColor {
         return theme[tokenType!]!
     }
     

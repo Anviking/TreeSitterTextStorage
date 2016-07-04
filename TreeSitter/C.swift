@@ -185,17 +185,17 @@ public struct C {
         public var tokenType: TokenType? {
             switch self {
             case .sym_string_literal, .sym_system_lib_string:
-                return .String
+                return .string
             case .anon_sym_POUNDinclude:
-                return .Preprocessor
+                return .preprocessor
             case .sym_comment:
-                return .Comment
+                return .comment
             case .sym_number_literal:
-                return .Number
+                return .number
             case .anon_sym_return, .anon_sym_while, .anon_sym_static, .anon_sym_const, .anon_sym_volatile, sym_function_specifier, .anon_sym_if, .anon_sym_else, .sym_type_qualifier:
-                return .Keyword
+                return .keyword
             case .sym_type_name:
-                return .OtherMethodNames
+                return .otherMethodNames
             default:
                 return nil
             }

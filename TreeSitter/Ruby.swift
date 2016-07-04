@@ -430,15 +430,15 @@ public struct Ruby {
         public var tokenType: TokenType? {
             switch self {
             case .sym_string, .sym__quoted_string, .sym__literal:
-                return .String
+                return .string
             case .sym_integer, .sym_float:
-                return .Number
+                return .number
             case .sym_comment, .sym_begin_statement:
-                return .Comment
+                return .comment
             case .anon_sym_do, .anon_sym_if, .anon_sym_else, .anon_sym_def, .anon_sym_nil, .anon_sym_NIL, .anon_sym_until, .anon_sym_end, .anon_sym_class, .anon_sym_module:
-                return .Keyword
+                return .keyword
             case .sym_function_call, .sym__function_name, .sym_function, .sym_method_declaration:
-                return TokenType.ProjectMethodNames
+                return TokenType.projectMethodNames
             default:
                 return nil
             }

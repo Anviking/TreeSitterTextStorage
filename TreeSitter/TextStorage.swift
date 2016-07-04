@@ -26,9 +26,9 @@ public class TextStorage: NSTextStorage {
     // MARK: Initialization
     
     public override init(string: String) {
-        let data = string.dataUsingEncoding(NSUTF16StringEncoding)!.mutableCopy() as! NSMutableData
+        let data = (string.data(using: String.Encoding.utf16)! as NSData).mutableCopy() as! NSMutableData
         self.data = data
-        self.document = Document(input: Input(data: data), language: Language.C)
+        self.document = Document(input: Input(data: data as Data), language: Language.C)
         super.init()
         _length = length
     }
@@ -43,21 +43,23 @@ public class TextStorage: NSTextStorage {
     private var _length = 0
     
     public override var string: String {
-        return String(data: data, encoding: NSUTF16StringEncoding)!
+        return String(data: data as Data, encoding: String.Encoding.utf16)!
     }
     
-    var cache: [Int: (range: NSRange, color: UIColor)] = [:]
     
-    public override func attributesAtIndex(location: Int, effectiveRange range: NSRangePointer) -> [String : AnyObject] {
+    var previousRoot: Node?
+    
+    public override func attributes(at location: Int, effectiveRange range: NSRangePointer?) -> [String : AnyObject] {
+        
         
         var lastNode = document.rootNode
         for node in TraverseInRangeGenerator(node: document.rootNode, index: location, document: document) {
             lastNode = node
-            guard let symbol = C.Symbol(rawValue: node.symbol) where symbol.isOpaque else { continue }
-            guard let tokenType = symbol.tokenType, color = ColorTheme.Dusk[tokenType] else { continue }
+            guard let symbol = C.Symbol(rawValue: node.symbol) where symbol.structural else { continue }
+            guard let tokenType = symbol.tokenType, color = ColorTheme.dusk[tokenType] else { continue }
             guard node.start < _length && node.end < length && node.range.length > 0  else { continue }
             if range != nil {
-                range.memory = node.range
+                range?.pointee = node.range
             }
             return attributesForColor(color)
         }
@@ -65,6 +67,7 @@ public class TextStorage: NSTextStorage {
         guard range != nil else {
             return attributesForColor(textColor)
         }
+        
         
         let r: NSRange
         if let endNode = lastNode.children.filter({ $0.start > location }).first {
@@ -75,31 +78,31 @@ public class TextStorage: NSTextStorage {
             r = lastNode.range
         }
         
-        range.memory = r
+        range?.pointee = r
         return attributesForColor(textColor)
     }
     
     private var textColor: UIColor {
-        return ColorTheme.Dusk[.Text]!
+        return ColorTheme.dusk[.text]!
     }
     
-    public override func replaceCharactersInRange(range: NSRange, withString str: String) {
-        let date = NSDate()
+    public override func replaceCharacters(in range: NSRange, with str: String) {
+        let date = Date()
         let edit = TSInputEdit(position: range.location, chars_inserted: str.characters.count, chars_removed: range.length)
         let delta = str.characters.count - range.length
-        cache = [:]
         _length += delta
-        let actions: NSTextStorageEditActions = [.EditedCharacters, .EditedAttributes]
+        let actions: NSTextStorageEditActions = [.editedCharacters, .editedAttributes]
         delegate?.textStorage?(self, willProcessEditing: actions, range: range, changeInLength: delta)
         document.makeInputEdit(edit)
         self.edited(actions, range: range, changeInLength: delta)
         data.replaceCharactersInRange(range, replacementText: str)
+        previousRoot = document.rootNode
         document.parse()
         delegate?.textStorage?(self, didProcessEditing: actions, range: range, changeInLength: delta)
         print("Tokenizing took: \(abs(date.timeIntervalSinceNow * 1000)) ms")
     }
     
-    public override func setAttributes(attrs: [String : AnyObject]?, range: NSRange) {
+    public override func setAttributes(_ attrs: [String : AnyObject]?, range: NSRange) {
         //print("Can't set attributes \(attrs), range: \(range)")
     }
     
@@ -111,10 +114,10 @@ public class TextStorage: NSTextStorage {
 // MARK: Helpers
 
 
-private func attributesForColor(color: UIColor) -> [String: AnyObject] {
+private func attributesForColor(_ color: UIColor) -> [String: AnyObject] {
     return [
         NSForegroundColorAttributeName: color,
-        NSBackgroundColorAttributeName: ColorTheme.Dusk[.Background]!,
+        NSBackgroundColorAttributeName: ColorTheme.dusk[.background]!,
         NSFontAttributeName: UIFont(name: "Menlo", size: 12)!
     ]
 }

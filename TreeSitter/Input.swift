@@ -10,40 +10,41 @@ import Foundation
 import TreeSitterRuntime
 
 public class Input {
-    var data: NSData
+    var data: Data
     var position: Int
     var length: Int {
-        return data.length - 2
+        return data.count - 2
     }
     
-    public init(data: NSData) {
+    public init(data: Data) {
         self.data = data
         self.position = 0
     }
 }
 
-func asTSInput(payload: UnsafeMutablePointer<Void>) -> TSInput {
+func asTSInput(_ payload: UnsafeMutablePointer<Void>) -> TSInput {
     return TSInput(payload: payload, read_fn: { payload, read in
         let pointer = UnsafeMutablePointer<Input>(payload)
         //print(pointer)
-        var input = pointer.memory
-        if (input.position >= input.length) {
-            read.memory = 0;
+        var input = pointer?.pointee
+        if (input?.position >= input?.length) {
+            read?.pointee = 0;
             return UnsafePointer(strdup(""))
         }
-        let previousPosition = input.position;
-        input.position = input.length;
-        read.memory = input.position - previousPosition
-        pointer.memory = input
+        let previousPosition = input?.position;
+        input?.position = (input?.length)!;
+        read?.pointee = (input?.position)! - previousPosition!
+        pointer?.pointee = input!
         //print(input.position, input.length)
-        return UnsafePointer(input.data.bytes + 2) + previousPosition;
+        
+        return UnsafePointer(input?.data. + 2) + previousPosition;
         
         }, seek_fn: { payload, character, byte in
             
             let pointer = UnsafeMutablePointer<Input>(payload)
-            var input = pointer.memory
-            input.position = byte;
-            pointer.memory = input
-            return byte < input.length ? 1 : 0
+            var input = pointer?.pointee
+            input?.position = byte;
+            pointer?.pointee = input!
+            return byte < input!.length ? 1 : 0
         }, encoding: TSInputEncodingUTF16)
 }
