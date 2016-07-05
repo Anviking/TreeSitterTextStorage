@@ -194,7 +194,7 @@ public struct C {
                 return .number
             case .anon_sym_return, .anon_sym_while, .anon_sym_static, .anon_sym_const, .anon_sym_volatile, sym_function_specifier, .anon_sym_if, .anon_sym_else, .sym_type_qualifier:
                 return .keyword
-            case .sym_type_name:
+            case .sym_type_name, .anon_sym_sizeof:
                 return .otherMethodNames
             default:
                 return nil
