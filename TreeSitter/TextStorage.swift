@@ -101,7 +101,7 @@ public class TextStorage: NSTextStorage {
         let edit = TSInputEdit(position: range.location, chars_inserted: str.characters.count, chars_removed: range.length)
         let delta = str.characters.count - range.length
         _length += delta
-        cache = Array(repeating: nil, count: _length + 10) // to be safe O.O
+        cache = Array(repeating: nil, count: _length)
         
         let actions: NSTextStorageEditActions = [.editedCharacters, .editedAttributes]
         delegate?.textStorage?(self, willProcessEditing: actions, range: range, changeInLength: delta)
