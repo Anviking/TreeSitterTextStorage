@@ -24,22 +24,14 @@ class ViewController: UIViewController, UITextViewDelegate {
         // Do any additional setup after loading the view.
         let url = Bundle.main().urlForResource("test", withExtension: "txt")!
         let str = try! String(contentsOf: url)
-             
-        let textStorage = TextStorage(string: str, theme: .civicModified, language: .c)
         
         let frame = CGRect(x: 0, y: 0, width: 100, height: 100)
         
-        let layoutManager = NSLayoutManager()
-        let textContainer = NSTextContainer()
-        textContainer.widthTracksTextView = true
-        layoutManager.addTextContainer(textContainer)
-        textStorage.addLayoutManager(layoutManager)
         
-        let textView = UITextView(frame: frame, textContainer: textContainer)
+        let textView = TextView(frame: frame, theme: .civicModified, language: .c, text: str)
         textView.backgroundColor = ColorTheme.dusk[.background]
         textView.autocapitalizationType = .none
         textView.autocorrectionType = .no
-        
         self.view = textView
         
     }

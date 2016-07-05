@@ -20,6 +20,7 @@ public class Document {
         self.language = language
         self.input = input
         ts_document_set_language(documentPointer, language.languagePointer)
+    
         ts_document_set_input(documentPointer, asTSInput(&self.input))
         parse()
     }
@@ -41,6 +42,11 @@ public class Document {
     func stringForNode(_ node: Node) -> String {
         return String(cString: ts_node_string(node, documentPointer))
     }
+    
+    deinit {
+        ts_document_free(documentPointer)
+    }
+    
     /*
     func nodeRepresentation(_ node: Node, range: Range<Int>, documentString: String) -> AttributedString {
         let start = node.start - range.lowerBound

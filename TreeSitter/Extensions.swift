@@ -41,9 +41,9 @@ extension Data {
         
         // Strategy, 1) shift ENDSTRING to new location and 2) replace RANGE with REPLACEMENT
         
-        // BEFORE: <------STRING-------><---RANGE---><--------ENDSTRING-------->
+        // BEFORE: <------STRING-------><---RANGE---><--------TAIL-------->
         // REPLACE:                     <---REPLACEMENT--->
-        // FINAL:  <------STRING-------><---REPLACEMENT---><--------ENDSTRING-------->
+        // FINAL:  <------STRING-------><---REPLACEMENT---><--------TAIL-------->
         
         
         // ENDSTRING shifting delta
@@ -54,21 +54,14 @@ extension Data {
         
         let endstring = subdata(in: byteRange.upperBound ..< endIndex)
         
+        if delta > 0 {
+            append(Data(bytes: Array(repeating: 0, count: delta)))
+        }
         
-        print(endstring.count)
-        print((endStringStart ..< endStringEnd))
-        print(self.endIndex)
         replaceBytes(in: endStringStart ..< self.endIndex, with: endstring)
-        
         
         
         // Replace RANGE with REPLACEMENT
         replaceBytes(in: byteRange.lowerBound ..< byteRange.lowerBound + replacement.count, with: replacement)
-
-         let str = NSString(data: self, encoding: String.Encoding.utf16.rawValue)!
-         let lineRange = str.lineRange(for: range)
-         let line = str.substring(with: lineRange)
-         print(line)
-        
     }
 }

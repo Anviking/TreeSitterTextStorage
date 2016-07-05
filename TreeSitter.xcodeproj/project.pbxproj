@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F2531BF1D2C5BE200AE3EEE /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2531BE1D2C5BE200AE3EEE /* TextView.swift */; };
 		8F29AB1A1CD9682F00BBBEEA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F29AB191CD9682F00BBBEEA /* UIKit.framework */; };
 		8F29EE281CD968A400AE4A59 /* testRuby.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8F29EE271CD968A400AE4A59 /* testRuby.txt */; };
 		8F29EE291CD96AAE00AE4A59 /* testRuby.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8F29EE271CD968A400AE4A59 /* testRuby.txt */; };
@@ -118,6 +119,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8F2531BE1D2C5BE200AE3EEE /* TextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		8F29AB191CD9682F00BBBEEA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		8F29EE271CD968A400AE4A59 /* testRuby.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = testRuby.txt; sourceTree = "<group>"; };
 		8F29EE2A1CD96C2700AE4A59 /* Ruby.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ruby.swift; sourceTree = "<group>"; };
@@ -325,6 +327,7 @@
 			children = (
 				8FA59A671CD80EBD0041E6C4 /* TreeSitter.h */,
 				8F9EF4001CDC0C8300F2A5A8 /* TextStorage.swift */,
+				8F2531BE1D2C5BE200AE3EEE /* TextView.swift */,
 				8F9EF3FC1CDB724000F2A5A8 /* Extensions.swift */,
 				8F29EE2E1CD96CB400AE4A59 /* Symbol.swift */,
 				8FFA48C31CD94CCE00018FA6 /* JLTokenType.swift */,
@@ -627,6 +630,7 @@
 				8F9EF4051CDC184B00F2A5A8 /* Input.swift in Sources */,
 				8F9EF4011CDC0C8300F2A5A8 /* TextStorage.swift in Sources */,
 				8F29EE2F1CD96CB400AE4A59 /* Symbol.swift in Sources */,
+				8F2531BF1D2C5BE200AE3EEE /* TextView.swift in Sources */,
 				8F8119491CD93149006A9980 /* utf16.c in Sources */,
 				8FFA48BD1CD93BD900018FA6 /* c_parser.c in Sources */,
 				8F9EF4071CDC1E0000F2A5A8 /* Language.swift in Sources */,
