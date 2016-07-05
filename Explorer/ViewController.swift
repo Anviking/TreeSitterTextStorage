@@ -16,11 +16,6 @@ class ViewController: UIViewController, UITextViewDelegate {
     
     @IBOutlet weak var textView: UITextView!
     
-    var data: NSMutableData!
-    var index: UInt16 = 201
-    var symbol: Symbol?
-    var previousRoot: TSNode?
-    
     var document: OpaquePointer!
     
     override func viewDidLoad() {
@@ -52,28 +47,6 @@ class ViewController: UIViewController, UITextViewDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    @IBAction func textFieldDidChange(sender: UITextField) {
-        if sender.text!.contains("+") {
-            sender.text = ((Int(sender.text!.trimmingCharacters(in: CharacterSet(charactersIn: "+"))))! + 1).description
-        }
-        
-        if sender.text!.contains("-") {
-            sender.text = ((Int(sender.text!.trimmingCharacters(in: CharacterSet(charactersIn: "-"))))! - 1).description
-        }
-        
-        guard let text = sender.text else { return }
-        guard let index = UInt16(text) else { return }
-        
-        self.index = index
-    }
-    
-    func textViewDidChange(textView: UITextView) {
-        let date = NSDate()
-        //textView.textStorage.beginEditing()
-        //textView.textStorage.endEditing()
-        print("Tokenizing took: \(abs(date.timeIntervalSinceNow * 1000)) ms")
     }
     
     /*

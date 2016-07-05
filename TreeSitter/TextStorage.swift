@@ -25,14 +25,15 @@ public class TextStorage: NSTextStorage {
     
     // MARK: Initialization
     
-    var theme: ColorTheme
-    
+    let theme: ColorTheme
+    let language: Language
     public init(string: String, theme: ColorTheme, language: Language) {
         
         let data = string.data(using: String.Encoding.utf16)!
         self.theme = theme
         self.document = Document(input: Input(data: data), language: language)
         self.cache = Array(repeating: nil, count: data.count)
+        self.language = language
         super.init()
         _length = length
     }
@@ -50,25 +51,30 @@ public class TextStorage: NSTextStorage {
     }
 
     
-    var cache: [(C.Symbol?, NSRange)?]
+    var cache: [(TokenType?, NSRange)?]
     
     public override func attributes(at location: Int, effectiveRange range: NSRangePointer?) -> [String : AnyObject] {
         
         if let cached = cache[location] {
             range?.pointee = cached.1
-            let color = cached.0.flatMap { $0.tokenType }.flatMap { ColorTheme.civicModified[$0] }
+            let color = cached.0.flatMap { theme[$0] }
             return attributesForColor(color ?? textColor)
         }
         
         var lastNode = document.rootNode
         for node in TraverseInRangeGenerator(node: document.rootNode, index: location, document: document) {
             lastNode = node
-            guard let symbol = C.Symbol(rawValue: node.symbol) where symbol.structural else { continue }
-            guard let tokenType = symbol.tokenType, color = ColorTheme.civicModified[tokenType] else { continue }
+            
+            guard node.symbol != 0 else { continue }
+            guard let tokenType = language.tokenType(for: node.symbol) else { continue }
+            guard language.metadata(for: node.symbol).structural else {
+                continue
+            }
+            guard let color = theme[tokenType] else { continue }
             guard node.start < _length && node.end < length && node.range.length > 0  else { continue }
             
             range?.pointee = node.range
-            cache[location] = (symbol, node.range)
+            cache[location] = (tokenType, node.range)
             return attributesForColor(color)
         }
         

@@ -41,7 +41,7 @@ public class Document {
     func stringForNode(_ node: Node) -> String {
         return String(cString: ts_node_string(node, documentPointer))
     }
-    
+    /*
     func nodeRepresentation(_ node: Node, range: Range<Int>, documentString: String) -> AttributedString {
         let start = node.start - range.lowerBound
         let nodeEnd = node.end - range.lowerBound
@@ -74,27 +74,25 @@ public class Document {
         return attr
     }
     
-    
+    */
 }
 
 
-
-
-
-
+/*
 extension Node {
+    
     func color() -> UIColor {
         return ((C.Symbol(rawValue: symbol)?.tokenType).flatMap { ColorTheme.default[$0] }) ?? UIColor.black()
     }
     
-    private func attributes() -> [String: AnyObject] {
+    private func attributes(for language: Lang) -> [String: AnyObject] {
         return [
             NSForegroundColorAttributeName: color(),
             NSFontAttributeName: UIFont(name: "Menlo", size: 12)!
         ]
     }
 }
-
+*/
 extension NSRange {
     func intersection(_ range: Range<Int>) -> CountableRange<Int> {
         let start = max(location, range.lowerBound)

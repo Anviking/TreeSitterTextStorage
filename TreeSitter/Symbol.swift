@@ -7,18 +7,18 @@
 //
 
 import Foundation
+import Language
 
-
-public protocol Symbol {
+public protocol LanguageSymbolProtocol {
     init?(rawValue: UInt16)
     var tokenType: TokenType? {get} // REMOVE THIS
     var isOpaque: Bool { get }
+    static var languagePointer: UnsafeMutablePointer<TSLanguage> { get }
 }
 
-extension Symbol {
+extension LanguageSymbolProtocol {
     public func colorForTheme(_ theme: ColorTheme) -> UIColor {
         return theme[tokenType!]!
     }
-    
     
 }

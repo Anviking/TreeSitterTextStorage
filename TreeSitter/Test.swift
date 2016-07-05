@@ -10,6 +10,7 @@ import Foundation
 import TreeSitterRuntime
 import Language
 
+/*
 public func tokenize(_ string: String, tokenize: (Symbol) -> UIColor?) -> AttributedString {
     
     let attributedString = NSMutableAttributedString(string: string, attributes: [
@@ -55,3 +56,4 @@ public func tokenize(_ string: String, tokenize: (Symbol) -> UIColor?) -> Attrib
     traverseNode(root_node)
     return attributedString
 }
+*/
