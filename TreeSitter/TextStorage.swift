@@ -122,11 +122,12 @@ public class TextStorage: NSTextStorage {
 
 // MARK: Helpers
 
+private let font = UIFont(name: "Menlo", size: 12)!
 
 private func attributesForColor(_ color: UIColor) -> [String: AnyObject] {
     return [
         NSForegroundColorAttributeName: color,
-        NSFontAttributeName: UIFont(name: "Menlo", size: 12)!
+        NSFontAttributeName: font
     ]
 }
 
