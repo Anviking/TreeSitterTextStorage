@@ -30,7 +30,7 @@ class ViewController: UIViewController, UITextViewDelegate {
         let url = Bundle.main().urlForResource("test", withExtension: "txt")!
         let str = try! String(contentsOf: url)
              
-        let textStorage = TextStorage(string: str)
+        let textStorage = TextStorage(string: str, theme: .civicModified, language: .c)
         
         let frame = CGRect(x: 0, y: 0, width: 100, height: 100)
         

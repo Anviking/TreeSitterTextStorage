@@ -10,12 +10,23 @@ import Foundation
 import TreeSitterRuntime
 import Language
 
-public struct Language {
-    let languagePointer: UnsafePointer<TSLanguage>
+private let _c = ts_language_c()!
+private let _ruby = ts_language_ruby()!
+
+public enum Language {
+    case c
+    case ruby
+    case other(languagePointer: UnsafeMutablePointer<TSLanguage>)
     
-    public init(pointer: UnsafePointer<TSLanguage>) {
-        self.languagePointer = pointer
+    var languagePointer: UnsafeMutablePointer<TSLanguage> {
+        switch self {
+        case .c:
+            return _c
+        case .ruby:
+            return _ruby
+        case .other(let pointer):
+            return pointer
+        }
     }
     
-    public static let C = Language(pointer: ts_language_c())
 }

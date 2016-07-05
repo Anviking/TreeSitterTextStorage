@@ -25,9 +25,13 @@ public class TextStorage: NSTextStorage {
     
     // MARK: Initialization
     
-    public override init(string: String) {
+    var theme: ColorTheme
+    
+    public init(string: String, theme: ColorTheme, language: Language) {
+        
         let data = string.data(using: String.Encoding.utf16)!
-        self.document = Document(input: Input(data: data), language: Language.C)
+        self.theme = theme
+        self.document = Document(input: Input(data: data), language: language)
         self.cache = Array(repeating: nil, count: data.count)
         super.init()
         _length = length
@@ -52,7 +56,7 @@ public class TextStorage: NSTextStorage {
         
         if let cached = cache[location] {
             range?.pointee = cached.1
-            let color = cached.0.flatMap { $0.tokenType }.flatMap { ColorTheme.dusk[$0] }
+            let color = cached.0.flatMap { $0.tokenType }.flatMap { ColorTheme.civicModified[$0] }
             return attributesForColor(color ?? textColor)
         }
         
@@ -60,7 +64,7 @@ public class TextStorage: NSTextStorage {
         for node in TraverseInRangeGenerator(node: document.rootNode, index: location, document: document) {
             lastNode = node
             guard let symbol = C.Symbol(rawValue: node.symbol) where symbol.structural else { continue }
-            guard let tokenType = symbol.tokenType, color = ColorTheme.dusk[tokenType] else { continue }
+            guard let tokenType = symbol.tokenType, color = ColorTheme.civicModified[tokenType] else { continue }
             guard node.start < _length && node.end < length && node.range.length > 0  else { continue }
             
             range?.pointee = node.range
@@ -88,7 +92,7 @@ public class TextStorage: NSTextStorage {
     }
     
     private var textColor: UIColor {
-        return ColorTheme.dusk[.text]!
+        return ColorTheme.civicModified[.text]!
     }
     
     public override func replaceCharacters(in range: NSRange, with str: String) {

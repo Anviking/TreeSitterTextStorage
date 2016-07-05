@@ -13,7 +13,7 @@ func UIColorRGB(_ r:Int, g:Int, b:Int) -> UIColor {
 }
 
 public enum ColorTheme {
-    case `default`, dusk, other([TokenType: UIColor])
+    case `default`, dusk, civicModified, other([TokenType: UIColor])
     
     public subscript(type: TokenType) -> UIColor? {
         return dictionary[type]
@@ -64,12 +64,37 @@ public enum ColorTheme {
         
     ]
     
+    private static let civicModifiedTheme: [TokenType: UIColor] = [
+        .text:                         UIColor.white(),
+        .background:                   UIColorRGB(31, g: 32, b: 41),
+        .comment:                      UIColorRGB(69, g: 187, b: 62),
+        .documentationComment:         UIColorRGB(34, g: 160, b: 85),
+        .documentationCommentKeyword:  UIColorRGB(50, g: 207, b: 114),
+        .string:                       UIColorRGB(211, g: 35, b: 46),
+        .character:                    UIColorRGB(116, g: 109, b: 176),
+        .number:                       UIColorRGB(20, g: 156, b: 146),
+        .keyword:                      UIColorRGB(215, g: 0, b: 143),
+        .preprocessor:                 UIColorRGB(199, g: 122, b: 75),
+        .url:                          UIColorRGB(81, g: 36, b: 227),
+        .otherClassNames:              UIColorRGB(37, g: 144, b: 141),
+        .otherMethodNames:             UIColorRGB(37, g: 144, b: 141),
+        .otherConstants:               UIColorRGB(37, g: 144, b: 141),
+        .otherProperties:              UIColorRGB(37, g: 144, b: 141),
+        .projectMethodNames:           UIColorRGB(31, g: 155, b: 113),
+        .projectClassNames:            UIColorRGB(31, g: 155, b: 113),
+        .projectConstants:             UIColorRGB(31, g: 155, b: 113),
+        .projectProperties:            UIColorRGB(31, g: 155, b: 113),
+        
+    ]
+    
     var dictionary: [TokenType: UIColor] {
         switch self {
         case .default:
             return ColorTheme.defaultTheme
         case .dusk:
             return ColorTheme.duskTheme
+        case .civicModified:
+            return ColorTheme.civicModifiedTheme
         case .other(let dictionary):
             return dictionary
         }
