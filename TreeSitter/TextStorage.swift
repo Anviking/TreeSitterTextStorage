@@ -126,7 +126,6 @@ public class TextStorage: NSTextStorage {
 private func attributesForColor(_ color: UIColor) -> [String: AnyObject] {
     return [
         NSForegroundColorAttributeName: color,
-        NSBackgroundColorAttributeName: ColorTheme.dusk[.background]!,
         NSFontAttributeName: UIFont(name: "Menlo", size: 12)!
     ]
 }

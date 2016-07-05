@@ -41,6 +41,7 @@ class ViewController: UIViewController, UITextViewDelegate {
         textStorage.addLayoutManager(layoutManager)
         
         let textView = UITextView(frame: frame, textContainer: textContainer)
+        textView.backgroundColor = ColorTheme.dusk[.background]
         textView.autocapitalizationType = .none
         textView.autocorrectionType = .no
         

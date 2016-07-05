@@ -14,7 +14,6 @@ public func tokenize(_ string: String, tokenize: (Symbol) -> UIColor?) -> Attrib
     
     let attributedString = NSMutableAttributedString(string: string, attributes: [
         NSForegroundColorAttributeName: UIColor.white(),
-         NSBackgroundColorAttributeName: ColorTheme.dusk[.background]!,
          NSFontAttributeName: UIFont(name: "Menlo", size: 14)!
         ])
     
