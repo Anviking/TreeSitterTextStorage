@@ -28,6 +28,7 @@ public class TextStorage: NSTextStorage {
     public override init(string: String) {
         let data = string.data(using: String.Encoding.utf16)!
         self.document = Document(input: Input(data: data), language: Language.C)
+        self.cache = Array(repeating: nil, count: data.count)
         super.init()
         _length = length
     }
@@ -41,13 +42,11 @@ public class TextStorage: NSTextStorage {
     private var _length = 0
     
     public override var string: String {
-        return String(data: document.input.data as Data, encoding: String.Encoding.utf16)!
+        return String(data: document.input.data, encoding: String.Encoding.utf16)!
     }
+
     
-    
-    var previousRoot: Node?
-    
-    var cache: [(C.Symbol?, NSRange)?] = Array(repeating: nil, count: 30_000)
+    var cache: [(C.Symbol?, NSRange)?]
     
     public override func attributes(at location: Int, effectiveRange range: NSRangePointer?) -> [String : AnyObject] {
         
@@ -63,9 +62,8 @@ public class TextStorage: NSTextStorage {
             guard let symbol = C.Symbol(rawValue: node.symbol) where symbol.structural else { continue }
             guard let tokenType = symbol.tokenType, color = ColorTheme.dusk[tokenType] else { continue }
             guard node.start < _length && node.end < length && node.range.length > 0  else { continue }
-            if range != nil {
-                range?.pointee = node.range
-            }
+            
+            range?.pointee = node.range
             cache[location] = (symbol, node.range)
             return attributesForColor(color)
         }
@@ -95,17 +93,17 @@ public class TextStorage: NSTextStorage {
     
     public override func replaceCharacters(in range: NSRange, with str: String) {
         let date = Date()
-        cache = Array(repeating: nil, count: 20_000)
+        
         let edit = TSInputEdit(position: range.location, chars_inserted: str.characters.count, chars_removed: range.length)
         let delta = str.characters.count - range.length
         _length += delta
+        cache = Array(repeating: nil, count: _length + 10) // to be safe O.O
+        
         let actions: NSTextStorageEditActions = [.editedCharacters, .editedAttributes]
         delegate?.textStorage?(self, willProcessEditing: actions, range: range, changeInLength: delta)
         document.makeInputEdit(edit)
         document.input.data.replaceCharactersInRange(range, replacementText: str)
         self.edited(actions, range: range, changeInLength: delta)
-        
-        previousRoot = document.rootNode
         document.parse()
         delegate?.textStorage?(self, didProcessEditing: actions, range: range, changeInLength: delta)
         print("Tokenizing took: \(abs(date.timeIntervalSinceNow * 1000)) ms")
@@ -122,7 +120,7 @@ public class TextStorage: NSTextStorage {
 
 // MARK: Helpers
 
-private let font = UIFont(name: "Menlo", size: 12)!
+private let font = UIFont(name: "Menlo", size: 14)!
 
 private func attributesForColor(_ color: UIColor) -> [String: AnyObject] {
     return [
