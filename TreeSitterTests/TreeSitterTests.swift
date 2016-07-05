@@ -26,20 +26,22 @@ class TreeSitterTests: XCTestCase {
     }
     
     func testExample() {
-        let bundle = NSBundle(forClass: TreeSitterTests.self)
-        let url = bundle.URLForResource("test", withExtension: "txt")!
-        let string = try! String(contentsOfURL: url)
+        let bundle = Bundle(for: TreeSitterTests.self)
+        let url = bundle.urlForResource("test", withExtension: "txt")!
+        let string = try! String(contentsOf: url)
         
         
         let attributedString = NSMutableAttributedString(string: string, attributes: [
-            NSForegroundColorAttributeName: UIColor.whiteColor(),
-            NSBackgroundColorAttributeName: ColorTheme.Dusk[.Background]!,
+            NSForegroundColorAttributeName: UIColor.white(),
+            NSBackgroundColorAttributeName: ColorTheme.dusk[.background]!,
             NSFontAttributeName: UIFont(name: "Menlo", size: 14)!
             ])
         
         let document = ts_document_make();
         ts_document_set_language(document, ts_language_c());
-        ts_document_set_input_string(document, string);
+        let data = string.data(using: .utf16)!
+        var input = Input(data: data)
+        ts_document_set_input(document, asTSInput(&input))
         
         
         ts_document_parse(document);
@@ -60,18 +62,18 @@ class TreeSitterTests: XCTestCase {
                 let symbol = C.Symbol(rawValue: ts_node_symbol(child))!
                 print(symbol)
                 
-                if symbol.tokenType != .Text {
-                    attributedString.addAttributes([NSForegroundColorAttributeName: ColorTheme.Dusk[symbol.tokenType]!], range: NSMakeRange(start, end - start))
+                if let token = symbol.tokenType where token != .text {
+                    attributedString.addAttributes([NSForegroundColorAttributeName: ColorTheme.dusk[token]!], range: NSMakeRange(start, end - start))
                 }
                 
                 
                 //print("\(stars) \(name): \(text)")
-                traverseNode(child, depth: depth + 1)
+                traverseNode(node: child, depth: depth + 1)
                 
             }
         }
         
-        traverseNode(root_node)
+        traverseNode(node: root_node)
         
         //assert(strcmp(ts_node_name(root_node, document), "expression") != 0)
         //assert(ts_node_named_child_count(root_node) == 1)
@@ -86,7 +88,7 @@ class TreeSitterTests: XCTestCase {
         
         let a = ts_node_string(root_node, document)
         
-        let result = String.fromCString(a)
+        let result = String(cString: a!)
         print("Syntax tree: ", result);
         ts_document_free(document);
     }
@@ -94,13 +96,13 @@ class TreeSitterTests: XCTestCase {
     func testRuby() {
         //let bundle = NSBundle(forClass: TreeSitterTests.self)
         //let url = bundle.URLForResource("testRuby", withExtension: "txt")!
-        var string = UnsafeMutablePointer<CChar>.alloc(1000)
+        var string = UnsafeMutablePointer<CChar>(allocatingCapacity: 1000)
         let s = "a = \"abcde\""
         strcpy(string, s)
         
         let attributedString = NSMutableAttributedString(string: s, attributes: [
-            NSForegroundColorAttributeName: UIColor.whiteColor(),
-            NSBackgroundColorAttributeName: ColorTheme.Dusk[.Background]!,
+            NSForegroundColorAttributeName: UIColor.white(),
+            NSBackgroundColorAttributeName: ColorTheme.dusk[.background]!,
             NSFontAttributeName: UIFont(name: "Menlo", size: 10)!
             ])
         
@@ -121,8 +123,8 @@ class TreeSitterTests: XCTestCase {
                 let start = ts_node_start_byte(child)
                 let end = ts_node_end_byte(child)
                 
-                if let symbol = Ruby.Symbol(rawValue: ts_node_symbol(child)) where symbol.tokenType == .Text{
-                    attributedString.addAttributes([NSForegroundColorAttributeName: ColorTheme.Dusk[symbol.tokenType]!], range: NSMakeRange(start, end - start))
+                if let symbol = Ruby.Symbol(rawValue: ts_node_symbol(child)) where symbol.tokenType == .text{
+                    attributedString.addAttributes([NSForegroundColorAttributeName: ColorTheme.dusk[symbol.tokenType!]!], range: NSMakeRange(start, end - start))
                 }
                 
                 if ts_node_symbol(child) == Ruby.Symbol.sym_string.rawValue {
@@ -130,12 +132,12 @@ class TreeSitterTests: XCTestCase {
                 }
                 
                 //print("\(stars) \(name): \(text)")
-                traverseNode(child, depth: depth + 1)
+                traverseNode(node: child, depth: depth + 1)
                 
             }
         }
         
-        traverseNode(root_node)
+        traverseNode(node: root_node)
         
         //assert(strcmp(ts_node_name(root_node, document), "expression") != 0)
         //assert(ts_node_named_child_count(root_node) == 1)
@@ -175,13 +177,13 @@ class TreeSitterTests: XCTestCase {
         let start = ts_node_start_byte(b)
         let end = ts_node_end_byte(b)
         
-        let st = String.fromCString(string)!
-        print(st.substringWithRange(st.startIndex.advancedBy(start) ..< st.startIndex.advancedBy(end) ))
+        let st = String(cString: string)
+        print(st.substring(with: st.index(st.startIndex, offsetBy: start) ..< st.index(st.startIndex, offsetBy: end) ))
         
         print(ts_node_has_changes(b))
         
         
-        let result = String.fromCString(ts_node_string(b, document))
+        let result = String(cString: ts_node_string(b, document))
         
         print("Syntax tree: ", result);
         ts_document_free(document);

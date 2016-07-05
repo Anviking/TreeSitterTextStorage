@@ -38,7 +38,9 @@ func asTSInput(_ payload: UnsafeMutablePointer<Void>) -> TSInput {
         //print(input.position, input.length)
         
         let bytes: UnsafePointer<Void> = input!.data.withUnsafeBytes({ $0 })
-        return UnsafePointer(bytes + 2) + previousPosition!;
+
+
+        return UnsafePointer(bytes) + 2 + previousPosition!;
         
         }, seek_fn: { payload, character, byte in
             

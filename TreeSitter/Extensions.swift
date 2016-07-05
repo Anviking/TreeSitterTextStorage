@@ -34,7 +34,9 @@ extension Data {
         
         // Convert replacementText to utf16 bytes and remove padding
         let r = replacementText.data(using: String.Encoding.utf16)!
-        let replacement = r.subdata(in: padding ..< r.endIndex - padding)
+        let replacement = r.subdata(in: padding ..< r.endIndex)
+        
+        print(replacement.count)
         
         
         // Strategy, 1) shift ENDSTRING to new location and 2) replace RANGE with REPLACEMENT
@@ -53,17 +55,20 @@ extension Data {
         let endstring = subdata(in: byteRange.upperBound ..< endIndex)
         
         
-        replaceBytes(in: endStringStart ..< endStringEnd, with: endstring)
+        print(endstring.count)
+        print((endStringStart ..< endStringEnd))
+        print(self.endIndex)
+        replaceBytes(in: endStringStart ..< self.endIndex, with: endstring)
         
         
         
         // Replace RANGE with REPLACEMENT
         replaceBytes(in: byteRange.lowerBound ..< byteRange.lowerBound + replacement.count, with: replacement)
-        /*
-         let str = NSString(data: self, encoding: NSUTF16StringEncoding)!
-         let lineRange = str.lineRangeForRange(range)
-         let line = str.substringWithRange(lineRange)
-         print(str)
-         */
+
+         let str = NSString(data: self, encoding: String.Encoding.utf16.rawValue)!
+         let lineRange = str.lineRange(for: range)
+         let line = str.substring(with: lineRange)
+         print(line)
+        
     }
 }

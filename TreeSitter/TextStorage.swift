@@ -26,7 +26,7 @@ public class TextStorage: NSTextStorage {
     // MARK: Initialization
     
     public override init(string: String) {
-        self.data = string.data(using: String.Encoding.utf16)!
+        let data = string.data(using: String.Encoding.utf16)!
         self.document = Document(input: Input(data: data), language: Language.C)
         super.init()
         _length = length
@@ -36,20 +36,26 @@ public class TextStorage: NSTextStorage {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public var data: Data
     public var document: Document
     
     private var _length = 0
     
     public override var string: String {
-        return String(data: data as Data, encoding: String.Encoding.utf16)!
+        return String(data: document.input.data as Data, encoding: String.Encoding.utf16)!
     }
     
     
     var previousRoot: Node?
     
+    var cache: [(C.Symbol?, NSRange)?] = Array(repeating: nil, count: 30_000)
+    
     public override func attributes(at location: Int, effectiveRange range: NSRangePointer?) -> [String : AnyObject] {
         
+        if let cached = cache[location] {
+            range?.pointee = cached.1
+            let color = cached.0.flatMap { $0.tokenType }.flatMap { ColorTheme.dusk[$0] }
+            return attributesForColor(color ?? textColor)
+        }
         
         var lastNode = document.rootNode
         for node in TraverseInRangeGenerator(node: document.rootNode, index: location, document: document) {
@@ -60,6 +66,7 @@ public class TextStorage: NSTextStorage {
             if range != nil {
                 range?.pointee = node.range
             }
+            cache[location] = (symbol, node.range)
             return attributesForColor(color)
         }
         
@@ -78,6 +85,7 @@ public class TextStorage: NSTextStorage {
         }
         
         range?.pointee = r
+        cache[location] = (nil, r)
         return attributesForColor(textColor)
     }
     
@@ -87,14 +95,16 @@ public class TextStorage: NSTextStorage {
     
     public override func replaceCharacters(in range: NSRange, with str: String) {
         let date = Date()
+        cache = Array(repeating: nil, count: 20_000)
         let edit = TSInputEdit(position: range.location, chars_inserted: str.characters.count, chars_removed: range.length)
         let delta = str.characters.count - range.length
         _length += delta
         let actions: NSTextStorageEditActions = [.editedCharacters, .editedAttributes]
         delegate?.textStorage?(self, willProcessEditing: actions, range: range, changeInLength: delta)
         document.makeInputEdit(edit)
+        document.input.data.replaceCharactersInRange(range, replacementText: str)
         self.edited(actions, range: range, changeInLength: delta)
-        data.replaceCharactersInRange(range, replacementText: str)
+        
         previousRoot = document.rootNode
         document.parse()
         delegate?.textStorage?(self, didProcessEditing: actions, range: range, changeInLength: delta)

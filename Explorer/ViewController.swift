@@ -70,8 +70,8 @@ class ViewController: UIViewController, UITextViewDelegate {
     
     func textViewDidChange(textView: UITextView) {
         let date = NSDate()
-        textView.textStorage.beginEditing()
-        textView.textStorage.endEditing()
+        //textView.textStorage.beginEditing()
+        //textView.textStorage.endEditing()
         print("Tokenizing took: \(abs(date.timeIntervalSinceNow * 1000)) ms")
     }
     
