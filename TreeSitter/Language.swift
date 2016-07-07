@@ -53,7 +53,7 @@ public enum Language {
             fallthrough
             
         default:
-            return JSON.init(rawValue: node.symbol)?.tokenType
+            return symbol.init(rawValue: node.symbol)?.tokenType
         }
     }
     
