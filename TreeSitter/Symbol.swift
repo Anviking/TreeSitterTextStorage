@@ -12,7 +12,6 @@ import Language
 public protocol LanguageSymbolProtocol {
     init?(rawValue: UInt16)
     var tokenType: TokenType? {get} // REMOVE THIS
-    var isOpaque: Bool { get }
     static var languagePointer: UnsafeMutablePointer<TSLanguage> { get }
 }
 

@@ -70,6 +70,7 @@ public class TextStorage: NSTextStorage {
             guard language.metadata(for: node.symbol).structural else {
                 continue
             }
+            
             guard let color = theme[tokenType] else { continue }
             guard node.start < _length && node.end < length && node.range.length > 0  else { continue }
             

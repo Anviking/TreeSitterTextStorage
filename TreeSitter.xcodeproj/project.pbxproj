@@ -14,6 +14,8 @@
 		8F29EE2B1CD96C2700AE4A59 /* Ruby.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F29EE2A1CD96C2700AE4A59 /* Ruby.swift */; };
 		8F29EE2D1CD96C7F00AE4A59 /* C.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F29EE2C1CD96C7F00AE4A59 /* C.swift */; };
 		8F29EE2F1CD96CB400AE4A59 /* Symbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F29EE2E1CD96CB400AE4A59 /* Symbol.swift */; };
+		8F3992521D2D99BF00D7C8EC /* cpp_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F3992511D2D99BF00D7C8EC /* cpp_parser.c */; };
+		8F3992541D2D9A3B00D7C8EC /* C++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3992531D2D9A3B00D7C8EC /* C++.swift */; };
 		8F81191D1CD8FA84006A9980 /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = 8FA5C6BF1CD8F56700BF090B /* test.json */; };
 		8F8119351CD93149006A9980 /* alloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F81191F1CD93149006A9980 /* alloc.h */; };
 		8F8119361CD93149006A9980 /* array.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F8119201CD93149006A9980 /* array.h */; };
@@ -125,6 +127,8 @@
 		8F29EE2A1CD96C2700AE4A59 /* Ruby.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ruby.swift; sourceTree = "<group>"; };
 		8F29EE2C1CD96C7F00AE4A59 /* C.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = C.swift; sourceTree = "<group>"; };
 		8F29EE2E1CD96CB400AE4A59 /* Symbol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Symbol.swift; sourceTree = "<group>"; };
+		8F3992511D2D99BF00D7C8EC /* cpp_parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cpp_parser.c; sourceTree = "<group>"; };
+		8F3992531D2D9A3B00D7C8EC /* C++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "C++.swift"; path = "emplate/C++.swift"; sourceTree = "<group>"; };
 		8F81191F1CD93149006A9980 /* alloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = alloc.h; sourceTree = "<group>"; };
 		8F8119201CD93149006A9980 /* array.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = array.h; sourceTree = "<group>"; };
 		8F8119211CD93149006A9980 /* debugger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = debugger.h; sourceTree = "<group>"; };
@@ -248,6 +252,7 @@
 			children = (
 				8F29EE2A1CD96C2700AE4A59 /* Ruby.swift */,
 				8F29EE2C1CD96C7F00AE4A59 /* C.swift */,
+				8F3992531D2D9A3B00D7C8EC /* C++.swift */,
 			);
 			name = "Language Symbols";
 			sourceTree = "<group>";
@@ -266,6 +271,7 @@
 		8F81191E1CD93149006A9980 /* runtime */ = {
 			isa = PBXGroup;
 			children = (
+				8F3992511D2D99BF00D7C8EC /* cpp_parser.c */,
 				8FFA49091CD967A300018FA6 /* ruby_parser.c */,
 				8F8119571CD93543006A9980 /* arithmetic_parser.h */,
 				8F8119511CD93303006A9980 /* arithmetic_parser.c */,
@@ -621,12 +627,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F3992521D2D99BF00D7C8EC /* cpp_parser.c in Sources */,
 				8F29EE2D1CD96C7F00AE4A59 /* C.swift in Sources */,
 				8F9EF3FB1CDB722100F2A5A8 /* Node.swift in Sources */,
 				8F81193F1CD93149006A9980 /* node.c in Sources */,
 				8F81193D1CD93149006A9980 /* lexer.c in Sources */,
 				8F81193A1CD93149006A9980 /* language.c in Sources */,
 				8F8119381CD93149006A9980 /* document.c in Sources */,
+				8F3992541D2D9A3B00D7C8EC /* C++.swift in Sources */,
 				8F9EF4051CDC184B00F2A5A8 /* Input.swift in Sources */,
 				8F9EF4011CDC0C8300F2A5A8 /* TextStorage.swift in Sources */,
 				8F29EE2F1CD96CB400AE4A59 /* Symbol.swift in Sources */,
@@ -907,7 +915,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				GCC_OPTIMIZATION_LEVEL = fast;
 				INFOPLIST_FILE = Explorer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -917,7 +924,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.anviking.Explorer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -929,7 +935,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				GCC_OPTIMIZATION_LEVEL = fast;
 				INFOPLIST_FILE = Explorer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -939,7 +944,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.anviking.Explorer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
