@@ -47,11 +47,22 @@ public enum Language {
                 })
                 if let s = firstString where s.range.containsIndex(index) {
                     node = s
+                    return .otherProperties
+                }
+            }
+            fallthrough
+        case .c:
+            guard let symbol = C(rawValue: node.symbol) else { return nil }
+            if symbol == C.sym_function_specifier {
+                let firstString = node.children.first(where: {
+                    $0.symbol == C.sym_identifier.rawValue
+                })
+                if let s = firstString where s.range.containsIndex(index) {
+                    node = s
                     return .text
                 }
             }
             fallthrough
-            
         default:
             return symbol.init(rawValue: node.symbol)?.tokenType
         }

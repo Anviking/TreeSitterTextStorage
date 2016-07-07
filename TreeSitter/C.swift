@@ -197,9 +197,11 @@ public enum C: UInt16, LanguageSymbolProtocol {
             return .comment
         case .sym_number_literal:
             return .number
-        case .anon_sym_return, .anon_sym_while, .anon_sym_static, .anon_sym_const, .anon_sym_volatile, sym_function_specifier, .anon_sym_if, .anon_sym_else, .sym_type_qualifier, .anon_sym_enum, .anon_sym_struct:
+        case .anon_sym_return, .anon_sym_while, .anon_sym_static, .anon_sym_const, .anon_sym_volatile, sym_function_specifier, .anon_sym_if, .anon_sym_else, .sym_type_qualifier, .anon_sym_enum, .anon_sym_struct, .anon_sym_case, .anon_sym_for, .anon_sym_auto, .anon_sym_default, .anon_sym_typedef, .anon_sym_goto:
             return .keyword
         case .sym_type_name, .anon_sym_sizeof:
+            return .otherMethodNames
+        case .sym_identifier:
             return .otherMethodNames
             
         default:

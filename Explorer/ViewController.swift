@@ -22,13 +22,13 @@ class ViewController: UIViewController, UITextViewDelegate {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        let url = Bundle.main.urlForResource("json", withExtension: "txt")!
+        let url = Bundle.main.urlForResource("javascript", withExtension: "txt")!
         let str = try! String(contentsOf: url)
         
         let frame = CGRect(x: 0, y: 0, width: 100, height: 100)
         
         
-        let textView = TextView(frame: frame, theme: .civicModified, language: .json, text: str)
+        let textView = TextView(frame: frame, theme: .civicModified, language: .javascript, text: str)
         textView.backgroundColor = ColorTheme.dusk[.background]
         textView.autocapitalizationType = .none
         textView.autocorrectionType = .no

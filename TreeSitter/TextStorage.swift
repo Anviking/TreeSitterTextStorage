@@ -54,7 +54,6 @@ public class TextStorage: NSTextStorage {
     var cache: [(TokenType?, NSRange)?]
     
     public override func attributes(at location: Int, effectiveRange range: NSRangePointer?) -> [String : AnyObject] {
-        
         if let cached = cache[location] {
             range?.pointee = cached.1
             let color = cached.0.flatMap { theme[$0] }
@@ -89,7 +88,7 @@ public class TextStorage: NSTextStorage {
         if let endNode = lastNode.children.filter({ $0.start > location }).first {
             r = NSMakeRange(location, endNode.start - location)
         } else if ts_node_eq(document.rootNode, lastNode) {
-            r = NSRange(location: lastNode.end, length: _length-lastNode.end)
+            r = NSRange(location: location, length: _length-location)
         } else {
             r = lastNode.range
         }
