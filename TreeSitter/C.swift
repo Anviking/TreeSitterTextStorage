@@ -189,16 +189,19 @@ public enum C: UInt16, LanguageSymbolProtocol {
         switch self {
         case .sym_string_literal, .sym_system_lib_string:
             return .string
-        case .anon_sym_POUNDinclude:
+        case .sym_char_literal:
+            return .character
+        case .anon_sym_POUNDinclude, .sym_preproc_ifdef, .sym_preproc_directive, .sym_preproc_def:
             return .preprocessor
         case .sym_comment:
             return .comment
         case .sym_number_literal:
             return .number
-        case .anon_sym_return, .anon_sym_while, .anon_sym_static, .anon_sym_const, .anon_sym_volatile, sym_function_specifier, .anon_sym_if, .anon_sym_else, .sym_type_qualifier:
+        case .anon_sym_return, .anon_sym_while, .anon_sym_static, .anon_sym_const, .anon_sym_volatile, sym_function_specifier, .anon_sym_if, .anon_sym_else, .sym_type_qualifier, .anon_sym_enum, .anon_sym_struct:
             return .keyword
         case .sym_type_name, .anon_sym_sizeof:
             return .otherMethodNames
+            
         default:
             return nil // Important to return nil to continue search in nested nodes
         }
