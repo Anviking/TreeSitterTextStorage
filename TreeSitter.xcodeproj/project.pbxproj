@@ -54,6 +54,12 @@
 		8FA59A6F1CD80EBE0041E6C4 /* TreeSitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA59A641CD80EBD0041E6C4 /* TreeSitter.framework */; };
 		8FA59A741CD80EBE0041E6C4 /* TreeSitterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA59A731CD80EBE0041E6C4 /* TreeSitterTests.swift */; };
 		8FA5C6C01CD8F56700BF090B /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = 8FA5C6BF1CD8F56700BF090B /* test.json */; };
+		8FB48EBD1D2E7CD800BC50A1 /* js_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FB48EBC1D2E7CD800BC50A1 /* js_parser.c */; };
+		8FB48EBF1D2E7D1400BC50A1 /* Javascript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB48EBE1D2E7D1400BC50A1 /* Javascript.swift */; };
+		8FB48EC11D2E7E8F00BC50A1 /* javascript.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8FB48EC01D2E7E8F00BC50A1 /* javascript.txt */; };
+		8FB48EC31D2E882D00BC50A1 /* json_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FB48EC21D2E882D00BC50A1 /* json_parser.c */; };
+		8FB48EC51D2E884F00BC50A1 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB48EC41D2E884F00BC50A1 /* JSON.swift */; };
+		8FB48EC71D2E898400BC50A1 /* json.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8FB48EC61D2E898400BC50A1 /* json.txt */; };
 		8FDCBA611CDA10B3009A829F /* LayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDCBA601CDA10B3009A829F /* LayoutManager.swift */; };
 		8FFA48BD1CD93BD900018FA6 /* c_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FFA48BC1CD93BD900018FA6 /* c_parser.c */; };
 		8FFA48C01CD93C7500018FA6 /* test.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8FFA48BE1CD93C5900018FA6 /* test.txt */; };
@@ -172,6 +178,12 @@
 		8FA59A751CD80EBE0041E6C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8FA59B841CD812730041E6C4 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; name = module.modulemap; path = "tree-sitter/module.modulemap"; sourceTree = SOURCE_ROOT; };
 		8FA5C6BF1CD8F56700BF090B /* test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = test.json; path = ../TreeSitter/test.json; sourceTree = "<group>"; };
+		8FB48EBC1D2E7CD800BC50A1 /* js_parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = js_parser.c; sourceTree = "<group>"; };
+		8FB48EBE1D2E7D1400BC50A1 /* Javascript.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Javascript.swift; path = emplate/Javascript.swift; sourceTree = "<group>"; };
+		8FB48EC01D2E7E8F00BC50A1 /* javascript.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = javascript.txt; path = ../TreeSitter/tests/javascript.txt; sourceTree = "<group>"; };
+		8FB48EC21D2E882D00BC50A1 /* json_parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = json_parser.c; sourceTree = "<group>"; };
+		8FB48EC41D2E884F00BC50A1 /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSON.swift; path = emplate/JSON.swift; sourceTree = "<group>"; };
+		8FB48EC61D2E898400BC50A1 /* json.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = json.txt; path = TreeSitter/tests/json.txt; sourceTree = SOURCE_ROOT; };
 		8FDCBA601CDA10B3009A829F /* LayoutManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutManager.swift; sourceTree = "<group>"; };
 		8FFA48BC1CD93BD900018FA6 /* c_parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = c_parser.c; sourceTree = "<group>"; };
 		8FFA48BE1CD93C5900018FA6 /* test.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.txt; sourceTree = "<group>"; };
@@ -250,9 +262,11 @@
 		8F2531B81D2C236300AE3EEE /* Language Symbols */ = {
 			isa = PBXGroup;
 			children = (
-				8F29EE2A1CD96C2700AE4A59 /* Ruby.swift */,
+				8FB48EC41D2E884F00BC50A1 /* JSON.swift */,
 				8F29EE2C1CD96C7F00AE4A59 /* C.swift */,
+				8F29EE2A1CD96C2700AE4A59 /* Ruby.swift */,
 				8F3992531D2D9A3B00D7C8EC /* C++.swift */,
+				8FB48EBE1D2E7D1400BC50A1 /* Javascript.swift */,
 			);
 			name = "Language Symbols";
 			sourceTree = "<group>";
@@ -271,6 +285,8 @@
 		8F81191E1CD93149006A9980 /* runtime */ = {
 			isa = PBXGroup;
 			children = (
+				8FB48EC21D2E882D00BC50A1 /* json_parser.c */,
+				8FB48EBC1D2E7CD800BC50A1 /* js_parser.c */,
 				8F3992511D2D99BF00D7C8EC /* cpp_parser.c */,
 				8FFA49091CD967A300018FA6 /* ruby_parser.c */,
 				8F8119571CD93543006A9980 /* arithmetic_parser.h */,
@@ -370,6 +386,8 @@
 				8FFA48D81CD94EE400018FA6 /* Assets.xcassets */,
 				8FFA48DA1CD94EE400018FA6 /* LaunchScreen.storyboard */,
 				8FFA48DD1CD94EE400018FA6 /* Info.plist */,
+				8FB48EC01D2E7E8F00BC50A1 /* javascript.txt */,
+				8FB48EC61D2E898400BC50A1 /* json.txt */,
 			);
 			path = Explorer;
 			sourceTree = "<group>";
@@ -601,6 +619,8 @@
 				8FFA49021CD9529D00018FA6 /* test.txt in Resources */,
 				8FFA48DC1CD94EE400018FA6 /* LaunchScreen.storyboard in Resources */,
 				8FFA48D91CD94EE400018FA6 /* Assets.xcassets in Resources */,
+				8FB48EC71D2E898400BC50A1 /* json.txt in Resources */,
+				8FB48EC11D2E7E8F00BC50A1 /* javascript.txt in Resources */,
 				8FFA48D71CD94EE400018FA6 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -637,6 +657,7 @@
 				8F3992541D2D9A3B00D7C8EC /* C++.swift in Sources */,
 				8F9EF4051CDC184B00F2A5A8 /* Input.swift in Sources */,
 				8F9EF4011CDC0C8300F2A5A8 /* TextStorage.swift in Sources */,
+				8FB48EBF1D2E7D1400BC50A1 /* Javascript.swift in Sources */,
 				8F29EE2F1CD96CB400AE4A59 /* Symbol.swift in Sources */,
 				8F2531BF1D2C5BE200AE3EEE /* TextView.swift in Sources */,
 				8F8119491CD93149006A9980 /* utf16.c in Sources */,
@@ -647,11 +668,14 @@
 				8F29EE2B1CD96C2700AE4A59 /* Ruby.swift in Sources */,
 				8FFA48C51CD94CCE00018FA6 /* JLTokenType.swift in Sources */,
 				8F8119521CD93303006A9980 /* arithmetic_parser.c in Sources */,
+				8FB48EC51D2E884F00BC50A1 /* JSON.swift in Sources */,
 				8F8119431CD93149006A9980 /* stack.c in Sources */,
 				8F8119451CD93149006A9980 /* string_input.c in Sources */,
 				8F9EF3FD1CDB724000F2A5A8 /* Extensions.swift in Sources */,
 				8F8119471CD93149006A9980 /* tree.c in Sources */,
 				8FFA48C61CD94CCE00018FA6 /* JLColorTheme.swift in Sources */,
+				8FB48EC31D2E882D00BC50A1 /* json_parser.c in Sources */,
+				8FB48EBD1D2E7CD800BC50A1 /* js_parser.c in Sources */,
 				8F8119411CD93149006A9980 /* parser.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -835,7 +859,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_OPTIMIZATION_LEVEL = fast;
 				INFOPLIST_FILE = TreeSitter/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -848,7 +871,6 @@
 				PROVISIONING_PROFILE_SPECIFIER = DQ69J4LB4T/;
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/tree-sitter";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -861,7 +883,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_OPTIMIZATION_LEVEL = fast;
 				INFOPLIST_FILE = TreeSitter/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -874,7 +895,6 @@
 				PROVISIONING_PROFILE_SPECIFIER = DQ69J4LB4T/;
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/tree-sitter";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

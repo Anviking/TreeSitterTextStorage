@@ -20,8 +20,10 @@ public class Document {
         self.language = language
         self.input = input
         ts_document_set_language(documentPointer, language.languagePointer)
-    
-        ts_document_set_input(documentPointer, asTSInput(&self.input))
+        print("###:", input.data)
+        let a = asTSInput(&self.input)
+        print(a.payload)
+        ts_document_set_input(documentPointer, a)
         parse()
     }
     

@@ -14,6 +14,8 @@ public enum Language {
     case c
     case ruby
     case cpp
+    case json
+    case javascript
 //    case other(languagePointer: UnsafeMutablePointer<TSLanguage>, colorizer: (UInt16) -> TokenType)
     
     var languagePointer: UnsafeMutablePointer<TSLanguage> {
@@ -26,6 +28,10 @@ public enum Language {
             return C.self
         case .ruby:
             return Ruby.self
+        case .javascript:
+            return JavaScript.self
+        case .json:
+            return JSON.self
         case .cpp:
             return Cpp.self
         }
