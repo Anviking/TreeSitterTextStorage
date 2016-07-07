@@ -16,7 +16,7 @@ public enum Language {
     case cpp
     case json
     case javascript
-//    case other(languagePointer: UnsafeMutablePointer<TSLanguage>, colorizer: (UInt16) -> TokenType)
+    //    case other(languagePointer: UnsafeMutablePointer<TSLanguage>, colorizer: (UInt16) -> TokenType)
     
     var languagePointer: UnsafeMutablePointer<TSLanguage> {
         return symbol.languagePointer
@@ -37,8 +37,24 @@ public enum Language {
         }
     }
     
-    func tokenType(for i: UInt16) -> TokenType? {
-        return symbol.init(rawValue: i)?.tokenType
+    func tokenType(for node: inout Node, index: Int) -> TokenType? {
+        switch self {
+        case .json:
+            guard let symbol = JSON(rawValue: node.symbol) else { return nil }
+            if symbol == JSON.sym_pair {
+                let firstString = node.children.first(where: {
+                    $0.symbol == JSON.sym_string.rawValue
+                })
+                if let s = firstString where s.range.containsIndex(index) {
+                    node = s
+                    return .text
+                }
+            }
+            fallthrough
+            
+        default:
+            return JSON.init(rawValue: node.symbol)?.tokenType
+        }
     }
     
     func metadata(for symbol: UInt16) -> TSSymbolMetadata {

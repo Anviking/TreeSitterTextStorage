@@ -64,9 +64,10 @@ public class TextStorage: NSTextStorage {
         var lastNode = document.rootNode
         for node in TraverseInRangeGenerator(node: document.rootNode, index: location, document: document) {
             lastNode = node
+            var node = node
             
             guard node.symbol != 0 else { continue }
-            guard let tokenType = language.tokenType(for: node.symbol) else { continue }
+            guard let tokenType = language.tokenType(for: &node, index: location) else { continue }
             guard language.metadata(for: node.symbol).structural else {
                 continue
             }
