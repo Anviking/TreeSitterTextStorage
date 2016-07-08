@@ -41,6 +41,10 @@ extension Node {
         return NodeChildrenCollection(node: self)
     }
     
+    public var parent: Node {
+        return ts_node_parent(self)
+    }
+    
     public var symbol: UInt16 {
         return ts_node_symbol(self)
     }

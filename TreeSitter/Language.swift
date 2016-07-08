@@ -47,20 +47,14 @@ public enum Language {
                 })
                 if let s = firstString where s.range.containsIndex(index) {
                     node = s
-                    return .otherProperties
+                    return .text
                 }
             }
             fallthrough
         case .c:
             guard let symbol = C(rawValue: node.symbol) else { return nil }
-            if symbol == C.sym_function_specifier {
-                let firstString = node.children.first(where: {
-                    $0.symbol == C.sym_identifier.rawValue
-                })
-                if let s = firstString where s.range.containsIndex(index) {
-                    node = s
-                    return .text
-                }
+            if symbol == C.sym_identifier && node.parent.symbol == C.sym_function_declarator.rawValue {
+                return .projectMethodNames
             }
             fallthrough
         default:

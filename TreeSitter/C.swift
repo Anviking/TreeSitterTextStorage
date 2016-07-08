@@ -201,8 +201,6 @@ public enum C: UInt16, LanguageSymbolProtocol {
             return .keyword
         case .sym_type_name, .anon_sym_sizeof:
             return .otherMethodNames
-        case .sym_identifier:
-            return .otherMethodNames
             
         default:
             return nil // Important to return nil to continue search in nested nodes

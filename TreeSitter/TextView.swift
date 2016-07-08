@@ -22,11 +22,20 @@ public class TextView: UITextView {
         
         let textStorage = TextStorage(string: text, theme: theme, language: language)
         self._textStorage = textStorage
-        
+        /*
+        for node in textStorage.document.rootNode.children {
+            for node in node.children where node.symbol == C.sym_function_declarator.rawValue {
+                let str = (text as NSString).substring(with: node.range)
+                print("*** \(str)")
+
+            }
+        }
+        */
         let frame = CGRect(x: 0, y: 0, width: 100, height: 100)
         
         let layoutManager = NSLayoutManager()
         let textContainer = NSTextContainer()
+        layoutManager.allowsNonContiguousLayout = true
         textContainer.widthTracksTextView = true
         layoutManager.addTextContainer(textContainer)
         textStorage.addLayoutManager(layoutManager)
