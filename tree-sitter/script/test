@@ -1,0 +1,102 @@
+#!/usr/bin/env bash
+
+set -e
+
+function usage {
+  cat <<-EOF
+USAGE
+
+  $0  [-dgGhv] [-f focus-string]
+
+OPTIONS
+
+  -h  print this message
+
+  -d  run tests in a debugger (either lldb or gdb)
+
+  -g  run tests with valgrind's memcheck tool
+
+  -G  run tests with valgrind's memcheck tool, including a full leak check
+
+  -v  run tests with verbose output
+
+  -f  run only tests whose description contain the given string
+
+EOF
+}
+
+profile=
+leak_check=no
+mode=normal
+args=()
+target=tests
+export BUILDTYPE=Test
+cmd="out/${BUILDTYPE}/${target}"
+
+while getopts "df:s:gGhpv" option; do
+  case ${option} in
+    h)
+      usage
+      exit
+      ;;
+    d)
+      mode=debug
+      ;;
+    g)
+      mode=valgrind
+      ;;
+    G)
+      mode=valgrind
+      leak_check=full
+      ;;
+    p)
+      profile=true
+      ;;
+    f)
+      args+=("--only=${OPTARG}")
+      ;;
+    v)
+      args+=("--reporter=spec")
+      ;;
+    s)
+      export TREE_SITTER_SEED=${OPTARG}
+      ;;
+  esac
+done
+
+make $target
+args=${args:-""}
+
+if [[ -n $profile ]]; then
+  export CPUPROFILE=/tmp/${target}-$(date '+%s').prof
+fi
+
+case ${mode} in
+  valgrind)
+    valgrind                                     \
+      --suppressions=./script/util/valgrind.supp \
+      --dsymutil=yes                             \
+      --leak-check=${leak_check}                 \
+      $cmd "${args[@]}" 2>&1 |                   \
+      grep --color -E '\w+_specs?.cc:\d+|$'
+    ;;
+
+  debug)
+    if which -s lldb; then
+      lldb $cmd -- "${args[@]}"
+    elif which -s gdb; then
+      gdb $cmd -- "${args[@]}"
+    else
+      echo "No debugger found"
+      exit 1
+    fi
+    ;;
+
+  normal)
+    time $cmd "${args[@]}"
+    ;;
+esac
+
+if [[ -n $profile ]]; then
+  pprof $cmd $CPUPROFILE
+fi

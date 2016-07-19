@@ -1,0 +1,15 @@
+.idea
+
+gyp-mac-tool
+Makefile
+*.Makefile
+*.target.mk
+*.xcodeproj
+
+spec/run.out*
+externals/cpplint.py
+out
+*.pyc
+
+spec/fixtures/*
+!spec/fixtures/.gitkeep
