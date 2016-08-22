@@ -12,4 +12,4 @@ Help to do less weird stuff would be much appreciated, as well as help with proj
 - Text edits mutates the utf-16 data as appropiate.
 - Cache is purged on each text edit.
 
-Performance is in my experience okay most of the times, but i feel like it should exist a way to do this much better.
+Performance is in my experience okay most of the times, but i think there should be ways to improve it a lot.
