@@ -1,4 +1,4 @@
-# TreeSitter
+# TreeSitterTextStorage
 Hacky implementation of a `NSTextStorage` subclass powered by [tree-sitter](http://github.com/tree-sitter/tree-sitter).
 
 
