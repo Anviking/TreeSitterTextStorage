@@ -50,7 +50,7 @@ extension Data {
         let delta = replacement.count - byteRange.count
         
         let endStringStart = byteRange.upperBound + delta
-        let endStringEnd = count + delta
+        //let endStringEnd = count + delta
         
         let endstring = subdata(in: byteRange.upperBound ..< endIndex)
         
@@ -58,10 +58,10 @@ extension Data {
             append(Data(bytes: Array(repeating: 0, count: delta)))
         }
         
-        replaceBytes(in: endStringStart ..< self.endIndex, with: endstring)
+        replaceSubrange(endStringStart ..< self.endIndex, with: endstring)
         
         
         // Replace RANGE with REPLACEMENT
-        replaceBytes(in: byteRange.lowerBound ..< byteRange.lowerBound + replacement.count, with: replacement)
+        replaceSubrange(byteRange.lowerBound ..< byteRange.lowerBound + replacement.count, with: replacement)
     }
 }

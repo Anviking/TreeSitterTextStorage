@@ -53,7 +53,7 @@ public class TextStorage: NSTextStorage {
     
     var cache: [(TokenType?, NSRange)?]
     
-    public override func attributes(at location: Int, effectiveRange range: NSRangePointer?) -> [String : AnyObject] {
+    public override func attributes(at location: Int, effectiveRange range: NSRangePointer?) -> [String : Any] {
         if let cached = cache[location] {
             range?.pointee = cached.1
             let color = cached.0.flatMap { theme[$0] }
@@ -120,7 +120,7 @@ public class TextStorage: NSTextStorage {
         print("Tokenizing took: \(abs(date.timeIntervalSinceNow * 1000)) ms")
     }
     
-    public override func setAttributes(_ attrs: [String : AnyObject]?, range: NSRange) {
+    public override func setAttributes(_ attrs: [String : Any]?, range: NSRange) {
         //print("Can't set attributes \(attrs), range: \(range)")
     }
     

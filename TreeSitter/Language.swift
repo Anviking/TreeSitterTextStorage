@@ -45,7 +45,7 @@ public enum Language {
                 let firstString = node.children.first(where: {
                     $0.symbol == JSON.sym_string.rawValue
                 })
-                if let s = firstString where s.range.containsIndex(index) {
+                if let s = firstString, s.range.containsIndex(index) {
                     node = s
                     return .text
                 }

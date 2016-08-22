@@ -20,7 +20,7 @@ public enum ColorTheme {
     }
     
     private static let defaultTheme: [TokenType: UIColor] = [
-        .text:                         UIColor.black(),
+        .text:                         UIColor.black,
         .background:                   UIColorRGB(255, g: 255, b: 255),
         .comment:                      UIColorRGB(0, g: 131, b: 39),
         .documentationComment:         UIColorRGB(0, g: 131, b: 39),
@@ -42,7 +42,7 @@ public enum ColorTheme {
     ]
     
     private static let duskTheme: [TokenType: UIColor] = [
-        .text:                         UIColor.white(),
+        .text:                         UIColor.white,
         .background:                   UIColorRGB(30, g: 32, b: 40),
         .comment:                      UIColorRGB(72, g: 190, b: 102),
         .documentationComment:         UIColorRGB(72, g: 190, b: 102),
@@ -65,7 +65,7 @@ public enum ColorTheme {
     ]
     
     private static let civicModifiedTheme: [TokenType: UIColor] = [
-        .text:                         UIColor.white(),
+        .text:                         UIColor.white,
         .background:                   UIColorRGB(31, g: 32, b: 41),
         .comment:                      UIColorRGB(69, g: 187, b: 62),
         .documentationComment:         UIColorRGB(34, g: 160, b: 85),

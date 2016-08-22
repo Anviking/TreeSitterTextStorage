@@ -22,7 +22,7 @@ class ViewController: UIViewController, UITextViewDelegate {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        let url = Bundle.main.urlForResource("test", withExtension: "txt")!
+        let url = Bundle.main.url(forResource: "test", withExtension: "txt")!
         let str = try! String(contentsOf: url)
         
         let frame = CGRect(x: 0, y: 0, width: 100, height: 100)

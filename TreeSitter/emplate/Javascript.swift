@@ -21,7 +21,7 @@ public enum JavaScript: UInt16, LanguageSymbolProtocol {
             return .comment
         case .sym_number:
             return .number
-        case .anon_sym_return, .anon_sym_while, .anon_sym_static, .anon_sym_const, .anon_sym_if, .anon_sym_else, .sym_class, anon_sym_function, .anon_sym_var, sym_arrow_function:
+        case .anon_sym_return, .anon_sym_while, .anon_sym_static, .anon_sym_const, .anon_sym_if, .anon_sym_else, .sym_class, .anon_sym_function, .anon_sym_var, .sym_arrow_function:
             return .keyword
         case .sym_member_access:
             return .otherMethodNames
