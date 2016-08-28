@@ -21,7 +21,7 @@ public enum JavaScript: UInt16, LanguageSymbolProtocol {
             return .comment
         case .sym_number:
             return .number
-        case .anon_sym_return, .anon_sym_while, .anon_sym_static, .anon_sym_const, .anon_sym_if, .anon_sym_else, .sym_class, .anon_sym_function, .anon_sym_var, .sym_arrow_function:
+        case .anon_sym_return, .anon_sym_while, .anon_sym_static, .anon_sym_const, .anon_sym_if, .anon_sym_else, .sym_class, .anon_sym_function, .anon_sym_var, .anon_sym_EQ_GT, .anon_sym_async, .anon_sym_await, .anon_sym_export:
             return .keyword
         case .sym_member_access:
             return .otherMethodNames
@@ -32,6 +32,16 @@ public enum JavaScript: UInt16, LanguageSymbolProtocol {
     
     case sym_program = 2
     case sym__statements
+    case sym_export_statement
+    case sym_export_clause
+    case sym_export_specifier
+    case sym__declaration
+    case sym_import_statement
+    case sym_import_clause
+    case sym__from_clause
+    case sym_namespace_import
+    case sym_named_imports
+    case sym_import_specifier
     case sym__statement
     case sym_expression_statement
     case sym_trailing_expression_statement
@@ -53,6 +63,7 @@ public enum JavaScript: UInt16, LanguageSymbolProtocol {
     case sym_trailing_yield_statement
     case sym_throw_statement
     case sym_trailing_throw_statement
+    case sym_empty_statement
     case sym_case
     case sym_default
     case sym_catch
@@ -62,16 +73,24 @@ public enum JavaScript: UInt16, LanguageSymbolProtocol {
     case sym__expression
     case sym_object
     case sym_array
+    case sym_anonymous_class
     case sym_class
+    case sym__class_tail
     case sym_function
     case sym_arrow_function
     case sym_generator_function
     case sym_function_call
     case sym_new_expression
+    case sym_await_expression
     case sym_member_access
     case sym_subscript_access
     case sym_assignment
     case sym_math_assignment
+    case sym__assignment_pattern
+    case sym_object_assignment_pattern
+    case sym_array_assignment_pattern
+    case sym_assignment_property
+    case sym_assignment_rest_element
     case sym_ternary
     case sym_bool_op
     case sym_bitwise_op
@@ -86,20 +105,31 @@ public enum JavaScript: UInt16, LanguageSymbolProtocol {
     case sym_formal_parameters
     case sym_method_definition
     case sym_pair
+    case sym_reserved_identifier
+    case aux_sym_export_clause_repeat1
+    case aux_sym_named_imports_repeat1
     case aux_sym_var_declaration_repeat1
     case aux_sym_switch_statement_repeat1
     case aux_sym_for_statement_repeat1
     case aux_sym_object_repeat1
     case aux_sym_array_repeat1
+    case aux_sym_object_assignment_pattern_repeat1
+    case aux_sym_array_assignment_pattern_repeat1
     case aux_sym_class_body_repeat1
     case aux_sym_formal_parameters_repeat1
+    case anon_sym_export
+    case anon_sym_STAR
     case anon_sym_SEMI
+    case anon_sym_default
+    case anon_sym_LBRACE
+    case anon_sym_COMMA
+    case anon_sym_RBRACE
+    case anon_sym_as
+    case anon_sym_import
+    case anon_sym_from
     case anon_sym_var
     case anon_sym_let
     case anon_sym_const
-    case anon_sym_COMMA
-    case anon_sym_LBRACE
-    case anon_sym_RBRACE
     case anon_sym_if
     case anon_sym_else
     case anon_sym_switch
@@ -117,7 +147,6 @@ public enum JavaScript: UInt16, LanguageSymbolProtocol {
     case anon_sym_throw
     case anon_sym_case
     case anon_sym_COLON
-    case anon_sym_default
     case anon_sym_catch
     case anon_sym_finally
     case anon_sym_EQ
@@ -125,15 +154,17 @@ public enum JavaScript: UInt16, LanguageSymbolProtocol {
     case anon_sym_RBRACK
     case anon_sym_class
     case anon_sym_extends
+    case anon_sym_async
     case anon_sym_function
     case anon_sym_EQ_GT
-    case anon_sym_STAR
     case anon_sym_new
+    case anon_sym_await
     case anon_sym_DOT
     case anon_sym_PLUS_EQ
     case anon_sym_DASH_EQ
     case anon_sym_STAR_EQ
     case anon_sym_SLASH_EQ
+    case anon_sym_DOT_DOT_DOT
     case anon_sym_QMARK
     case anon_sym_BANG
     case anon_sym_AMP_AMP
@@ -175,5 +206,7 @@ public enum JavaScript: UInt16, LanguageSymbolProtocol {
     case sym_null
     case sym_undefined
     case anon_sym_static
+    case anon_sym_get
+    case anon_sym_set
     case sym__line_break
 };
