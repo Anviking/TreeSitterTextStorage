@@ -38,7 +38,7 @@ TSInput ts_string_input_make(const char *string) {
     .payload = input,
     .read_fn = ts_string_input_read,
     .seek_fn = ts_string_input_seek,
-    .encoding = TSInputEncodingUTF8, // WARDNING WAS 8 BEFORE
+    .encoding = TSInputEncodingUTF8,
   };
 
 error:

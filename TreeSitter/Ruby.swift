@@ -10,7 +10,7 @@ import Foundation
 import Language
 public enum Ruby: UInt16, LanguageSymbolProtocol {
     
-    public static let languagePointer = ts_language_ruby()!
+    public static var languagePointer = ts_language_javascript()!
     
     case sym_program = 2
     case sym__statement

@@ -11,7 +11,7 @@ import Language
 
 public enum Cpp: UInt16, LanguageSymbolProtocol {
     
-    public static var languagePointer = ts_language_cpp()!
+    public static var languagePointer = ts_language_javascript()!
     
     public var tokenType: TokenType? {
         switch self {

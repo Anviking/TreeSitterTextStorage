@@ -14,7 +14,6 @@
 		8F29EE2B1CD96C2700AE4A59 /* Ruby.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F29EE2A1CD96C2700AE4A59 /* Ruby.swift */; };
 		8F29EE2D1CD96C7F00AE4A59 /* C.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F29EE2C1CD96C7F00AE4A59 /* C.swift */; };
 		8F29EE2F1CD96CB400AE4A59 /* Symbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F29EE2E1CD96CB400AE4A59 /* Symbol.swift */; };
-		8F3992521D2D99BF00D7C8EC /* cpp_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F3992511D2D99BF00D7C8EC /* cpp_parser.c */; };
 		8F3992541D2D9A3B00D7C8EC /* C++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3992531D2D9A3B00D7C8EC /* C++.swift */; };
 		8F8119351CD93149006A9980 /* alloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F81191F1CD93149006A9980 /* alloc.h */; };
 		8F8119361CD93149006A9980 /* array.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F8119201CD93149006A9980 /* array.h */; };
@@ -55,12 +54,10 @@
 		8FB48EBD1D2E7CD800BC50A1 /* js_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FB48EBC1D2E7CD800BC50A1 /* js_parser.c */; };
 		8FB48EBF1D2E7D1400BC50A1 /* Javascript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB48EBE1D2E7D1400BC50A1 /* Javascript.swift */; };
 		8FB48EC11D2E7E8F00BC50A1 /* javascript.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8FB48EC01D2E7E8F00BC50A1 /* javascript.txt */; };
-		8FB48EC31D2E882D00BC50A1 /* json_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FB48EC21D2E882D00BC50A1 /* json_parser.c */; };
 		8FB48EC51D2E884F00BC50A1 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB48EC41D2E884F00BC50A1 /* JSON.swift */; };
 		8FB48EC71D2E898400BC50A1 /* json.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8FB48EC61D2E898400BC50A1 /* json.txt */; };
 		8FB48EC81D2FF36100BC50A1 /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = 8FA5C6BF1CD8F56700BF090B /* test.json */; };
 		8FDCBA611CDA10B3009A829F /* LayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDCBA601CDA10B3009A829F /* LayoutManager.swift */; };
-		8FFA48BD1CD93BD900018FA6 /* c_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FFA48BC1CD93BD900018FA6 /* c_parser.c */; };
 		8FFA48C01CD93C7500018FA6 /* test.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8FFA48BE1CD93C5900018FA6 /* test.txt */; };
 		8FFA48C11CD93D2700018FA6 /* test.swift in Resources */ = {isa = PBXBuildFile; fileRef = 8F8119591CD935AD006A9980 /* test.swift */; };
 		8FFA48C51CD94CCE00018FA6 /* JLTokenType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFA48C31CD94CCE00018FA6 /* JLTokenType.swift */; };
@@ -77,7 +74,6 @@
 		8FFA49021CD9529D00018FA6 /* test.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8FFA48BE1CD93C5900018FA6 /* test.txt */; };
 		8FFA49031CD9645700018FA6 /* TreeSitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA59A641CD80EBD0041E6C4 /* TreeSitter.framework */; };
 		8FFA49041CD9645700018FA6 /* TreeSitter.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA59A641CD80EBD0041E6C4 /* TreeSitter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		8FFA490A1CD967A300018FA6 /* ruby_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FFA49091CD967A300018FA6 /* ruby_parser.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -645,7 +641,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F3992521D2D99BF00D7C8EC /* cpp_parser.c in Sources */,
 				8F29EE2D1CD96C7F00AE4A59 /* C.swift in Sources */,
 				8F9EF3FB1CDB722100F2A5A8 /* Node.swift in Sources */,
 				8F81193F1CD93149006A9980 /* node.c in Sources */,
@@ -659,9 +654,7 @@
 				8F29EE2F1CD96CB400AE4A59 /* Symbol.swift in Sources */,
 				8F2531BF1D2C5BE200AE3EEE /* TextView.swift in Sources */,
 				8F8119491CD93149006A9980 /* utf16.c in Sources */,
-				8FFA48BD1CD93BD900018FA6 /* c_parser.c in Sources */,
 				8F9EF4071CDC1E0000F2A5A8 /* Language.swift in Sources */,
-				8FFA490A1CD967A300018FA6 /* ruby_parser.c in Sources */,
 				8F9EF4031CDC0E2000F2A5A8 /* Document.swift in Sources */,
 				8F29EE2B1CD96C2700AE4A59 /* Ruby.swift in Sources */,
 				8FFA48C51CD94CCE00018FA6 /* JLTokenType.swift in Sources */,
@@ -672,7 +665,6 @@
 				8F9EF3FD1CDB724000F2A5A8 /* Extensions.swift in Sources */,
 				8F8119471CD93149006A9980 /* tree.c in Sources */,
 				8FFA48C61CD94CCE00018FA6 /* JLColorTheme.swift in Sources */,
-				8FB48EC31D2E882D00BC50A1 /* json_parser.c in Sources */,
 				8FB48EBD1D2E7CD800BC50A1 /* js_parser.c in Sources */,
 				8F8119411CD93149006A9980 /* parser.c in Sources */,
 			);

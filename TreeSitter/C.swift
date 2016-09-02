@@ -11,7 +11,7 @@ import Language
 
 public enum C: UInt16, LanguageSymbolProtocol {
     
-    public static var languagePointer = ts_language_c()!
+public static var languagePointer = ts_language_javascript()!
     
     case sym_translation_unit = 2
     case sym__preproc_statement

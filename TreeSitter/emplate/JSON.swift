@@ -10,7 +10,7 @@ import Foundation
 import Language
 public enum JSON: UInt16, LanguageSymbolProtocol {
     
-    public static var languagePointer = ts_language_json()!
+    public static var languagePointer = ts_language_javascript()!
     
     public var tokenType: TokenType? {
         switch self {
