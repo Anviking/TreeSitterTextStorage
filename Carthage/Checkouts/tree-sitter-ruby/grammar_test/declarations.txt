@@ -1,0 +1,181 @@
+============
+empty method
+============
+
+def foo
+end
+
+---
+
+(program (method_declaration (identifier)))
+
+================
+method with body
+================
+
+def foo
+  bar
+end
+
+---
+
+(program (method_declaration (identifier) (identifier)))
+
+================
+method with args
+================
+
+def foo(bar)
+end
+
+---
+
+(program (method_declaration (identifier) (formal_parameters (identifier))))
+
+================================
+method with unparenthesized args
+================================
+
+def foo bar
+end
+
+---
+
+(program (method_declaration (identifier) (formal_parameters (identifier))))
+
+=========================
+method with multiple args
+=========================
+
+def foo(bar, quux)
+end
+
+---
+
+(program (method_declaration (identifier) (formal_parameters (identifier) (identifier))))
+
+=========================================
+method with multiple unparenthesized args
+=========================================
+
+def foo bar, quux
+end
+
+---
+
+(program (method_declaration (identifier) (formal_parameters (identifier) (identifier))))
+
+===========
+empty class
+===========
+
+class Foo
+end
+
+---
+
+(program (class_declaration (identifier)))
+
+==============
+empty subclass
+==============
+
+class Foo < Bar
+end
+
+---
+
+(program (class_declaration (identifier) (identifier)))
+
+==================================
+empty subclass of namespaced class
+==================================
+
+class Foo < Bar::Quux
+end
+
+---
+
+(program (class_declaration (identifier) (identifier) (identifier)))
+
+===============
+class with body
+===============
+
+class Foo
+	def bar
+	end
+end
+
+---
+
+(program (class_declaration (identifier) (method_declaration (identifier))))
+
+============
+empty module
+============
+
+module Foo
+end
+
+---
+
+(program (module_declaration (identifier)))
+
+================
+module with body
+================
+
+module Foo
+	def bar
+	end
+end
+
+---
+
+(program (module_declaration (identifier) (method_declaration (identifier))))
+
+=======
+__END__
+=======
+
+word
+__END__
+word
+
+---
+
+(program (identifier) (uninterpreted))
+
+==============================
+module with class with methods
+==============================
+
+module A
+  class B < C
+    include D::E.f.g
+
+    attr_reader :h
+
+    # i
+    def j
+      k
+    end
+  end
+end
+
+---
+
+(program (module_declaration (identifier)
+  (class_declaration (identifier) (identifier)
+    (function_call (identifier) (argument_list
+      (member_access
+        (member_access
+          (scope_resolution_expression (identifier) (identifier))
+          (identifier))
+        (identifier))))
+
+    (function_call (identifier) (argument_list (symbol)))
+
+    (comment)
+    (method_declaration (identifier) (identifier)))))

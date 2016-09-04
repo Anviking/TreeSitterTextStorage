@@ -1,0 +1,39 @@
+====================
+conditional modifier
+====================
+
+foo if bar
+
+---
+
+(program (if_modifier (identifier) (identifier)))
+
+==============
+while modifier
+==============
+
+foo while bar
+
+---
+
+(program (while_modifier (identifier) (identifier)))
+
+===============
+unless modifier
+===============
+
+foo unless bar
+
+---
+
+(program (unless_modifier (identifier) (identifier)))
+
+==============
+until modifier
+==============
+
+foo until bar
+
+---
+
+(program (until_modifier (identifier) (identifier)))

@@ -1,0 +1,430 @@
+============================================
+Imports
+============================================
+
+import defaultMember from "module-name";
+import * as name from "module-name";
+import { member } from "module-name";
+import { member1 , member2 } from "module-name";
+import { member1 , member2 as alias2 } from "module-name";
+import defaultMember, { member1, member2 as alias2 } from "module-name";
+import defaultMember, * as name from "module-name";
+import "module-name";
+
+----
+
+(program
+  (import_statement
+    (import_clause (identifier)) (string))
+  (import_statement
+    (import_clause (namespace_import (identifier))) (string))
+  (import_statement
+    (import_clause (named_imports (import_specifier (identifier)))) (string))
+  (import_statement
+    (import_clause (named_imports (import_specifier (identifier)) (import_specifier (identifier)))) (string))
+  (import_statement
+    (import_clause (named_imports (import_specifier (identifier)) (import_specifier (identifier) (identifier)))) (string))
+  (import_statement
+    (import_clause (identifier) (named_imports (import_specifier (identifier)) (import_specifier (identifier) (identifier)))) (string))
+  (import_statement
+    (import_clause (identifier) (namespace_import (identifier))) (string))
+  (import_statement
+    (string)))
+
+============================================
+Exports
+============================================
+
+export { name1, name2, name3, nameN };
+export { variable1 as name1, variable2 as name2, nameN };
+export let name1, name2, nameN;
+export let name1 = value1, name2 = value2, name3, nameN;
+
+export default expression;
+export default function () { }
+export default function name1() { }
+export { name1 as default };
+
+export * from 'foo';
+export { name1, name2, nameN } from 'foo';
+export { import1 as name1, import2 as name2, nameN } from 'foo';
+
+----
+
+(program
+  (export_statement
+    (export_clause (export_specifier (identifier)) (export_specifier (identifier)) (export_specifier (identifier)) (export_specifier (identifier))))
+  (export_statement
+    (export_clause (export_specifier (identifier) (identifier)) (export_specifier (identifier) (identifier)) (export_specifier (identifier))))
+  (export_statement
+    (var_declaration (identifier) (identifier) (identifier)))
+  (export_statement
+    (var_declaration (var_assignment (identifier) (identifier)) (var_assignment (identifier) (identifier)) (identifier) (identifier)))
+  (export_statement
+    (identifier))
+  (export_statement
+    (function (formal_parameters) (statement_block)))
+  (export_statement
+    (function (identifier) (formal_parameters) (statement_block)))
+  (export_statement
+    (export_clause (export_specifier (identifier) (identifier))))
+  (export_statement
+    (string))
+  (export_statement
+    (export_clause (export_specifier (identifier)) (export_specifier (identifier)) (export_specifier (identifier))) (string))
+  (export_statement
+    (export_clause (export_specifier (identifier) (identifier)) (export_specifier (identifier) (identifier)) (export_specifier (identifier))) (string)))
+
+============================================
+If statements
+============================================
+
+if (x)
+  log(y);
+
+if (a.b) {
+  log(c);
+  d;
+}
+
+----
+
+(program
+  (if_statement (identifier)
+    (expression_statement (function_call
+      (identifier) (arguments (identifier)))))
+  (if_statement (member_access (identifier) (identifier))
+    (statement_block
+      (expression_statement (function_call
+        (identifier) (arguments (identifier))))
+      (expression_statement (identifier)))))
+
+============================================
+If-else statements
+============================================
+
+if (x)
+  y;
+else if (a)
+  b;
+
+if (a) {
+  c;
+  d;
+} else {
+  e;
+}
+
+----
+
+(program
+  (if_statement (identifier)
+    (expression_statement (identifier))
+    (if_statement (identifier)
+      (expression_statement (identifier))))
+  (if_statement (identifier)
+    (statement_block
+      (expression_statement (identifier))
+      (expression_statement (identifier)))
+    (statement_block
+      (expression_statement (identifier)))))
+
+============================================
+For statements
+============================================
+
+for (var a, b; c; d)
+  e;
+
+for (i = 0, init(); i < 10; i++)
+  log(y);
+
+for (;;) {
+  z;
+}
+
+---
+
+(program
+  (for_statement
+    (var_declaration (identifier) (identifier))
+    (identifier)
+    (identifier)
+    (expression_statement (identifier)))
+
+  (for_statement
+    (assignment (identifier) (number))
+    (function_call (identifier) (arguments))
+    (rel_op (identifier) (number))
+    (math_op (identifier))
+    (expression_statement (function_call (identifier) (arguments (identifier)))))
+
+  (for_statement
+    (statement_block
+      (expression_statement (identifier)))))
+
+============================================
+For-in statements
+============================================
+
+for (var item in items)
+  item();
+
+for (item in items)
+  item();
+
+---
+
+(program
+  (for_in_statement (identifier) (identifier)
+    (expression_statement (function_call (identifier) (arguments))))
+  (for_in_statement (identifier) (identifier)
+    (expression_statement (function_call (identifier) (arguments)))))
+
+==========================================
+For loops beginning with an in-expression
+==========================================
+
+for (key in something && i = 0; i < n; i++) {
+  doSomething();
+}
+
+---
+
+(program (for_statement
+  (bool_op
+    (type_op (identifier) (identifier))
+    (assignment (identifier) (number)))
+  (rel_op (identifier) (identifier))
+  (math_op (identifier))
+  (statement_block
+    (expression_statement (function_call (identifier) (arguments))))))
+
+============================================
+For-of statements
+============================================
+
+for (let item of items)
+  process(item);
+
+---
+
+(program
+  (for_of_statement (identifier) (identifier)
+    (expression_statement (function_call (identifier) (arguments (identifier))))))
+
+============================================
+While statements
+============================================
+
+while (a)
+  b();
+
+---
+
+(program
+  (while_statement (identifier)
+    (expression_statement (function_call (identifier) (arguments)))))
+
+============================================
+Do statements
+============================================
+
+do {
+  a;
+} while (b)
+
+---
+
+(program
+  (do_statement
+    (statement_block (expression_statement (identifier)))
+    (identifier)))
+
+============================================
+Return statements
+============================================
+
+return;
+return 5;
+
+---
+
+(program
+  (return_statement)
+  (return_statement (number)))
+
+============================================
+Var declarations
+============================================
+
+var x = 1;
+var x, y = {}, z;
+
+---
+
+(program
+  (var_declaration
+    (var_assignment (identifier) (number)))
+  (var_declaration
+    (identifier)
+    (var_assignment (identifier) (object))
+    (identifier)))
+
+============================================
+Comments
+============================================
+
+{
+
+  // This is a property
+  aProperty: 1,
+
+
+  /*
+   * This is a method
+   */
+  aMethod: function() {}
+};
+
+---
+
+(program
+  (expression_statement (object
+    (comment)
+    (pair (identifier) (number))
+    (comment)
+    (pair (identifier) (function (formal_parameters) (statement_block))))))
+
+==========================================
+Comments between statements
+==========================================
+
+// this is the beginning of the script.
+// here we go.
+var thing = {
+
+  // this is a property.
+  // its value is a function.
+  key: function(x /* this is a parameter */) {
+    // this is one statement
+    one();
+    // this is another statement
+    two();
+  }
+};
+
+---
+
+(program
+  (comment)
+  (comment)
+  (var_declaration (var_assignment
+    (identifier)
+    (object
+      (comment)
+      (comment)
+      (pair (identifier) (function
+        (formal_parameters (identifier) (comment))
+        (statement_block
+          (comment)
+          (expression_statement
+            (function_call (identifier) (arguments)))
+          (comment)
+          (expression_statement
+            (function_call (identifier) (arguments))))))))))
+
+==========================================
+Comments within expressions
+==========================================
+
+y // comment
+  * z;
+
+---
+
+(program (expression_statement
+  (math_op (identifier) (comment) (identifier))))
+
+============================================
+Switch statements
+============================================
+
+switch (x) {
+  case 1:
+  case 2:
+    something();
+    break;
+  case "three":
+    somethingElse();
+    break;
+  default:
+    return 4;
+}
+
+---
+
+(program
+  (switch_statement (identifier)
+    (case (number))
+    (case (number)
+      (expression_statement (function_call (identifier) (arguments)))
+      (break_statement))
+    (case (string)
+      (expression_statement (function_call (identifier) (arguments)))
+      (break_statement))
+    (default
+      (return_statement (number)))))
+
+============================================
+Throw statements
+============================================
+
+throw new Error("uh oh");
+
+---
+
+(program
+  (throw_statement
+    (new_expression (function_call (identifier) (arguments (string))))))
+
+============================================
+Try catch finally statements
+============================================
+
+try { a; } catch (b) { c; }
+try { d; } finally { e; }
+try { f; } catch { g; } finally { h; }
+
+---
+
+(program
+  (try_statement
+    (statement_block (expression_statement (identifier)))
+    (catch (identifier)
+      (statement_block (expression_statement (identifier)))))
+  (try_statement
+    (statement_block (expression_statement (identifier)))
+    (finally
+      (statement_block (expression_statement (identifier)))))
+  (try_statement
+    (statement_block (expression_statement (identifier)))
+    (catch
+      (statement_block (expression_statement (identifier))))
+    (finally
+      (statement_block (expression_statement (identifier))))))
+
+============================================
+Empty statements
+============================================
+
+if (true) { ; };;;
+
+---
+
+(program
+  (if_statement (true) (statement_block
+    (empty_statement)))
+  (empty_statement)
+  (empty_statement)
+  (empty_statement))

@@ -1,0 +1,93 @@
+============================================
+Package clauses
+============================================
+
+package main
+
+----
+
+(source_file
+  (package_clause (identifier)))
+
+============================================
+Single import declarations
+============================================
+
+package a
+
+import "net/http"
+import . "some/dsl"
+import alias "some/package"
+
+----
+
+(source_file
+  (package_clause (identifier))
+  (import_declaration (import_spec (interpreted_string_literal)))
+  (import_declaration (import_spec (interpreted_string_literal)))
+  (import_declaration (import_spec (identifier) (interpreted_string_literal))))
+
+============================================
+Grouped import declarations
+============================================
+
+package a
+
+import (
+  "net/http"
+  . "some/dsl"
+  alias "some/package"
+)
+
+----
+
+(source_file
+  (package_clause (identifier))
+  (import_declaration
+    (import_spec (interpreted_string_literal))
+    (import_spec (interpreted_string_literal))
+    (import_spec (identifier) (interpreted_string_literal))))
+
+============================================
+Block comments
+============================================
+
+/*
+ * This is a great package
+ */
+package a
+
+----
+
+(source_file
+  (comment)
+  (package_clause (identifier)))
+
+============================================
+Non-ascii variable names
+============================================
+
+package main
+
+const (
+  α
+  Α
+  µs  // micro sign (not mu)
+  δ1
+  ΔΔΔ
+  ω_omega
+  Ω_OMEGA
+)
+
+---
+
+(source_file
+  (package_clause (identifier))
+  (const_declaration
+    (const_spec (identifier_list (identifier)))
+    (const_spec (identifier_list (identifier)))
+    (const_spec (identifier_list (identifier))) (comment)
+    (const_spec (identifier_list (identifier)))
+    (const_spec (identifier_list (identifier)))
+    (const_spec (identifier_list (identifier)))
+    (const_spec (identifier_list (identifier)))))

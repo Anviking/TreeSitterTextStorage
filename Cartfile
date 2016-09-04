@@ -1,0 +1,6 @@
+github "tree-sitter/tree-sitter-javascript" "master"
+github "tree-sitter/tree-sitter-c" "master"
+github "tree-sitter/tree-sitter-go" "master"
+github "tree-sitter/tree-sitter-json" "master"
+github "tree-sitter/tree-sitter-ruby" "master"
+github "tree-sitter/tree-sitter-cpp" "master"

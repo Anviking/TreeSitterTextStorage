@@ -29,9 +29,9 @@ public enum Language {
         case .ruby:
             return Ruby.self
         case .javascript:
-            return JavaScript.self
+            return Javascript.self
         case .json:
-            return JSON.self
+            return Json.self
         case .cpp:
             return Cpp.self
         }
@@ -40,10 +40,10 @@ public enum Language {
     func tokenType(for node: inout Node, index: Int) -> TokenType? {
         switch self {
         case .json:
-            guard let symbol = JSON(rawValue: node.symbol) else { return nil }
-            if symbol == JSON.sym_pair {
+            guard let symbol = Json(rawValue: node.symbol) else { return nil }
+            if symbol == Json.sym_pair {
                 let firstString = node.children.first(where: {
-                    $0.symbol == JSON.sym_string.rawValue
+                    $0.symbol == Json.sym_string.rawValue
                 })
                 if let s = firstString, s.range.containsIndex(index) {
                     node = s

@@ -1,0 +1,6 @@
+github "tree-sitter/tree-sitter-c" "2ff3723bdd947ada069892c09c3b7a6e8edf4950"
+github "tree-sitter/tree-sitter-cpp" "7b5fce4ff060888f6a921a278e0d953d109335b6"
+github "tree-sitter/tree-sitter-go" "911e309486537a38ea926c7ac25af913347acfc6"
+github "tree-sitter/tree-sitter-javascript" "1a2e15d1d23ca857df81626ee1172b6d19964406"
+github "tree-sitter/tree-sitter-json" "dc4600c8ee630413582427cea6d480d65fc03cda"
+github "tree-sitter/tree-sitter-ruby" "ce1cc836dfaf21d0e8d44ed58c49780f1d53b9ff"

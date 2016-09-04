@@ -8,7 +8,7 @@
 
 import Foundation
 import Language
-public enum JSON: UInt16, LanguageSymbolProtocol {
+extension Json: LanguageSymbolProtocol {
     
     public static var languagePointer = ts_language_javascript()!
     
@@ -24,22 +24,4 @@ public enum JSON: UInt16, LanguageSymbolProtocol {
             return nil
         }
     }
-    
-    case sym__value = 2
-    case sym_object
-    case sym_pair
-    case sym_array
-    case aux_sym_object_repeat1
-    case aux_sym_array_repeat1
-    case anon_sym_LBRACE
-    case anon_sym_COMMA
-    case anon_sym_RBRACE
-    case anon_sym_COLON
-    case anon_sym_LBRACK
-    case anon_sym_RBRACK
-    case sym_string
-    case sym_number
-    case sym_true
-    case sym_false
-    case sym_null
 };

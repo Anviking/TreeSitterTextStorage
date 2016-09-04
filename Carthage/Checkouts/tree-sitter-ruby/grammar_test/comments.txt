@@ -1,0 +1,45 @@
+========
+comments
+========
+
+# anything else here should be ignored
+
+---
+
+(program (comment))
+
+===================
+empty block comment
+===================
+
+=begin
+=end
+
+---
+
+(program (comment))
+
+======================
+one-line block comment
+======================
+
+=begin
+whatever
+=end
+
+---
+
+(program (comment))
+
+=========================
+multi-line block comments
+=========================
+
+=begin
+whatever
+multiple lines of whatever
+=end
+
+---
+
+(program (comment))

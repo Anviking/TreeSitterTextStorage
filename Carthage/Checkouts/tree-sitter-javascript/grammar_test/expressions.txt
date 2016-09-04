@@ -1,0 +1,732 @@
+============================================
+Strings
+============================================
+
+"A string with \"double\" and 'single' quotes";
+'A string with "double" and \'single\' quotes';
+'\\'
+"\\"
+
+----
+
+(program
+  (expression_statement (string))
+  (expression_statement (string))
+  (expression_statement (string))
+  (expression_statement (string)))
+
+============================================
+Template strings
+============================================
+
+`one line`;
+`multi
+  line`;
+
+----
+
+(program
+  (expression_statement (template_string))
+  (expression_statement (template_string)))
+
+============================================
+Numbers
+============================================
+
+101;
+3.14;
+0x1ABCDEFabcdef;
+
+---
+
+(program
+  (expression_statement (number))
+  (expression_statement (number))
+  (expression_statement (number)))
+
+============================================
+Variables
+============================================
+
+theVar;
+theVar2;
+$_;
+
+---
+
+(program
+  (expression_statement (identifier))
+  (expression_statement (identifier))
+  (expression_statement (identifier)))
+
+============================================
+Booleans
+============================================
+
+this;
+null;
+undefined;
+true;
+false;
+
+---
+
+(program
+  (expression_statement (this_expression))
+  (expression_statement (null))
+  (expression_statement (undefined))
+  (expression_statement (true))
+  (expression_statement (false)))
+
+============================================
+Regexps
+============================================
+
+/one\\/;
+/one/g;
+/one/i;
+/one/gim;
+/on\/e/gim;
+/on[^/]afe/gim;
+
+---
+
+(program
+  (expression_statement (regex))
+  (expression_statement (regex))
+  (expression_statement (regex))
+  (expression_statement (regex))
+  (expression_statement (regex))
+  (expression_statement (regex)))
+
+============================================
+Objects
+============================================
+
+{};
+{ key1: "value1" };
+{ key1: "value1", "key2": value2, key3: 3.0 };
+
+---
+
+(program
+  (expression_statement (object))
+  (expression_statement (object
+    (pair (identifier) (string))))
+  (expression_statement (object
+    (pair (identifier) (string))
+    (pair (string) (identifier))
+    (pair (identifier) (number)))))
+
+============================================
+Objects with method definitions
+============================================
+
+{
+  foo: true,
+
+  add(a, b) {
+    return a + b;
+  },
+
+  get bar() { return c; },
+
+  set bar(a) { c = a; },
+
+  *barGenerator() { yield c; }
+};
+
+---
+
+(program
+  (expression_statement (object
+    (pair (identifier) (true))
+    (method_definition
+      (identifier)
+      (formal_parameters (identifier) (identifier))
+      (statement_block
+        (return_statement (math_op (identifier) (identifier)))))
+    (method_definition
+      (identifier)
+      (formal_parameters)
+      (statement_block
+        (return_statement (identifier))))
+    (method_definition
+      (identifier)
+      (formal_parameters (identifier))
+      (statement_block
+        (expression_statement (assignment (identifier) (identifier)))))
+    (method_definition
+      (identifier)
+      (formal_parameters)
+      (statement_block
+        (yield_statement (identifier)))))))
+
+============================================
+Objects with reserved words for keys
+============================================
+
+{
+  get: function () {},
+
+  set: function () {},
+
+  static: true,
+
+  async: true
+};
+
+---
+
+(program
+  (expression_statement (object
+    (pair
+      (reserved_identifier)
+      (function (formal_parameters) (statement_block)))
+    (pair
+      (reserved_identifier)
+      (function (formal_parameters) (statement_block)))
+    (pair (identifier) (true))
+    (pair (reserved_identifier) (true)))))
+
+============================================
+Classes
+============================================
+
+class Foo {
+  static one(a) { return a; };
+  two(b) { return b; }
+  three(c) { return c; }
+}
+
+class Foo extends require('another-class') {
+  constructor() {
+    super()
+  }
+}
+
+---
+
+(program
+  (expression_statement
+    (class
+      (identifier)
+      (class_body
+        (method_definition
+          (identifier)
+          (formal_parameters (identifier))
+          (statement_block (return_statement (identifier))))
+        (method_definition
+          (identifier)
+          (formal_parameters (identifier))
+          (statement_block (return_statement (identifier))))
+        (method_definition
+          (identifier)
+          (formal_parameters (identifier))
+          (statement_block (return_statement (identifier)))))))
+
+  (expression_statement
+    (class
+      (identifier)
+      (function_call (identifier) (arguments (string)))
+      (class_body
+        (method_definition
+          (identifier)
+          (formal_parameters)
+          (statement_block
+            (expression_statement (function_call (super) (arguments)))))))))
+
+============================================
+Arrays
+============================================
+
+[];
+[ "item1" ];
+[ "item1", item2 ];
+
+---
+
+(program
+  (expression_statement (array))
+  (expression_statement (array (string)))
+  (expression_statement (array (string) (identifier))))
+
+============================================
+Functions
+============================================
+
+function() {};
+function(arg1, arg2) {
+  arg2;
+};
+function stuff() {}
+
+---
+
+(program
+  (expression_statement (function
+    (formal_parameters)
+    (statement_block)))
+  (expression_statement (function
+    (formal_parameters (identifier) (identifier))
+    (statement_block
+      (expression_statement (identifier)))))
+  (expression_statement (function
+    (identifier)
+    (formal_parameters)
+    (statement_block))))
+
+===================================================
+Arrow functions
+===================================================
+
+a => 1;
+() => 2;
+(d, e) => 3;
+(f, g) => {
+  return h;
+};
+
+---
+
+(program
+  (expression_statement (arrow_function
+    (identifier)
+    (number)))
+  (expression_statement (arrow_function
+    (formal_parameters)
+    (number)))
+  (expression_statement (arrow_function
+    (formal_parameters (identifier) (identifier))
+    (number)))
+  (expression_statement (arrow_function
+    (formal_parameters (identifier) (identifier))
+    (statement_block
+      (return_statement (identifier))))))
+
+============================================
+Generator Functions
+============================================
+
+function *() {};
+function *generateStuff(arg1, arg2) {
+  yield;
+  yield arg2;
+};
+
+---
+
+(program
+  (expression_statement (generator_function
+    (formal_parameters)
+    (statement_block)))
+  (expression_statement (generator_function
+    (identifier)
+    (formal_parameters (identifier) (identifier))
+    (statement_block
+      (yield_statement)
+      (yield_statement (identifier))))))
+
+============================================
+Property access
+============================================
+
+x.someProperty;
+x[someVariable];
+x["some-string"];
+
+---
+
+(program
+  (expression_statement (member_access (identifier) (identifier)))
+  (expression_statement (subscript_access (identifier) (identifier)))
+  (expression_statement (subscript_access (identifier) (string))))
+
+============================================
+Chained Property access
+============================================
+
+return returned.promise()
+  .done( newDefer.resolve )
+  .fail( newDefer.reject )
+
+---
+
+(program (return_statement
+  (function_call
+    (member_access
+      (function_call
+        (member_access
+          (function_call
+            (member_access (identifier) (identifier))
+            (arguments))
+          (identifier))
+        (arguments (member_access (identifier) (identifier))))
+      (identifier))
+  (arguments (member_access (identifier) (identifier))))))
+
+============================================
+Chained callbacks
+============================================
+
+return this.map(function (a) {
+  return a.b;
+})
+// a comment
+.filter(function (c) {
+  return c.d;
+})
+
+---
+
+
+(program (return_statement
+  (function_call
+    (member_access
+      (function_call
+        (member_access (this_expression) (identifier))
+        (arguments
+          (function (formal_parameters (identifier)) (statement_block
+            (return_statement (member_access (identifier) (identifier)))))))
+        (comment)
+      (identifier))
+      (arguments (function (formal_parameters (identifier)) (statement_block
+        (return_statement (member_access (identifier) (identifier)))))))))
+
+============================================
+Function calls
+============================================
+
+x.someMethod(arg1, "arg2");
+function(x, y) {
+
+}(a, b);
+
+---
+
+(program
+  (expression_statement (function_call
+    (member_access (identifier) (identifier))
+    (arguments (identifier) (string))))
+  (expression_statement (function_call
+    (function
+      (formal_parameters (identifier) (identifier))
+      (statement_block))
+    (arguments (identifier) (identifier)))))
+
+============================================
+Constructor calls
+============================================
+
+new module.Klass(1, "two");
+new Thing;
+
+---
+
+(program
+  (expression_statement (new_expression (function_call
+    (member_access (identifier) (identifier))
+    (arguments (number) (string)))))
+  (expression_statement (new_expression
+    (identifier))))
+
+============================================
+Await Expressions
+============================================
+
+await asyncFunction();
+await asyncPromise;
+
+---
+
+(program
+  (expression_statement
+    (await_expression
+      (function_call (identifier) (arguments))))
+  (expression_statement (await_expression (identifier))))
+
+============================================
+Async Functions and Methods
+============================================
+
+async function foo() {}
+
+{
+  async bar() {
+  }
+}
+
+class Foo {
+  async bar() {}
+}
+
+async (a) => { return foo; };
+
+---
+
+(program
+  (expression_statement
+    (function
+      (identifier)
+      (formal_parameters)
+      (statement_block)))
+  (expression_statement
+    (object
+      (method_definition
+        (identifier)
+        (formal_parameters)
+        (statement_block))))
+  (expression_statement
+    (class (identifier) (class_body
+      (method_definition
+        (identifier)
+        (formal_parameters)
+        (statement_block)))))
+  (expression_statement
+    (arrow_function
+      (formal_parameters (identifier))
+      (statement_block
+        (return_statement (identifier))))))
+
+============================================
+Math operators
+============================================
+
+i++;
+i--;
+i + j * 3 - j % 5;
++x;
+-x;
+
+---
+
+(program
+  (expression_statement (math_op (identifier)))
+  (expression_statement (math_op (identifier)))
+  (expression_statement (math_op
+    (math_op
+      (identifier)
+      (math_op (identifier) (number)))
+    (math_op (identifier) (number))))
+  (expression_statement (math_op (identifier)))
+  (expression_statement (math_op (identifier))))
+
+============================================
+Boolean operators
+============================================
+
+i || j;
+i && j;
+!a && !b || !c && !d;
+
+---
+
+(program
+  (expression_statement (bool_op (identifier) (identifier)))
+  (expression_statement (bool_op (identifier) (identifier)))
+  (expression_statement (bool_op
+    (bool_op
+      (bool_op (identifier))
+      (bool_op (identifier)))
+    (bool_op
+      (bool_op (identifier))
+      (bool_op (identifier))))))
+
+============================================
+Bitwise operators
+============================================
+
+i >> j;
+i << j;
+i & j;
+i | j;
+~i ^ ~j
+
+---
+
+(program
+  (expression_statement (bitwise_op (identifier) (identifier)))
+  (expression_statement (bitwise_op (identifier) (identifier)))
+  (expression_statement (bitwise_op (identifier) (identifier)))
+  (expression_statement (bitwise_op (identifier) (identifier)))
+  (expression_statement (bitwise_op
+    (bitwise_op (identifier))
+    (bitwise_op (identifier)))))
+
+============================================
+Relational operators
+============================================
+
+x < y;
+x <= y;
+x == y;
+x === y;
+x != y;
+x !== y;
+x >= y;
+x > y;
+
+---
+
+(program
+  (expression_statement (rel_op (identifier) (identifier)))
+  (expression_statement (rel_op (identifier) (identifier)))
+  (expression_statement (rel_op (identifier) (identifier)))
+  (expression_statement (rel_op (identifier) (identifier)))
+  (expression_statement (rel_op (identifier) (identifier)))
+  (expression_statement (rel_op (identifier) (identifier)))
+  (expression_statement (rel_op (identifier) (identifier)))
+  (expression_statement (rel_op (identifier) (identifier))))
+
+==============================================
+Assignments
+==============================================
+
+x = 0;
+x.y = 0;
+x["y"] = 0;
+
+---
+
+(program
+  (expression_statement (assignment
+    (identifier)
+    (number)))
+  (expression_statement (assignment
+    (member_access (identifier) (identifier))
+    (number)))
+  (expression_statement (assignment
+    (subscript_access (identifier) (string))
+    (number))))
+
+==============================================
+The comma operator
+==============================================
+
+a = 1, b = 2;
+c = {d: (3, 4 + 5, 6)};
+
+---
+
+(program
+  (expression_statement (comma_op
+    (assignment (identifier) (number))
+    (assignment (identifier) (number))))
+  (expression_statement
+    (assignment (identifier) (object
+      (pair
+        (identifier)
+        (comma_op (number) (comma_op (math_op (number) (number)) (number))))))))
+
+==============================================
+Ternaries
+==============================================
+
+condition ? case1 : case2;
+
+x.y = some.condition ?
+  some.case :
+  some.other.case;
+---
+
+(program
+  (expression_statement (ternary
+    (identifier) (identifier) (identifier)))
+  (expression_statement (assignment
+    (member_access (identifier) (identifier))
+    (ternary
+      (member_access (identifier) (identifier))
+      (member_access (identifier) (identifier))
+      (member_access (member_access (identifier) (identifier)) (identifier))))))
+
+==============================================
+Type operators
+==============================================
+
+typeof x;
+x instanceof String;
+
+---
+
+(program
+  (expression_statement (type_op (identifier)))
+  (expression_statement (type_op (identifier) (identifier))))
+
+============================================
+The delete operator
+============================================
+
+delete thing['prop'];
+true ? delete thing.prop : null;
+
+---
+
+(program
+  (expression_statement
+    (delete_op (subscript_access (identifier) (string))))
+  (expression_statement
+    (ternary (true)
+      (delete_op (member_access (identifier) (identifier)))
+      (null))))
+
+============================================
+The void operator
+============================================
+
+a = void b()
+
+---
+
+(program (expression_statement (assignment
+  (identifier)
+  (void_op (function_call (identifier) (arguments))))))
+
+==============================================
+Math assignment operators
+==============================================
+
+x += 1;
+y.z *= 3;
+
+---
+
+(program
+  (expression_statement
+    (math_assignment (identifier) (number)))
+  (expression_statement
+    (math_assignment (member_access (identifier) (identifier)) (number))))
+
+==============================================
+Operator precedence
+==============================================
+
+a <= b && c >= d;
+a.b = c ? d : e;
+a && b(c) && d;
+a && new b(c) && d;
+typeof a == b && c instanceof d
+
+---
+
+(program
+  (expression_statement (bool_op
+    (rel_op (identifier) (identifier))
+    (rel_op (identifier) (identifier))))
+  (expression_statement (assignment
+    (member_access (identifier) (identifier))
+    (ternary (identifier) (identifier) (identifier))))
+  (expression_statement (bool_op
+    (bool_op
+      (identifier)
+      (function_call (identifier) (arguments (identifier))))
+    (identifier)))
+  (expression_statement (bool_op
+    (bool_op
+      (identifier)
+      (new_expression (function_call (identifier) (arguments (identifier)))))
+    (identifier)))
+  (expression_statement (bool_op
+    (rel_op
+      (type_op (identifier))
+      (identifier))
+    (type_op (identifier) (identifier)))))
