@@ -896,7 +896,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/tree-sitter/out/Release",
 				);
-				LLVM_LTO = YES;
+				LLVM_LTO = YES_THIN;
 				PRODUCT_BUNDLE_IDENTIFIER = com.anviking.TreeSitter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = DQ69J4LB4T/;
@@ -925,7 +925,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/tree-sitter/out/Release",
 				);
-				LLVM_LTO = YES;
+				LLVM_LTO = YES_THIN;
 				PRODUCT_BUNDLE_IDENTIFIER = com.anviking.TreeSitter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = DQ69J4LB4T/;

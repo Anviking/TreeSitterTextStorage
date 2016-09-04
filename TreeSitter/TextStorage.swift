@@ -118,6 +118,24 @@ public class TextStorage: NSTextStorage {
         document.parse()
         delegate?.textStorage?(self, didProcessEditing: actions, range: range, changeInLength: delta)
         print("Tokenizing took: \(abs(date.timeIntervalSinceNow * 1000)) ms")
+        
+        func printIdentifiers(node: Node) {
+            if node.symbol == Javascript.sym_identifier.rawValue {
+                
+                let start = string.index(string.startIndex, offsetBy: node.start)
+                let end = string.index(string.startIndex, offsetBy: node.end)
+                let str = string.substring(with: start ..< end)
+                if node.parent.symbol == Javascript.sym_var_assignment.rawValue {
+                    print("decl", str)
+                } else {
+                    print(str)
+                }
+            }
+            node.children.forEach(printIdentifiers)
+        }
+        
+        //printIdentifiers(node: document.rootNode)
+        
     }
     
     public override func setAttributes(_ attrs: [String : Any]?, range: NSRange) {

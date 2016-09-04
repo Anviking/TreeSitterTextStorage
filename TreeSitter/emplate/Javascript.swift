@@ -24,6 +24,13 @@ extension Javascript: LanguageSymbolProtocol {
             return .number
         case .anon_sym_return, .anon_sym_while, .anon_sym_static, .anon_sym_const, .anon_sym_if, .anon_sym_else, .sym_class, .anon_sym_function, .anon_sym_var, .anon_sym_EQ_GT, .anon_sym_async, .anon_sym_await, .anon_sym_export:
             return .keyword
+        case .sym_identifier:
+            switch Javascript(rawValue: node.parent.symbol) {
+            case .some(.sym_var_declaration):
+                return .projectMethodNames
+            default:
+                return .text
+            }
         case .sym_member_access:
             return .otherMethodNames
         default:
