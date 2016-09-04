@@ -11,6 +11,7 @@ import Language
 
 extension Ruby: LanguageSymbolProtocol {
     
+    // FIXME
     public static var languagePointer = ts_language_javascript()!
 
     public var tokenType: TokenType? {

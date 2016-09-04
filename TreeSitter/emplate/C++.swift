@@ -11,7 +11,7 @@ import Language
 
 extension Cpp: LanguageSymbolProtocol {
     
-    public static var languagePointer = ts_language_javascript()!
+    public static var languagePointer = ts_language_cpp()!
     
     public var tokenType: TokenType? {
         switch self {

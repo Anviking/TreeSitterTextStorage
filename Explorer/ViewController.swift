@@ -28,7 +28,7 @@ class ViewController: UIViewController, UITextViewDelegate {
         let frame = CGRect(x: 0, y: 0, width: 100, height: 100)
         
         
-        let textView = TextView(frame: frame, theme: .civicModified, language: .c, text: str)
+        let textView = TextView(frame: frame, theme: .civicModified, language: .cpp, text: str)
         textView.backgroundColor = ColorTheme.dusk[.background]
         textView.autocapitalizationType = .none
         textView.autocorrectionType = .no
