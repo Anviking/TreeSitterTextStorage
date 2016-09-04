@@ -11,13 +11,16 @@ import Language
 
 public protocol LanguageSymbolProtocol {
     init?(rawValue: UInt16)
-    var tokenType: TokenType? {get} // REMOVE THIS
+    //var tokenType: TokenType? {get} // REMOVE THIS
     static var languagePointer: UnsafeMutablePointer<TSLanguage> { get }
+    
+    static func tokenType(for node: inout Node, at index: Int) -> TokenType?
 }
 
+/*
 extension LanguageSymbolProtocol {
     public func colorForTheme(_ theme: ColorTheme) -> UIColor {
         return theme[tokenType!]!
     }
-    
 }
+*/

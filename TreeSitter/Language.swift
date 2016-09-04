@@ -37,30 +37,6 @@ public enum Language {
         }
     }
     
-    func tokenType(for node: inout Node, index: Int) -> TokenType? {
-        switch self {
-        case .json:
-            guard let symbol = Json(rawValue: node.symbol) else { return nil }
-            if symbol == Json.sym_pair {
-                let firstString = node.children.first(where: {
-                    $0.symbol == Json.sym_string.rawValue
-                })
-                if let s = firstString, s.range.containsIndex(index) {
-                    node = s
-                    return .text
-                }
-            }
-            fallthrough
-        case .c:
-            guard let symbol = C(rawValue: node.symbol) else { return nil }
-            if symbol == C.sym_identifier && node.parent.symbol == C.sym_function_declarator.rawValue {
-                return .projectMethodNames
-            }
-            fallthrough
-        default:
-            return symbol.init(rawValue: node.symbol)?.tokenType
-        }
-    }
     
     func metadata(for symbol: UInt16) -> TSSymbolMetadata {
         guard (2 ..< 2 + languagePointer.pointee.symbol_count).contains(Int(symbol)) else {

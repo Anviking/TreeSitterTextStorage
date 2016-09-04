@@ -13,8 +13,9 @@ extension Cpp: LanguageSymbolProtocol {
     
     public static var languagePointer = ts_language_cpp()!
     
-    public var tokenType: TokenType? {
-        switch self {
+    public static func tokenType(for node: inout Node, at index: Int) -> TokenType? {
+        guard let symbol = Cpp(rawValue: node.symbol) else { return nil }
+        switch symbol {
         case .sym_comment:
             return .comment
         case .sym_string_literal, .sym_system_lib_string:

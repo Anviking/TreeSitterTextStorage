@@ -13,9 +13,10 @@ extension Ruby: LanguageSymbolProtocol {
     
     // FIXME
     public static var languagePointer = ts_language_javascript()!
-
-    public var tokenType: TokenType? {
-        switch self {
+    
+    public static func tokenType(for node: inout Node, at index: Int) -> TokenType? {
+        guard let symbol = Ruby(rawValue: node.symbol) else { return nil }
+        switch symbol {
         case .sym_string, .sym__quoted_string, .sym__literal:
             return .string
         case .sym_integer, .sym_float:

@@ -13,8 +13,9 @@ extension Javascript: LanguageSymbolProtocol {
     
     public static var languagePointer = ts_language_javascript()!
     
-    public var tokenType: TokenType? {
-        switch self {
+    public static func tokenType(for node: inout Node, at index: Int) -> TokenType? {
+        guard let symbol = Javascript(rawValue: node.symbol) else { return nil }
+        switch symbol {
         case .sym_string:
             return .string
         case .sym_comment:

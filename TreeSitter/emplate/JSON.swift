@@ -10,10 +10,23 @@ import Foundation
 import Language
 extension Json: LanguageSymbolProtocol {
     
-    public static var languagePointer = ts_language_javascript()!
+    public static var languagePointer = ts_language_json()!
     
-    public var tokenType: TokenType? {
-        switch self {
+    public static func tokenType(for node: inout Node, at index: Int) -> TokenType? {
+        guard let symbol = Json(rawValue: node.symbol) else { return nil }
+        
+        if symbol == Json.sym_pair {
+            let firstString = node.children.first(where: {
+                $0.symbol == Json.sym_string.rawValue
+            })
+            if let s = firstString, s.range.containsIndex(index) {
+                node = s
+                return .text
+            }
+        }
+
+        
+        switch symbol {
         case .sym_string:
             return .string
         case .sym_false, .sym_true, .sym_null:

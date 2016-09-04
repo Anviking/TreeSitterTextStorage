@@ -11,10 +11,17 @@ import Language
 
 extension C: LanguageSymbolProtocol {
     
-public static var languagePointer = ts_language_c()!
+    public static var languagePointer = ts_language_c()!
     
-    public var tokenType: TokenType? {
-        switch self {
+    public static func tokenType(for node: inout Node, at index: Int) -> TokenType? {
+        guard let symbol = C(rawValue: node.symbol) else { return nil }
+        
+        
+        if symbol == C.sym_identifier && node.parent.symbol == C.sym_function_declarator.rawValue {
+            return .projectMethodNames
+        }
+        
+        switch symbol {
         case .sym_string_literal, .sym_system_lib_string:
             return .string
         case .sym_char_literal:
