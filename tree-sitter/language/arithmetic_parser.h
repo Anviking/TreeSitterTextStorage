@@ -1,4 +1,4 @@
-#include "tparser.h"
+#include "../TreeSitter/tparser.h"
 
 //TSLanguage *ts_language_arithmetic();
 TSLanguage *ts_language_c();
