@@ -83,6 +83,7 @@
 		8FFA49021CD9529D00018FA6 /* test.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8FFA48BE1CD93C5900018FA6 /* test.txt */; };
 		8FFA49031CD9645700018FA6 /* TreeSitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA59A641CD80EBD0041E6C4 /* TreeSitter.framework */; };
 		8FFA49041CD9645700018FA6 /* TreeSitter.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA59A641CD80EBD0041E6C4 /* TreeSitter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8FFDA85B1D961AB60069A6A3 /* NSAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFDA85A1D961AB60069A6A3 /* NSAttributedString.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -213,6 +214,7 @@
 		8FFA48F11CD94EE500018FA6 /* ExplorerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerUITests.swift; sourceTree = "<group>"; };
 		8FFA48F31CD94EE500018FA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8FFA48FF1CD94F4C00018FA6 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		8FFDA85A1D961AB60069A6A3 /* NSAttributedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSAttributedString.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -377,6 +379,7 @@
 				8F29EE2E1CD96CB400AE4A59 /* Symbol.swift */,
 				8FFA48C31CD94CCE00018FA6 /* JLTokenType.swift */,
 				8FFA48C41CD94CCE00018FA6 /* JLColorTheme.swift */,
+				8FFDA85A1D961AB60069A6A3 /* NSAttributedString.swift */,
 				8F2531B81D2C236300AE3EEE /* Language Symbols */,
 				8F9FF01E1D7C0DDB002AE8D5 /* languages */,
 				8F2531B91D2C247E00AE3EEE /* TreeSitter Wrappers */,
@@ -701,6 +704,7 @@
 				8F8119431CD93149006A9980 /* stack.c in Sources */,
 				8F8119451CD93149006A9980 /* string_input.c in Sources */,
 				8F9FF0341D7C0DDB002AE8D5 /* json.swift in Sources */,
+				8FFDA85B1D961AB60069A6A3 /* NSAttributedString.swift in Sources */,
 				8F9EF3FD1CDB724000F2A5A8 /* Extensions.swift in Sources */,
 				8F8119471CD93149006A9980 /* tree.c in Sources */,
 				8FFA48C61CD94CCE00018FA6 /* JLColorTheme.swift in Sources */,
