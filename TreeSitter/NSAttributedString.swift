@@ -37,7 +37,7 @@ extension String {
     public func tokenize(as language: Language, theme: ColorTheme, font: UIFont) -> NSMutableAttributedString {
         let data = self.data(using: String.Encoding.utf16)!
         let document = Document(input: Input(data: data), language: language)
-        let attributedString = NSMutableAttributedString(string: self)
+        let attributedString = NSMutableAttributedString(string: self, attributes: [NSFontAttributeName: font, NSForegroundColorAttributeName: UIColor.black])
         document.rootNode.write(to: attributedString, language: language, theme: theme, font: font, length: attributedString.length)
         return attributedString
     }
