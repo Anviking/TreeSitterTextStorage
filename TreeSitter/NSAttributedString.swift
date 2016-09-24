@@ -12,17 +12,17 @@ import Foundation
 
 
 extension Node {
-    fileprivate func write(to attributedString: NSMutableAttributedString, language: Language, theme: ColorTheme, font: UIFont) {
+    fileprivate func write(to attributedString: NSMutableAttributedString, language: Language, theme: ColorTheme, font: UIFont, length: Int) {
         
         // FIXME: Don't pass -1 as location, make location optional instead
         var copy = self
         guard symbol != 0,
             let tokenType = language.symbol.tokenType(for: &copy, at: -1),
             language.metadata(for: symbol).structural,
-            let color = theme[tokenType]
-            /*node.start < _length && node.end < length && node.range.length > 0 */
+            let color = theme[tokenType],
+            self.start < length && self.end < length && self.range.length > 0
             else {
-                children.forEach { $0.write(to: attributedString, language: language, theme: theme, font: font) }
+                children.forEach { $0.write(to: attributedString, language: language, theme: theme, font: font, length: length) }
                 return
         }
         
@@ -37,8 +37,8 @@ extension String {
     public func tokenize(as language: Language, theme: ColorTheme, font: UIFont) -> NSMutableAttributedString {
         let data = self.data(using: String.Encoding.utf16)!
         let document = Document(input: Input(data: data), language: language)
-        let attributedString = NSMutableAttributedString()
-        document.rootNode.write(to: attributedString, language: language, theme: theme, font: font)
+        let attributedString = NSMutableAttributedString(string: self)
+        document.rootNode.write(to: attributedString, language: language, theme: theme, font: font, length: attributedString.length)
         return attributedString
     }
 }
