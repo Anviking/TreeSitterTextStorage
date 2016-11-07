@@ -15,32 +15,6 @@
 		8F29EE2D1CD96C7F00AE4A59 /* C.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F29EE2C1CD96C7F00AE4A59 /* C.swift */; };
 		8F29EE2F1CD96CB400AE4A59 /* Symbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F29EE2E1CD96CB400AE4A59 /* Symbol.swift */; };
 		8F3992541D2D9A3B00D7C8EC /* C++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3992531D2D9A3B00D7C8EC /* C++.swift */; };
-		8F8119351CD93149006A9980 /* alloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F81191F1CD93149006A9980 /* alloc.h */; };
-		8F8119361CD93149006A9980 /* array.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F8119201CD93149006A9980 /* array.h */; };
-		8F8119371CD93149006A9980 /* debugger.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F8119211CD93149006A9980 /* debugger.h */; };
-		8F8119381CD93149006A9980 /* document.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F8119221CD93149006A9980 /* document.c */; };
-		8F8119391CD93149006A9980 /* document.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F8119231CD93149006A9980 /* document.h */; };
-		8F81193A1CD93149006A9980 /* language.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F8119241CD93149006A9980 /* language.c */; };
-		8F81193B1CD93149006A9980 /* language.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F8119251CD93149006A9980 /* language.h */; };
-		8F81193C1CD93149006A9980 /* length.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F8119261CD93149006A9980 /* length.h */; };
-		8F81193D1CD93149006A9980 /* lexer.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F8119271CD93149006A9980 /* lexer.c */; };
-		8F81193E1CD93149006A9980 /* lexer.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F8119281CD93149006A9980 /* lexer.h */; };
-		8F81193F1CD93149006A9980 /* node.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F8119291CD93149006A9980 /* node.c */; };
-		8F8119401CD93149006A9980 /* node.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F81192A1CD93149006A9980 /* node.h */; };
-		8F8119411CD93149006A9980 /* parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F81192B1CD93149006A9980 /* parser.c */; };
-		8F8119421CD93149006A9980 /* parser.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F81192C1CD93149006A9980 /* parser.h */; };
-		8F8119431CD93149006A9980 /* stack.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F81192D1CD93149006A9980 /* stack.c */; };
-		8F8119441CD93149006A9980 /* stack.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F81192E1CD93149006A9980 /* stack.h */; };
-		8F8119451CD93149006A9980 /* string_input.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F81192F1CD93149006A9980 /* string_input.c */; };
-		8F8119461CD93149006A9980 /* string_input.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F8119301CD93149006A9980 /* string_input.h */; };
-		8F8119471CD93149006A9980 /* tree.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F8119311CD93149006A9980 /* tree.c */; };
-		8F8119481CD93149006A9980 /* tree.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F8119321CD93149006A9980 /* tree.h */; };
-		8F8119491CD93149006A9980 /* utf16.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F8119331CD93149006A9980 /* utf16.c */; };
-		8F81194A1CD93149006A9980 /* utf16.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F8119341CD93149006A9980 /* utf16.h */; };
-		8F81194E1CD93165006A9980 /* tcompiler.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F81194B1CD93165006A9980 /* tcompiler.h */; };
-		8F81194F1CD93165006A9980 /* tparser.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F81194C1CD93165006A9980 /* tparser.h */; };
-		8F8119501CD93165006A9980 /* truntime.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F81194D1CD93165006A9980 /* truntime.h */; };
-		8F8119581CD93543006A9980 /* arithmetic_parser.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F8119571CD93543006A9980 /* arithmetic_parser.h */; };
 		8F9EF3FB1CDB722100F2A5A8 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9EF3FA1CDB722100F2A5A8 /* Node.swift */; };
 		8F9EF3FD1CDB724000F2A5A8 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9EF3FC1CDB724000F2A5A8 /* Extensions.swift */; };
 		8F9EF4011CDC0C8300F2A5A8 /* TextStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9EF4001CDC0C8300F2A5A8 /* TextStorage.swift */; };
@@ -66,6 +40,31 @@
 		8FB48EC51D2E884F00BC50A1 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB48EC41D2E884F00BC50A1 /* JSON.swift */; };
 		8FB48EC71D2E898400BC50A1 /* json.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8FB48EC61D2E898400BC50A1 /* json.txt */; };
 		8FB48EC81D2FF36100BC50A1 /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = 8FA5C6BF1CD8F56700BF090B /* test.json */; };
+		8FC60AF71DD0097F00E4CB92 /* alloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FC60ADE1DD0097F00E4CB92 /* alloc.h */; };
+		8FC60AF81DD0097F00E4CB92 /* array.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FC60ADF1DD0097F00E4CB92 /* array.h */; };
+		8FC60AF91DD0097F00E4CB92 /* document.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FC60AE01DD0097F00E4CB92 /* document.c */; };
+		8FC60AFA1DD0097F00E4CB92 /* document.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FC60AE11DD0097F00E4CB92 /* document.h */; };
+		8FC60AFB1DD0097F00E4CB92 /* error_costs.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FC60AE21DD0097F00E4CB92 /* error_costs.h */; };
+		8FC60AFC1DD0097F00E4CB92 /* language.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FC60AE31DD0097F00E4CB92 /* language.c */; };
+		8FC60AFD1DD0097F00E4CB92 /* language.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FC60AE41DD0097F00E4CB92 /* language.h */; };
+		8FC60AFE1DD0097F00E4CB92 /* length.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FC60AE51DD0097F00E4CB92 /* length.h */; };
+		8FC60AFF1DD0097F00E4CB92 /* lexer.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FC60AE61DD0097F00E4CB92 /* lexer.c */; };
+		8FC60B001DD0097F00E4CB92 /* lexer.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FC60AE71DD0097F00E4CB92 /* lexer.h */; };
+		8FC60B011DD0097F00E4CB92 /* node.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FC60AE81DD0097F00E4CB92 /* node.c */; };
+		8FC60B021DD0097F00E4CB92 /* node.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FC60AE91DD0097F00E4CB92 /* node.h */; };
+		8FC60B031DD0097F00E4CB92 /* parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FC60AEA1DD0097F00E4CB92 /* parser.c */; };
+		8FC60B041DD0097F00E4CB92 /* parser.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FC60AEB1DD0097F00E4CB92 /* parser.h */; };
+		8FC60B051DD0097F00E4CB92 /* point.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FC60AEC1DD0097F00E4CB92 /* point.h */; };
+		8FC60B061DD0097F00E4CB92 /* reduce_action.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FC60AED1DD0097F00E4CB92 /* reduce_action.h */; };
+		8FC60B071DD0097F00E4CB92 /* stack.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FC60AEE1DD0097F00E4CB92 /* stack.c */; };
+		8FC60B081DD0097F00E4CB92 /* stack.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FC60AEF1DD0097F00E4CB92 /* stack.h */; };
+		8FC60B091DD0097F00E4CB92 /* string_input.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FC60AF01DD0097F00E4CB92 /* string_input.c */; };
+		8FC60B0A1DD0097F00E4CB92 /* string_input.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FC60AF11DD0097F00E4CB92 /* string_input.h */; };
+		8FC60B0B1DD0097F00E4CB92 /* tree_path.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FC60AF21DD0097F00E4CB92 /* tree_path.h */; };
+		8FC60B0C1DD0097F00E4CB92 /* tree.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FC60AF31DD0097F00E4CB92 /* tree.c */; };
+		8FC60B0D1DD0097F00E4CB92 /* tree.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FC60AF41DD0097F00E4CB92 /* tree.h */; };
+		8FC60B0E1DD0097F00E4CB92 /* utf16.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FC60AF51DD0097F00E4CB92 /* utf16.c */; };
+		8FC60B0F1DD0097F00E4CB92 /* utf16.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FC60AF61DD0097F00E4CB92 /* utf16.h */; };
 		8FDCBA611CDA10B3009A829F /* LayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDCBA601CDA10B3009A829F /* LayoutManager.swift */; };
 		8FFA48C01CD93C7500018FA6 /* test.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8FFA48BE1CD93C5900018FA6 /* test.txt */; };
 		8FFA48C11CD93D2700018FA6 /* test.swift in Resources */ = {isa = PBXBuildFile; fileRef = 8F8119591CD935AD006A9980 /* test.swift */; };
@@ -139,34 +138,7 @@
 		8F29EE2C1CD96C7F00AE4A59 /* C.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = C.swift; sourceTree = "<group>"; };
 		8F29EE2E1CD96CB400AE4A59 /* Symbol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Symbol.swift; sourceTree = "<group>"; };
 		8F3992531D2D9A3B00D7C8EC /* C++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "C++.swift"; path = "emplate/C++.swift"; sourceTree = "<group>"; };
-		8F81191F1CD93149006A9980 /* alloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = alloc.h; sourceTree = "<group>"; };
-		8F8119201CD93149006A9980 /* array.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = array.h; sourceTree = "<group>"; };
-		8F8119211CD93149006A9980 /* debugger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = debugger.h; sourceTree = "<group>"; };
-		8F8119221CD93149006A9980 /* document.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = document.c; sourceTree = "<group>"; };
-		8F8119231CD93149006A9980 /* document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = document.h; sourceTree = "<group>"; };
-		8F8119241CD93149006A9980 /* language.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = language.c; sourceTree = "<group>"; };
-		8F8119251CD93149006A9980 /* language.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = language.h; sourceTree = "<group>"; };
-		8F8119261CD93149006A9980 /* length.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = length.h; sourceTree = "<group>"; };
-		8F8119271CD93149006A9980 /* lexer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lexer.c; sourceTree = "<group>"; };
-		8F8119281CD93149006A9980 /* lexer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lexer.h; sourceTree = "<group>"; };
-		8F8119291CD93149006A9980 /* node.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = node.c; sourceTree = "<group>"; };
-		8F81192A1CD93149006A9980 /* node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = node.h; sourceTree = "<group>"; };
-		8F81192B1CD93149006A9980 /* parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = parser.c; sourceTree = "<group>"; };
-		8F81192C1CD93149006A9980 /* parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = parser.h; sourceTree = "<group>"; };
-		8F81192D1CD93149006A9980 /* stack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stack.c; sourceTree = "<group>"; };
-		8F81192E1CD93149006A9980 /* stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stack.h; sourceTree = "<group>"; };
-		8F81192F1CD93149006A9980 /* string_input.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = string_input.c; sourceTree = "<group>"; };
-		8F8119301CD93149006A9980 /* string_input.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = string_input.h; sourceTree = "<group>"; };
-		8F8119311CD93149006A9980 /* tree.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tree.c; sourceTree = "<group>"; };
-		8F8119321CD93149006A9980 /* tree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tree.h; sourceTree = "<group>"; };
-		8F8119331CD93149006A9980 /* utf16.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utf16.c; sourceTree = "<group>"; };
-		8F8119341CD93149006A9980 /* utf16.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utf16.h; sourceTree = "<group>"; };
-		8F81194B1CD93165006A9980 /* tcompiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tcompiler.h; sourceTree = "<group>"; };
-		8F81194C1CD93165006A9980 /* tparser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tparser.h; sourceTree = "<group>"; };
-		8F81194D1CD93165006A9980 /* truntime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = truntime.h; sourceTree = "<group>"; };
-		8F8119571CD93543006A9980 /* arithmetic_parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = arithmetic_parser.h; path = "tree-sitter/language/arithmetic_parser.h"; sourceTree = SOURCE_ROOT; };
 		8F8119591CD935AD006A9980 /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
-		8F81195C1CD93829006A9980 /* cparser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cparser.h; sourceTree = "<group>"; };
 		8F9EF3FA1CDB722100F2A5A8 /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		8F9EF3FC1CDB724000F2A5A8 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		8F9EF4001CDC0C8300F2A5A8 /* TextStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextStorage.swift; sourceTree = "<group>"; };
@@ -197,6 +169,32 @@
 		8FB48EC01D2E7E8F00BC50A1 /* javascript.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = javascript.txt; path = ../TreeSitter/tests/javascript.txt; sourceTree = "<group>"; };
 		8FB48EC41D2E884F00BC50A1 /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSON.swift; path = emplate/JSON.swift; sourceTree = "<group>"; };
 		8FB48EC61D2E898400BC50A1 /* json.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = json.txt; path = TreeSitter/tests/json.txt; sourceTree = SOURCE_ROOT; };
+		8FC60ADE1DD0097F00E4CB92 /* alloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = alloc.h; path = "tree-sitter/src/runtime/alloc.h"; sourceTree = SOURCE_ROOT; };
+		8FC60ADF1DD0097F00E4CB92 /* array.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = array.h; path = "tree-sitter/src/runtime/array.h"; sourceTree = SOURCE_ROOT; };
+		8FC60AE01DD0097F00E4CB92 /* document.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = document.c; path = "tree-sitter/src/runtime/document.c"; sourceTree = SOURCE_ROOT; };
+		8FC60AE11DD0097F00E4CB92 /* document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = document.h; path = "tree-sitter/src/runtime/document.h"; sourceTree = SOURCE_ROOT; };
+		8FC60AE21DD0097F00E4CB92 /* error_costs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = error_costs.h; path = "tree-sitter/src/runtime/error_costs.h"; sourceTree = SOURCE_ROOT; };
+		8FC60AE31DD0097F00E4CB92 /* language.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = language.c; path = "tree-sitter/src/runtime/language.c"; sourceTree = SOURCE_ROOT; };
+		8FC60AE41DD0097F00E4CB92 /* language.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = language.h; path = "tree-sitter/src/runtime/language.h"; sourceTree = SOURCE_ROOT; };
+		8FC60AE51DD0097F00E4CB92 /* length.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = length.h; path = "tree-sitter/src/runtime/length.h"; sourceTree = SOURCE_ROOT; };
+		8FC60AE61DD0097F00E4CB92 /* lexer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = lexer.c; path = "tree-sitter/src/runtime/lexer.c"; sourceTree = SOURCE_ROOT; };
+		8FC60AE71DD0097F00E4CB92 /* lexer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lexer.h; path = "tree-sitter/src/runtime/lexer.h"; sourceTree = SOURCE_ROOT; };
+		8FC60AE81DD0097F00E4CB92 /* node.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = node.c; path = "tree-sitter/src/runtime/node.c"; sourceTree = SOURCE_ROOT; };
+		8FC60AE91DD0097F00E4CB92 /* node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = node.h; path = "tree-sitter/src/runtime/node.h"; sourceTree = SOURCE_ROOT; };
+		8FC60AEA1DD0097F00E4CB92 /* parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = parser.c; path = "tree-sitter/src/runtime/parser.c"; sourceTree = SOURCE_ROOT; };
+		8FC60AEB1DD0097F00E4CB92 /* parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = parser.h; path = "tree-sitter/src/runtime/parser.h"; sourceTree = SOURCE_ROOT; };
+		8FC60AEC1DD0097F00E4CB92 /* point.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = point.h; path = "tree-sitter/src/runtime/point.h"; sourceTree = SOURCE_ROOT; };
+		8FC60AED1DD0097F00E4CB92 /* reduce_action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = reduce_action.h; path = "tree-sitter/src/runtime/reduce_action.h"; sourceTree = SOURCE_ROOT; };
+		8FC60AEE1DD0097F00E4CB92 /* stack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = stack.c; path = "tree-sitter/src/runtime/stack.c"; sourceTree = SOURCE_ROOT; };
+		8FC60AEF1DD0097F00E4CB92 /* stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stack.h; path = "tree-sitter/src/runtime/stack.h"; sourceTree = SOURCE_ROOT; };
+		8FC60AF01DD0097F00E4CB92 /* string_input.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = string_input.c; path = "tree-sitter/src/runtime/string_input.c"; sourceTree = SOURCE_ROOT; };
+		8FC60AF11DD0097F00E4CB92 /* string_input.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = string_input.h; path = "tree-sitter/src/runtime/string_input.h"; sourceTree = SOURCE_ROOT; };
+		8FC60AF21DD0097F00E4CB92 /* tree_path.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tree_path.h; path = "tree-sitter/src/runtime/tree_path.h"; sourceTree = SOURCE_ROOT; };
+		8FC60AF31DD0097F00E4CB92 /* tree.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = tree.c; path = "tree-sitter/src/runtime/tree.c"; sourceTree = SOURCE_ROOT; };
+		8FC60AF41DD0097F00E4CB92 /* tree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tree.h; path = "tree-sitter/src/runtime/tree.h"; sourceTree = SOURCE_ROOT; };
+		8FC60AF51DD0097F00E4CB92 /* utf16.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = utf16.c; path = "tree-sitter/src/runtime/utf16.c"; sourceTree = SOURCE_ROOT; };
+		8FC60AF61DD0097F00E4CB92 /* utf16.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = utf16.h; path = "tree-sitter/src/runtime/utf16.h"; sourceTree = SOURCE_ROOT; };
+		8FC60B101DD011EB00E4CB92 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = SOURCE_ROOT; };
 		8FDCBA601CDA10B3009A829F /* LayoutManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutManager.swift; sourceTree = "<group>"; };
 		8FFA48BE1CD93C5900018FA6 /* test.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.txt; sourceTree = "<group>"; };
 		8FFA48C31CD94CCE00018FA6 /* JLTokenType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JLTokenType.swift; sourceTree = "<group>"; };
@@ -264,9 +262,6 @@
 			isa = PBXGroup;
 			children = (
 				8FA59B841CD812730041E6C4 /* module.modulemap */,
-				8F81194B1CD93165006A9980 /* tcompiler.h */,
-				8F81194C1CD93165006A9980 /* tparser.h */,
-				8F81194D1CD93165006A9980 /* truntime.h */,
 			);
 			name = "C Bridging";
 			sourceTree = "<group>";
@@ -297,30 +292,31 @@
 		8F81191E1CD93149006A9980 /* runtime */ = {
 			isa = PBXGroup;
 			children = (
-				8F8119571CD93543006A9980 /* arithmetic_parser.h */,
-				8F81195C1CD93829006A9980 /* cparser.h */,
-				8F81191F1CD93149006A9980 /* alloc.h */,
-				8F8119201CD93149006A9980 /* array.h */,
-				8F8119211CD93149006A9980 /* debugger.h */,
-				8F8119221CD93149006A9980 /* document.c */,
-				8F8119231CD93149006A9980 /* document.h */,
-				8F8119241CD93149006A9980 /* language.c */,
-				8F8119251CD93149006A9980 /* language.h */,
-				8F8119261CD93149006A9980 /* length.h */,
-				8F8119271CD93149006A9980 /* lexer.c */,
-				8F8119281CD93149006A9980 /* lexer.h */,
-				8F8119291CD93149006A9980 /* node.c */,
-				8F81192A1CD93149006A9980 /* node.h */,
-				8F81192B1CD93149006A9980 /* parser.c */,
-				8F81192C1CD93149006A9980 /* parser.h */,
-				8F81192D1CD93149006A9980 /* stack.c */,
-				8F81192E1CD93149006A9980 /* stack.h */,
-				8F81192F1CD93149006A9980 /* string_input.c */,
-				8F8119301CD93149006A9980 /* string_input.h */,
-				8F8119311CD93149006A9980 /* tree.c */,
-				8F8119321CD93149006A9980 /* tree.h */,
-				8F8119331CD93149006A9980 /* utf16.c */,
-				8F8119341CD93149006A9980 /* utf16.h */,
+				8FC60ADE1DD0097F00E4CB92 /* alloc.h */,
+				8FC60ADF1DD0097F00E4CB92 /* array.h */,
+				8FC60AE01DD0097F00E4CB92 /* document.c */,
+				8FC60AE11DD0097F00E4CB92 /* document.h */,
+				8FC60AE21DD0097F00E4CB92 /* error_costs.h */,
+				8FC60AE31DD0097F00E4CB92 /* language.c */,
+				8FC60AE41DD0097F00E4CB92 /* language.h */,
+				8FC60AE51DD0097F00E4CB92 /* length.h */,
+				8FC60AE61DD0097F00E4CB92 /* lexer.c */,
+				8FC60AE71DD0097F00E4CB92 /* lexer.h */,
+				8FC60AE81DD0097F00E4CB92 /* node.c */,
+				8FC60AE91DD0097F00E4CB92 /* node.h */,
+				8FC60AEA1DD0097F00E4CB92 /* parser.c */,
+				8FC60AEB1DD0097F00E4CB92 /* parser.h */,
+				8FC60AEC1DD0097F00E4CB92 /* point.h */,
+				8FC60AED1DD0097F00E4CB92 /* reduce_action.h */,
+				8FC60AEE1DD0097F00E4CB92 /* stack.c */,
+				8FC60AEF1DD0097F00E4CB92 /* stack.h */,
+				8FC60AF01DD0097F00E4CB92 /* string_input.c */,
+				8FC60AF11DD0097F00E4CB92 /* string_input.h */,
+				8FC60AF21DD0097F00E4CB92 /* tree_path.h */,
+				8FC60AF31DD0097F00E4CB92 /* tree.c */,
+				8FC60AF41DD0097F00E4CB92 /* tree.h */,
+				8FC60AF51DD0097F00E4CB92 /* utf16.c */,
+				8FC60AF61DD0097F00E4CB92 /* utf16.h */,
 			);
 			path = runtime;
 			sourceTree = "<group>";
@@ -372,6 +368,7 @@
 		8FA59A661CD80EBD0041E6C4 /* TreeSitter */ = {
 			isa = PBXGroup;
 			children = (
+				8FC60B101DD011EB00E4CB92 /* module.modulemap */,
 				8FA59A671CD80EBD0041E6C4 /* TreeSitter.h */,
 				8F9EF4001CDC0C8300F2A5A8 /* TextStorage.swift */,
 				8F2531BE1D2C5BE200AE3EEE /* TextView.swift */,
@@ -444,24 +441,23 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F8119481CD93149006A9980 /* tree.h in Headers */,
-				8F8119581CD93543006A9980 /* arithmetic_parser.h in Headers */,
-				8F8119391CD93149006A9980 /* document.h in Headers */,
-				8F8119361CD93149006A9980 /* array.h in Headers */,
-				8F81194A1CD93149006A9980 /* utf16.h in Headers */,
-				8F8119371CD93149006A9980 /* debugger.h in Headers */,
-				8F8119501CD93165006A9980 /* truntime.h in Headers */,
-				8F8119441CD93149006A9980 /* stack.h in Headers */,
-				8F8119421CD93149006A9980 /* parser.h in Headers */,
-				8F81193C1CD93149006A9980 /* length.h in Headers */,
-				8F8119351CD93149006A9980 /* alloc.h in Headers */,
-				8F81194E1CD93165006A9980 /* tcompiler.h in Headers */,
-				8F81193E1CD93149006A9980 /* lexer.h in Headers */,
-				8F81194F1CD93165006A9980 /* tparser.h in Headers */,
-				8F8119401CD93149006A9980 /* node.h in Headers */,
-				8F81193B1CD93149006A9980 /* language.h in Headers */,
-				8F8119461CD93149006A9980 /* string_input.h in Headers */,
+				8FC60B081DD0097F00E4CB92 /* stack.h in Headers */,
+				8FC60B0B1DD0097F00E4CB92 /* tree_path.h in Headers */,
+				8FC60AF81DD0097F00E4CB92 /* array.h in Headers */,
+				8FC60B051DD0097F00E4CB92 /* point.h in Headers */,
+				8FC60B061DD0097F00E4CB92 /* reduce_action.h in Headers */,
+				8FC60B0F1DD0097F00E4CB92 /* utf16.h in Headers */,
+				8FC60AF71DD0097F00E4CB92 /* alloc.h in Headers */,
 				8FA59A681CD80EBD0041E6C4 /* TreeSitter.h in Headers */,
+				8FC60B041DD0097F00E4CB92 /* parser.h in Headers */,
+				8FC60AFE1DD0097F00E4CB92 /* length.h in Headers */,
+				8FC60B0A1DD0097F00E4CB92 /* string_input.h in Headers */,
+				8FC60AFB1DD0097F00E4CB92 /* error_costs.h in Headers */,
+				8FC60B001DD0097F00E4CB92 /* lexer.h in Headers */,
+				8FC60B0D1DD0097F00E4CB92 /* tree.h in Headers */,
+				8FC60B021DD0097F00E4CB92 /* node.h in Headers */,
+				8FC60AFD1DD0097F00E4CB92 /* language.h in Headers */,
+				8FC60AFA1DD0097F00E4CB92 /* document.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -679,36 +675,36 @@
 				8F9FF0361D7C0DDB002AE8D5 /* ruby.swift in Sources */,
 				8F9FF0321D7C0DDB002AE8D5 /* javascript.swift in Sources */,
 				8F9FF0311D7C0DDB002AE8D5 /* javascript.c in Sources */,
-				8F81193F1CD93149006A9980 /* node.c in Sources */,
-				8F81193D1CD93149006A9980 /* lexer.c in Sources */,
-				8F81193A1CD93149006A9980 /* language.c in Sources */,
-				8F8119381CD93149006A9980 /* document.c in Sources */,
+				8FC60B0E1DD0097F00E4CB92 /* utf16.c in Sources */,
+				8FC60B031DD0097F00E4CB92 /* parser.c in Sources */,
+				8FC60AFF1DD0097F00E4CB92 /* lexer.c in Sources */,
+				8FC60AF91DD0097F00E4CB92 /* document.c in Sources */,
 				8F3992541D2D9A3B00D7C8EC /* C++.swift in Sources */,
+				8FC60B0C1DD0097F00E4CB92 /* tree.c in Sources */,
 				8F9FF0301D7C0DDB002AE8D5 /* go.swift in Sources */,
 				8F9FF02C1D7C0DDB002AE8D5 /* c.swift in Sources */,
 				8F9EF4051CDC184B00F2A5A8 /* Input.swift in Sources */,
 				8F9EF4011CDC0C8300F2A5A8 /* TextStorage.swift in Sources */,
 				8F9FF02B1D7C0DDB002AE8D5 /* c.c in Sources */,
 				8FB48EBF1D2E7D1400BC50A1 /* Javascript.swift in Sources */,
+				8FC60AFC1DD0097F00E4CB92 /* language.c in Sources */,
 				8F9FF02D1D7C0DDB002AE8D5 /* cpp.c in Sources */,
+				8FC60B071DD0097F00E4CB92 /* stack.c in Sources */,
 				8F29EE2F1CD96CB400AE4A59 /* Symbol.swift in Sources */,
 				8F2531BF1D2C5BE200AE3EEE /* TextView.swift in Sources */,
 				8F9FF02E1D7C0DDB002AE8D5 /* cpp.swift in Sources */,
-				8F8119491CD93149006A9980 /* utf16.c in Sources */,
 				8F9EF4071CDC1E0000F2A5A8 /* Language.swift in Sources */,
+				8FC60B091DD0097F00E4CB92 /* string_input.c in Sources */,
+				8FC60B011DD0097F00E4CB92 /* node.c in Sources */,
 				8F9EF4031CDC0E2000F2A5A8 /* Document.swift in Sources */,
 				8F29EE2B1CD96C2700AE4A59 /* Ruby.swift in Sources */,
 				8FFA48C51CD94CCE00018FA6 /* JLTokenType.swift in Sources */,
 				8FB48EC51D2E884F00BC50A1 /* JSON.swift in Sources */,
 				8F9FF02F1D7C0DDB002AE8D5 /* go.c in Sources */,
-				8F8119431CD93149006A9980 /* stack.c in Sources */,
-				8F8119451CD93149006A9980 /* string_input.c in Sources */,
 				8F9FF0341D7C0DDB002AE8D5 /* json.swift in Sources */,
 				8FFDA85B1D961AB60069A6A3 /* NSAttributedString.swift in Sources */,
 				8F9EF3FD1CDB724000F2A5A8 /* Extensions.swift in Sources */,
-				8F8119471CD93149006A9980 /* tree.c in Sources */,
 				8FFA48C61CD94CCE00018FA6 /* JLColorTheme.swift in Sources */,
-				8F8119411CD93149006A9980 /* parser.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -885,7 +881,6 @@
 		8FA59A791CD80EBE0041E6C4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -900,22 +895,22 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/tree-sitter/out/Release",
 				);
-				LLVM_LTO = YES;
+				LLVM_LTO = YES_THIN;
 				PRODUCT_BUNDLE_IDENTIFIER = com.anviking.TreeSitter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = DQ69J4LB4T/;
 				SKIP_INSTALL = YES;
 				SWIFT_DISABLE_SAFETY_CHECKS = YES;
-				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/tree-sitter";
+				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/tree-sitter $(SRCROOT)/languages $(SRCROOT)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/tree-sitter/** $(SRCROOT)/tree-sitter/src/runtime";
 			};
 			name = Debug;
 		};
 		8FA59A7A1CD80EBE0041E6C4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -929,15 +924,16 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/tree-sitter/out/Release",
 				);
-				LLVM_LTO = YES;
+				LLVM_LTO = YES_THIN;
 				PRODUCT_BUNDLE_IDENTIFIER = com.anviking.TreeSitter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = DQ69J4LB4T/;
 				SKIP_INSTALL = YES;
 				SWIFT_DISABLE_SAFETY_CHECKS = YES;
-				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/tree-sitter";
+				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/tree-sitter $(SRCROOT)/languages $(SRCROOT)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/tree-sitter/** $(SRCROOT)/tree-sitter/src/runtime";
 			};
 			name = Release;
 		};

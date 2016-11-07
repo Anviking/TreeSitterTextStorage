@@ -1,9 +1,11 @@
 const PREC = {
+  COMMENT: -1,
   AND: -1,
   OR: -1,
   NOT: 5,
   DEFINED: 10,
   ASSIGN: 15,
+  RESCUE: 16,
   CONDITIONAL: 20,
   RANGE: 25,
   BOOLEAN_OR: 30,
@@ -19,10 +21,14 @@ const PREC = {
   EXPONENTIAL: 80,
   COMPLEMENT: 85,
   UNARY_PLUS: 85,
-  LITERAL: 100,
+  REGEX: 100,
 };
 
-const unbalancedDelimiters = '!@#$%^&*)]}>|\\=/+-~`\'",.?:;_'.split('');
+// TODO: Enable rest of unbalanced delimiters. These are rarely used in real
+// Ruby code and cause an explosion of lex and parse states along with 20+ min
+// generate/build times.
+// const unbalancedDelimiters = '!@#$%^&*)]}>|\\=/+-~`\'",.?:;_'.split('');
+const unbalancedDelimiters = '#/\\'.split('');
 const identifierPattern = /[a-zA-Z_][a-zA-Z0-9_]*\??/;
 const operators = ['..', '|', '^', '&', '<=>', '==', '===', '=~', '>', '>=', '<', '<=', '+', '-', '*', '/', '%', '**', '<<', '>>', '~', '+@', '-@', '[]', '[]='];
 
@@ -31,8 +37,7 @@ module.exports = grammar({
 
   extras: $ => [
     $.comment,
-    $._line_break,
-    /[ \t\r]/
+    /\s/
   ],
 
   conflicts: $ => [
@@ -46,12 +51,14 @@ module.exports = grammar({
   ],
 
   rules: {
-    program: $ => seq(sep($._statement, $._terminator), optional(seq('\n__END__', $.uninterpreted))),
+    program: $ => seq(optional($._statements), optional(seq('\n__END__', $.uninterpreted))),
     uninterpreted: $ => (/.*/),
+
+    _statements: $ => sepTrailing($._statements, $._statement, $._terminator),
 
     _statement: $ => choice(
       $._declaration,
-      // seq($._call, "do", optional("|", commaSep($._block_variable), "|"), sep($._statement, $._terminator), "end"),
+      // seq($._call, "do", optional("|", commaSep($._block_variable), "|"), optional($._statements), "end"),
       seq("undef", $._function_name),
       seq("alias", $._function_name, $._function_name),
       $.while_statement,
@@ -66,6 +73,7 @@ module.exports = grammar({
       $.unless_modifier,
       $.while_modifier,
       $.until_modifier,
+      $.rescue_modifier,
       $._expression
     ),
 
@@ -76,25 +84,28 @@ module.exports = grammar({
     ),
 
     method_declaration: $ => seq(
-      "def", $._function_name, choice(seq("(", optional($.formal_parameters), ")"), seq(optional($.formal_parameters), $._terminator)),
-      sep($._statement, $._terminator),
+      "def",
+      optional(seq($.identifier,'.')),
+      $._function_name,
+      choice(seq("(", optional($.formal_parameters), ")"), seq(optional($.formal_parameters), $._terminator)),
+      optional($._statements),
       "end"
     ),
 
     formal_parameters: $ => commaSep1(seq(optional(choice("*", "&")), $.identifier)),
 
-    class_declaration: $ => seq("class", $.identifier, optional(seq("<", sep1($.identifier, "::"))), $._terminator, sep($._statement, $._terminator), "end"),
+    class_declaration: $ => seq("class", $.identifier, optional(seq("<", sep1($.identifier, "::"))), $._terminator, optional($._statements), "end"),
 
-    module_declaration: $ => seq("module", $.identifier, $._terminator, sep($._statement, $._terminator), "end"),
+    module_declaration: $ => seq("module", $.identifier, $._terminator, optional($._statements), "end"),
 
-    while_statement: $ => seq("while", $.condition, $._statement_block),
-    until_statement: $ => seq("until", $.condition, $._statement_block),
-    if_statement: $ => seq("if", $.condition, $._then_elsif_else_block),
-    unless_statement: $ => seq("unless", $.condition, $._then_else_block),
+    while_statement: $ => seq("while", $._expression, $._statement_block),
+    until_statement: $ => seq("until", $._expression, $._statement_block),
+    if_statement: $ => seq("if", $._expression, $._then_elsif_else_block),
+    unless_statement: $ => seq("unless", $._expression, $._then_else_block),
     for_statement: $ => seq("for", $._lhs, "in", $._expression, $._statement_block),
     begin_statement: $ => seq(
       "begin",
-      sep($._statement, $._terminator),
+      optional($._statements),
       repeat($.rescue_block),
       optional($.else_block),
       optional($.ensure_block),
@@ -109,7 +120,7 @@ module.exports = grammar({
       optional($.else_block),
       "end"
     ),
-    when_block: $ => seq("when", $.pattern, $.then_block),
+    when_block: $ => seq("when", $.pattern, $._then_block),
 
     pattern: $ => $._statement,
 
@@ -117,27 +128,33 @@ module.exports = grammar({
     unless_modifier: $ => seq($._statement, "unless", $._expression),
     while_modifier: $ => seq($._statement, "while", $._expression),
     until_modifier: $ => seq($._statement, "until", $._expression),
-
-    condition: $ => $._expression,
+    rescue_modifier: $ => prec(PREC.RESCUE, seq($._statement, "rescue", $._expression)),
 
     _statement_block: $ => choice(
       $._do_block,
-      seq($._terminator, sep($._statement, $._terminator), "end")
+      seq($._terminator, optional($._statements), "end")
     ),
-    _do_block: $ => seq("do", sep($._statement, $._terminator), "end"),
+    _do_block: $ => seq("do", optional($._statements), "end"),
 
-    then_block: $ => seq(choice("then", $._terminator), sep($._statement, $._terminator)),
-    else_block: $ => seq("else", sep($._statement, $._terminator)),
-    rescue_block: $ => seq("rescue", commaSep($._primary), choice("do", $._terminator), sep($._statement, $._terminator)),
-    ensure_block: $ => seq("ensure", sep($._statement, $._terminator)),
+    _then_block: $ => seq(choice("then", $._terminator), optional($._statements)),
+    elsif_block: $ => seq("elsif", $._expression, $._then_block),
+    else_block: $ => seq("else", optional($._statements)),
+    ensure_block: $ => seq("ensure", optional($._statements)),
 
-    _then_else_block: $ => seq($.then_block, optional($.else_block), "end"),
+    rescue_block: $ => seq(
+      "rescue",
+      optional($.argument_list),
+      optional($.last_exception),
+      choice("then", $._terminator),
+      optional($._statements)
+    ),
+
+    last_exception: $ => seq("=>", $.identifier),
+
+    _then_else_block: $ => seq($._then_block, optional($.else_block), "end"),
     _then_elsif_else_block: $ => seq(
-      $.then_block,
-      repeat(seq(
-        "elsif", $.condition,
-        $.then_block
-      )),
+      $._then_block,
+      repeat($.elsif_block),
       optional($.else_block),
       "end"
     ),
@@ -151,6 +168,8 @@ module.exports = grammar({
       $.not,
       $.defined,
       $.assignment,
+      $.math_assignment,
+      $.conditional_assignment,
       $.conditional,
       $.range,
       $.boolean_or,
@@ -169,12 +188,12 @@ module.exports = grammar({
     ),
 
     _primary: $ => choice(
-      seq("(", sep($._statement, $._terminator), ")"),
+      seq("(", optional($._statements), ")"),
       $._lhs
     ),
 
     scope_resolution_expression: $ => prec.left(seq(optional($._primary), '::', $.identifier)),
-    subscript_expression: $ => prec.left(seq($._primary, "[", commaSep($._primary), "]")),
+    element_reference: $ => prec.left(seq($._primary, "[", $._argument_list, "]")),
     member_access: $ => prec.left(seq($._primary, ".", $.identifier)),
 
     function_call: $ => prec.left(-1, seq(
@@ -196,6 +215,9 @@ module.exports = grammar({
     not: $ => prec.right(PREC.NOT, seq("not", $._expression)),
     defined: $ => prec(PREC.DEFINED, seq("defined?", $._expression)),
     assignment: $ => prec.right(PREC.ASSIGN, seq($._lhs, '=', $._expression)),
+    math_assignment: $ => prec.right(PREC.ASSIGN, seq($._lhs, choice('+=', '-=', '*=', '**=', '/='), $._expression)),
+    conditional_assignment: $ => prec.right(PREC.ASSIGN, seq($._lhs, choice('||=', '&&='), $._expression)),
+
     conditional: $ => prec.right(PREC.CONDITIONAL, seq($._expression, '?', $._expression, ':', $._expression)),
     range: $ => prec.right(PREC.RANGE, seq($._expression, choice('..', '...'), $._expression)),
 
@@ -228,21 +250,26 @@ module.exports = grammar({
     _lhs: $ => choice(
       $._variable,
       $.scope_resolution_expression,
-      $.subscript_expression,
+      $.element_reference,
       $.member_access
     ),
-    _variable: $ => choice($.identifier , 'self'),
+    _variable: $ => choice($.identifier, 'self'),
 
     identifier: $ => token(seq(repeat(choice('@', '$')), identifierPattern)),
 
-    comment: $ => token(choice(
+    comment: $ => token(prec(PREC.COMMENT, choice(
       seq('#', /.*/),
       seq(
         '=begin\n',
-        repeat(/.*\n/),
+        repeat(choice(
+          /[^=]/,
+          /=[^e]/,
+          /=e[^n]/,
+          /=en[^d]/
+        )),
         '=end\n'
       )
-    )),
+    ))),
 
     _literal: $ => choice(
       $.symbol,
@@ -255,7 +282,8 @@ module.exports = grammar({
       $.array,
       $.hash,
       $.regex,
-      $.function
+      $.lambda_literal,
+      $.lambda_expression
     ),
 
     symbol: $ => choice(
@@ -273,8 +301,8 @@ module.exports = grammar({
 
     integer: $ => (/0b[01](_?[01])*|0[oO]?[0-7](_?[0-7])*|(0d)?\d(_?\d)*|0x[0-9a-fA-F](_?[0-9a-fA-F])*/),
     float: $ => (/\d(_?\d)*\.\d(_?\d)*([eE]\d(_?\d)*)?/),
-    boolean: $ => choice('true', 'false', 'TRUE', 'FALSE'),
-    nil: $ => choice('nil', 'NIL'),
+    boolean: $ => token(choice('true', 'false', 'TRUE', 'FALSE')),
+    nil: $ => token(choice('nil', 'NIL')),
 
     string: $ => seq(choice(
       $._quoted_string,
@@ -301,15 +329,15 @@ module.exports = grammar({
     _single_quoted_continuation: $ => stringBody(blank(), "'"),
     _double_quoted_continuation: $ => stringBody(blank(), '"', $.interpolation),
 
-    _interpolated_angle: $ => balancedStringBody($._interpolated_angle, '<', '>', $.interpolation),
-    _interpolated_bracket: $ => balancedStringBody($._interpolated_bracket, '[', ']', $.interpolation),
-    _interpolated_paren: $ => balancedStringBody($._interpolated_paren, '(', ')', $.interpolation),
-    _interpolated_brace: $ => balancedStringBody($._interpolated_brace, '{', '}', $.interpolation),
-    _uninterpolated_angle: $ => balancedStringBody($._uninterpolated_angle, '<', '>'),
-    _uninterpolated_bracket: $ => balancedStringBody($._uninterpolated_bracket, '[', ']'),
-    _uninterpolated_paren: $ => balancedStringBody($._uninterpolated_paren, '(', ')'),
-    _uninterpolated_brace: $ => balancedStringBody($._uninterpolated_brace, '{', '}'),
-    interpolation: $ => seq(token(prec(PREC.LITERAL, '#{')), $._expression, '}'),
+    _interpolated_angle: $ => stringBody('<', '>', $.interpolation, $._interpolated_angle),
+    _interpolated_bracket: $ => stringBody('[', ']', $.interpolation, $._interpolated_bracket),
+    _interpolated_paren: $ => stringBody('(', ')', $.interpolation, $._interpolated_paren),
+    _interpolated_brace: $ => stringBody('{', '}', $.interpolation, $._interpolated_brace),
+    _uninterpolated_angle: $ => stringBody('<', '>', null, $._uninterpolated_angle),
+    _uninterpolated_bracket: $ => stringBody('[', ']', null, $._uninterpolated_bracket),
+    _uninterpolated_paren: $ => stringBody('(', ')', null, $._uninterpolated_paren),
+    _uninterpolated_brace: $ => stringBody('{', '}', null, $._uninterpolated_brace),
+    interpolation: $ => seq('#{', $._expression, '}'),
 
     subshell: $ => choice(
       stringBody('`', '`'),
@@ -350,7 +378,7 @@ module.exports = grammar({
       seq($.identifier, ':')
     ), $._expression),
 
-    regex: $ => prec(PREC.LITERAL, choice(
+    regex: $ => prec(PREC.REGEX, choice(
       regexBody('/', '/', $.interpolation),
       seq('%r', choice(
         choice.apply(null, unbalancedDelimiters.map(d => regexBody(d, d, $.interpolation))),
@@ -366,7 +394,24 @@ module.exports = grammar({
     _regex_interpolated_paren: $ => regexBody('(', ')', $.interpolation, $._regex_interpolated_paren),
     _regex_interpolated_brace: $ => regexBody('{', '}', $.interpolation, $._regex_interpolated_brace),
 
-    function: $ => seq('->', optional(choice(seq('(', optional($.formal_parameters), ')'), $.identifier)), '{', sep($._statement, $._terminator), '}'),
+    lambda_literal: $ => seq(
+      '->',
+      optional(choice(
+        seq('(', optional($.formal_parameters), ')'),
+        $.identifier
+      )),
+      '{',
+      optional($._statements),
+      '}'
+    ),
+
+    lambda_expression: $ => seq(
+      'lambda',
+      '{',
+      optional(seq('|', optional($.formal_parameters), '|')),
+      optional($._statements),
+      '}'
+    ),
 
     _function_name: $ => choice($.identifier, choice.apply(null, operators)),
 
@@ -375,42 +420,100 @@ module.exports = grammar({
   }
 });
 
-/// Describes the body of a string literal bounded by `open` and `close`, and optionally containing (potentially recursive) references to `insert`.
-function stringBody (open, close, insert) {
-  var contents = [ /\\./, RegExp('[^\\\\\\' + close + ']') ];
-  if (typeof insert !== 'undefined') contents.push(insert);
+// Describes the body of a string literal.
+// open          - String opening character delimiter (e.g. '/', or '{').
+// close         - String closing character delimiter (e.g. '/', or '}').
+// interpolation - $.interpolation (optional, potentially recursive).
+// self          - Recursive stringBody (optional).
+//
+// Returns a sequence.
+function stringBody (open, close, interpolation, self) {
+  var disallowedContentChars = [close, '\\', '\n']
+  var contentPatterns = []
+  var contents = []
+
+  // If the string is delimited by `\`, don't allow `\` as an escape character.
+  // E.g %q\abc\
+  if (close != '\\') {
+    contentPatterns.push('\\\\.')
+  }
+
+  // If the string is delimited by `#`, interpolation isn't allowed.
+  if (close == '#') {
+    interpolation = null
+  }
+
+  if (interpolation) {
+    contents.push(interpolation)
+    disallowedContentChars.push('#')
+    contents.push(/#[^{}]/)
+  }
+
+  if (self) {
+    contents.push(self)
+    disallowedContentChars.push(open)
+  }
+
+  contentPatterns.push(noneOf(disallowedContentChars))
+  contents.push(RegExp(contentPatterns.join('|')))
+
   return seq(
-    (typeof open === 'string') ? token(prec(PREC.LITERAL, open)) : open,
-    repeat(choice.apply(null, contents)),
-    token(prec(PREC.LITERAL, close))
-  );
+    open,
+    repeat(choice(...contents)),
+    close
+  )
 }
 
-function balancedStringBody (me, open, close, insert) {
-  var contents = [ /\\./, me, RegExp('[^\\\\\\' + open + '\\' + close + ']') ];
-  if (typeof insert !== 'undefined') contents.push(insert);
-  return seq(open, repeat(choice.apply(null, contents)), close);
+// Describes the body of a regex.
+// open          - String opening character delimiter (e.g. '/', or '{').
+// close         - String closing character delimiter (e.g. '/', or '}').
+// interpolation - $.interpolation (optional).
+// self          - Recursive regexBody (optional).
+//
+// Returns a sequence.
+function regexBody (open, close, interpolation, self) {
+  var disallowedContentChars = [open, close, '[', '\\', '\n']
+  var contentPatterns = ['\\[[^\\]\\n]*\\]']
+  var contents = []
+
+  // If the regex is delimited by `\`, don't allow `\` as an escape character.
+  // E.g. %r\abc\
+  if (close != '\\') {
+    contentPatterns.push('\\\\.')
+  }
+
+  // If the regex is delimited by `#`, interpolation isn't allowed.
+  // E.g. %r#abc#
+  if (close == '#') {
+    interpolation = null
+  }
+
+  if (interpolation) {
+    contents.push(interpolation)
+    disallowedContentChars.push('#')
+    contents.push(/#[^{}]/)
+  }
+
+  if (self) {
+    contents.push(self)
+  }
+
+  contentPatterns.push(noneOf(disallowedContentChars))
+  contents.push(RegExp(contentPatterns.join('|')))
+
+  return seq(
+    open,
+    repeat(choice(...contents)),
+    RegExp('\\' + close + '[a-z]*')
+  )
 }
 
-function regexBody (open, close, interpolation, me) {
-  var contents = [
-    RegExp('\\[[^\\]\\n]*\\]|\\\\.|[^\\' + close + '\\\\\\[\\n]'),
-    interpolation
-  ];
-  if (typeof me !== 'undefined') contents.push(me);
-  return seq(
-    (typeof open === 'string') ? token(prec(PREC.LITERAL, open)) : open,
-    repeat(choice.apply(null, contents)),
-    token(prec(PREC.LITERAL, RegExp('\\' + close + '[a-z]*')))
-  );
+function sepTrailing (self, rule, separator) {
+  return choice(rule, seq(rule, separator, optional(self)))
 }
 
 function sep1 (rule, separator) {
   return seq(rule, repeat(seq(separator, rule)));
-}
-
-function sep (rule, separator) {
-  return optional(sep1(rule, separator));
 }
 
 function commaSep1 (rule) {
@@ -419,4 +522,12 @@ function commaSep1 (rule) {
 
 function commaSep (rule) {
   return optional(commaSep1(rule));
+}
+
+function noneOf (characterArray) {
+  var pattern = '[^'
+  for (let character of characterArray) {
+    pattern += '\\' + character;
+  }
+  return pattern + ']'
 }

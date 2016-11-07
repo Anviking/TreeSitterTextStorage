@@ -5,11 +5,13 @@
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
     "DFF42E927FBD63029CB280383C815EA170C851DE" : 0,
+    "6141BEE9FED987AAA57BD3B038828B730E461D12" : 9223372036854775807,
     "060570AE85C269EC5CDEC39C7C6F8E238F36320B" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "8504D031-DD2A-44F7-AD93-50EFA180F2B9",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "DFF42E927FBD63029CB280383C815EA170C851DE" : "TreeSitter\/",
+    "6141BEE9FED987AAA57BD3B038828B730E461D12" : "TreeSitter\/tree-sitter\/externals\/utf8proc\/",
     "060570AE85C269EC5CDEC39C7C6F8E238F36320B" : "TreeSitter\/tree-sitter\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "TreeSitter",
@@ -20,6 +22,11 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/tree-sitter\/tree-sitter.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "060570AE85C269EC5CDEC39C7C6F8E238F36320B"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/julialang\/utf8proc",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "6141BEE9FED987AAA57BD3B038828B730E461D12"
     },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Anviking\/TreeSitter.git",

@@ -23,9 +23,9 @@ extension Ruby: LanguageSymbolProtocol {
             return .number
         case .sym_comment, .sym_begin_statement:
             return .comment
-        case .anon_sym_do, .anon_sym_if, .anon_sym_else, .anon_sym_def, .anon_sym_nil, .anon_sym_NIL, .anon_sym_until, .anon_sym_end, .anon_sym_class, .anon_sym_module:
+        case .anon_sym_do, .anon_sym_if, .anon_sym_else, .anon_sym_def, .sym_nil, .anon_sym_until, .anon_sym_end, .anon_sym_class, .anon_sym_module:
             return .keyword
-        case .sym_function_call, .sym__function_name, .sym_function, .sym_method_declaration:
+        case .sym_function_call, .sym__function_name, .sym_method_declaration:
             return TokenType.projectMethodNames
         default:
             return nil

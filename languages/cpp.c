@@ -1,4 +1,4 @@
-#include "tparser.h"
+#include "parser.h"
 
 #define STATE_COUNT 1332
 #define SYMBOL_COUNT 173

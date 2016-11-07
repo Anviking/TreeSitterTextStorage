@@ -105,7 +105,14 @@ public class TextStorage: NSTextStorage {
     public override func replaceCharacters(in range: NSRange, with str: String) {
         let date = Date()
         
-        let edit = TSInputEdit(position: range.location, chars_inserted: str.characters.count, chars_removed: range.length)
+        let editExtentEnd = range.location + str.lengthOfBytes(using: .utf16)
+        let node = ts_node_descendant_for_char_range(document.rootNode, range.location, editExtentEnd)
+        
+        let startPoint = ts_node_start_point(node)
+        let endPoint = ts_node_end_point(node)
+        
+        let edit = TSInputEdit(start_byte: range.location * 2, bytes_removed: range.length, bytes_added: str.characters.count, start_point: startPoint, extent_removed: endPoint, extent_added: endPoint)
+        
         let delta = str.characters.count - range.length
         _length += delta
         cache = Array(repeating: nil, count: _length)

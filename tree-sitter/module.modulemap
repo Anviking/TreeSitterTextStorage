@@ -1,9 +1,0 @@
-module TreeSitterRuntime [system][extern_c] {
- umbrella "include/tree_sitter"
- export *
-}
-
-module Language [system][extern_c] {
-    header "language/arithmetic_parser.h"
-    export *
-}

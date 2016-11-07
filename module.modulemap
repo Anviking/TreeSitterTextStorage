@@ -1,0 +1,10 @@
+module TreeSitterRuntime [extern_c] {
+    umbrella "tree-sitter/include"
+    //umbrella "src/runtime"
+    export *
+}
+
+module Language [extern_c] {
+    header "languages/languages.h"
+    export *
+}

@@ -1,420 +1,266 @@
 
 
 public enum Ruby: UInt16 {
-    case sym_program = 2
-    case sym__statement
-    case sym__declaration
-    case sym_method_declaration
-    case sym_formal_parameters
-    case sym_class_declaration
-    case sym_module_declaration
-    case sym_while_statement
-    case sym_until_statement
-    case sym_if_statement
-    case sym_unless_statement
-    case sym_for_statement
-    case sym_begin_statement
-    case sym_return_statement
-    case sym_case_statement
-    case sym_when_block
-    case sym_pattern
-    case sym_if_modifier
-    case sym_unless_modifier
-    case sym_while_modifier
-    case sym_until_modifier
-    case sym_condition
-    case sym__statement_block
-    case sym__do_block
-    case sym_then_block
-    case sym_else_block
-    case sym_rescue_block
-    case sym_ensure_block
-    case sym__then_else_block
-    case sym__then_elsif_else_block
-    case sym__expression
-    case sym__primary
-    case sym_scope_resolution_expression
-    case sym_subscript_expression
-    case sym_member_access
-    case sym_function_call
-    case sym_argument_list
-    case sym__argument_list
-    case sym_yield
-    case sym_and
-    case sym_or
-    case sym_not
-    case sym_defined
-    case sym_assignment
-    case sym_conditional
-    case sym_range
-    case sym_boolean_or
-    case sym_boolean_and
-    case sym_relational
-    case sym_comparison
-    case sym_bitwise_or
-    case sym_bitwise_and
-    case sym_shift
-    case sym_additive
-    case sym_multiplicative
-    case sym_unary_minus
-    case sym_exponential
-    case sym_complement
-    case sym__lhs
-    case sym__variable
-    case sym__literal
-    case sym_symbol
-    case sym_boolean
-    case sym_nil
-    case sym_string
-    case sym__quoted_string
-    case sym__single_quoted_continuation
-    case sym__double_quoted_continuation
-    case sym__interpolated_angle
-    case sym__interpolated_bracket
-    case sym__interpolated_paren
-    case sym__interpolated_brace
-    case sym__uninterpolated_angle
-    case sym__uninterpolated_bracket
-    case sym__uninterpolated_paren
-    case sym__uninterpolated_brace
-    case sym_interpolation
-    case sym_subshell
-    case sym_array
-    case sym__array_items
-    case sym_hash
-    case sym__hash_items
-    case sym_pair
-    case sym_regex
-    case sym__regex_interpolated_angle
-    case sym__regex_interpolated_bracket
-    case sym__regex_interpolated_paren
-    case sym__regex_interpolated_brace
-    case sym_function
-    case sym__function_name
-    case sym__terminator
-    case aux_sym_program_repeat1
-    case aux_sym_formal_parameters_repeat1
-    case aux_sym_class_declaration_repeat1
-    case aux_sym_begin_statement_repeat1
-    case aux_sym_case_statement_repeat1
-    case aux_sym_rescue_block_repeat1
-    case aux_sym__then_elsif_else_block_repeat1
-    case aux_sym_symbol_repeat1
-    case aux_sym_symbol_repeat2
-    case aux_sym_symbol_repeat3
-    case aux_sym_symbol_repeat4
-    case aux_sym_symbol_repeat5
-    case aux_sym_symbol_repeat6
-    case aux_sym_symbol_repeat7
-    case aux_sym_symbol_repeat8
-    case aux_sym_symbol_repeat9
-    case aux_sym_symbol_repeat10
-    case aux_sym_symbol_repeat11
-    case aux_sym_symbol_repeat12
-    case aux_sym_symbol_repeat13
-    case aux_sym_symbol_repeat14
-    case aux_sym_symbol_repeat15
-    case aux_sym_symbol_repeat16
-    case aux_sym_symbol_repeat17
-    case aux_sym_symbol_repeat18
-    case aux_sym_symbol_repeat19
-    case aux_sym_symbol_repeat20
-    case aux_sym_symbol_repeat21
-    case aux_sym_symbol_repeat22
-    case aux_sym_symbol_repeat23
-    case aux_sym_symbol_repeat24
-    case aux_sym_symbol_repeat25
-    case aux_sym_symbol_repeat26
-    case aux_sym_symbol_repeat27
-    case aux_sym_symbol_repeat28
-    case aux_sym_string_repeat1
-    case aux_sym_string_repeat2
-    case aux_sym_string_repeat3
-    case aux_sym_string_repeat4
-    case aux_sym_string_repeat5
-    case aux_sym_string_repeat6
-    case aux_sym_string_repeat7
-    case aux_sym_string_repeat8
-    case aux_sym_string_repeat9
-    case aux_sym_string_repeat10
-    case aux_sym_string_repeat11
-    case aux_sym_string_repeat12
-    case aux_sym_string_repeat13
-    case aux_sym_string_repeat14
-    case aux_sym_string_repeat15
-    case aux_sym_string_repeat16
-    case aux_sym_string_repeat17
-    case aux_sym_string_repeat18
-    case aux_sym_string_repeat19
-    case aux_sym_string_repeat20
-    case aux_sym_string_repeat21
-    case aux_sym_string_repeat22
-    case aux_sym_string_repeat23
-    case aux_sym_string_repeat24
-    case aux_sym_string_repeat25
-    case aux_sym_string_repeat26
-    case aux_sym_string_repeat27
-    case aux_sym_string_repeat28
-    case aux_sym_string_repeat29
-    case aux_sym__interpolated_angle_repeat1
-    case aux_sym__interpolated_bracket_repeat1
-    case aux_sym__interpolated_paren_repeat1
-    case aux_sym__interpolated_brace_repeat1
-    case aux_sym__uninterpolated_angle_repeat1
-    case aux_sym__uninterpolated_bracket_repeat1
-    case aux_sym__uninterpolated_paren_repeat1
-    case aux_sym__uninterpolated_brace_repeat1
-    case aux_sym_regex_repeat1
-    case aux_sym_regex_repeat2
-    case aux_sym_regex_repeat3
-    case aux_sym_regex_repeat4
-    case aux_sym_regex_repeat5
-    case aux_sym_regex_repeat6
-    case aux_sym_regex_repeat7
-    case aux_sym_regex_repeat8
-    case aux_sym_regex_repeat9
-    case aux_sym_regex_repeat10
-    case aux_sym_regex_repeat11
-    case aux_sym_regex_repeat12
-    case aux_sym_regex_repeat13
-    case aux_sym_regex_repeat14
-    case aux_sym_regex_repeat15
-    case aux_sym_regex_repeat16
-    case aux_sym_regex_repeat17
-    case aux_sym_regex_repeat18
-    case aux_sym_regex_repeat19
-    case aux_sym_regex_repeat20
-    case aux_sym_regex_repeat21
-    case aux_sym_regex_repeat22
-    case aux_sym_regex_repeat23
-    case aux_sym_regex_repeat24
-    case aux_sym_regex_repeat25
-    case aux_sym_regex_repeat26
-    case aux_sym_regex_repeat27
-    case aux_sym_regex_repeat28
-    case aux_sym__regex_interpolated_angle_repeat1
-    case aux_sym__regex_interpolated_bracket_repeat1
-    case aux_sym__regex_interpolated_paren_repeat1
-    case aux_sym__regex_interpolated_brace_repeat1
-    case anon_sym_LF__END__
-    case sym_uninterpreted
-    case anon_sym_undef
-    case anon_sym_alias
-    case anon_sym_def
-    case anon_sym_LPAREN
-    case anon_sym_RPAREN
-    case anon_sym_end
-    case anon_sym_STAR
-    case anon_sym_AMP
-    case anon_sym_COMMA
-    case anon_sym_class
-    case anon_sym_LT
-    case anon_sym_COLON_COLON
-    case anon_sym_module
-    case anon_sym_while
-    case anon_sym_until
-    case anon_sym_if
-    case anon_sym_unless
-    case anon_sym_for
-    case anon_sym_in
-    case anon_sym_begin
-    case anon_sym_return
-    case anon_sym_case
-    case anon_sym_when
-    case anon_sym_do
-    case anon_sym_then
-    case anon_sym_else
-    case anon_sym_rescue
-    case anon_sym_ensure
-    case anon_sym_elsif
-    case anon_sym_LBRACK
-    case anon_sym_RBRACK
-    case anon_sym_DOT
-    case anon_sym_yield
-    case anon_sym_and
-    case anon_sym_or
-    case anon_sym_not
-    case anon_sym_defined_QMARK
-    case anon_sym_EQ
-    case anon_sym_QMARK
-    case anon_sym_COLON
-    case anon_sym_DOT_DOT
-    case anon_sym_DOT_DOT_DOT
-    case anon_sym_PIPE_PIPE
-    case anon_sym_AMP_AMP
-    case anon_sym_EQ_EQ
-    case anon_sym_BANG_EQ
-    case anon_sym_EQ_EQ_EQ
-    case anon_sym_LT_EQ_GT
-    case anon_sym_EQ_TILDE
-    case anon_sym_BANG_TILDE
-    case anon_sym_LT_EQ
-    case anon_sym_GT
-    case anon_sym_GT_EQ
-    case anon_sym_CARET
-    case anon_sym_PIPE
-    case anon_sym_LT_LT
-    case anon_sym_GT_GT
-    case anon_sym_DASH
-    case anon_sym_PLUS
-    case anon_sym_SLASH
-    case anon_sym_PERCENT
-    case anon_sym_STAR_STAR
-    case anon_sym_BANG
-    case anon_sym_TILDE
-    case anon_sym_self
-    case sym_identifier
-    case sym_comment
-    case aux_sym_SLASH_COLON_LPAREN_LBRACKa_DASHzA_DASHZ_RBRACK_LBRACKa_DASHzA_DASHZ0_DASH9_RBRACK_STAR_BSLASH_QMARK_QMARK_PIPE_DOT_DOT_PIPE_PIPE_PIPE_CARET_PIPE_AMP_PIPE_LT_EQ_GT_PIPE_EQ_EQ_PIPE_EQ_EQ_EQ_PIPE_EQ_TILDE_PIPE_GT_PIPE_GT_EQ_PIPE_LT_PIPE_LT_EQ_PIPE_PLUS_PIPE_DASH_PIPE_STAR_PIPE_SLASH_PIPE_PERCENT_PIPE_STAR_STAR_PIPE_LT_LT_PIPE_GT_GT_PIPE_TILDE_PIPE_PLUS_AT_PIPE_DASH_AT_PIPE_LBRACK_RBRACK_PIPE_LBRACK_RBRACK_EQ_RPAREN_SLASH
-    case anon_sym_COLON_SQUOTE
-    case anon_sym_COLON_DQUOTE
-    case anon_sym_PERCENTs
-    case aux_sym_BANG
-    case aux_sym_SLASH_BSLASH_BSLASH_DOT_SLASH
-    case aux_sym_SLASH_LBRACK_CARET_BSLASH_BSLASH_BSLASH_BANG_RBRACK_SLASH
-    case aux_sym_AT
-    case aux_sym_SLASH_LBRACK_CARET_BSLASH_BSLASH_BSLASH_AT_RBRACK_SLASH
-    case aux_sym_POUND
-    case aux_sym_SLASH_LBRACK_CARET_BSLASH_BSLASH_BSLASH_POUND_RBRACK_SLASH
-    case aux_sym_DOLLAR
-    case aux_sym_SLASH_LBRACK_CARET_BSLASH_BSLASH_BSLASH_DOLLAR_RBRACK_SLASH
-    case aux_sym_PERCENT
-    case aux_sym_SLASH_LBRACK_CARET_BSLASH_BSLASH_BSLASH_PERCENT_RBRACK_SLASH
-    case aux_sym_CARET
-    case aux_sym_SLASH_LBRACK_CARET_BSLASH_BSLASH_BSLASH_CARET_RBRACK_SLASH
-    case aux_sym_AMP
-    case aux_sym_SLASH_LBRACK_CARET_BSLASH_BSLASH_BSLASH_AMP_RBRACK_SLASH
-    case aux_sym_STAR
-    case aux_sym_SLASH_LBRACK_CARET_BSLASH_BSLASH_BSLASH_STAR_RBRACK_SLASH
-    case aux_sym_RPAREN
-    case aux_sym_SLASH_LBRACK_CARET_BSLASH_BSLASH_BSLASH_RPAREN_RBRACK_SLASH
-    case aux_sym_RBRACK
-    case aux_sym_SLASH_LBRACK_CARET_BSLASH_BSLASH_BSLASH_RBRACK_RBRACK_SLASH
-    case aux_sym_RBRACE
-    case aux_sym_SLASH_LBRACK_CARET_BSLASH_BSLASH_BSLASH_RBRACE_RBRACK_SLASH
-    case aux_sym_GT
-    case aux_sym_SLASH_LBRACK_CARET_BSLASH_BSLASH_BSLASH_GT_RBRACK_SLASH
-    case aux_sym_PIPE
-    case aux_sym_SLASH_LBRACK_CARET_BSLASH_BSLASH_BSLASH_PIPE_RBRACK_SLASH
-    case aux_sym_BSLASH
-    case aux_sym_SLASH_LBRACK_CARET_BSLASH_BSLASH_BSLASH_BSLASH_RBRACK_SLASH
-    case aux_sym_EQ
-    case aux_sym_SLASH_LBRACK_CARET_BSLASH_BSLASH_BSLASH_EQ_RBRACK_SLASH
-    case aux_sym_SLASH
-    case aux_sym_SLASH_LBRACK_CARET_BSLASH_BSLASH_BSLASH_SLASH_RBRACK_SLASH
-    case aux_sym_PLUS
-    case aux_sym_SLASH_LBRACK_CARET_BSLASH_BSLASH_BSLASH_PLUS_RBRACK_SLASH
-    case aux_sym_DASH
-    case aux_sym_SLASH_LBRACK_CARET_BSLASH_BSLASH_BSLASH_DASH_RBRACK_SLASH
-    case aux_sym_TILDE
-    case aux_sym_SLASH_LBRACK_CARET_BSLASH_BSLASH_BSLASH_TILDE_RBRACK_SLASH
-    case aux_sym_BQUOTE
-    case aux_sym_SLASH_LBRACK_CARET_BSLASH_BSLASH_BSLASH_BQUOTE_RBRACK_SLASH
-    case aux_sym_SQUOTE
-    case aux_sym_SLASH_LBRACK_CARET_BSLASH_BSLASH_BSLASH_SQUOTE_RBRACK_SLASH
-    case aux_sym_DQUOTE
-    case aux_sym_SLASH_LBRACK_CARET_BSLASH_BSLASH_BSLASH_DQUOTE_RBRACK_SLASH
-    case aux_sym_COMMA
-    case aux_sym_SLASH_LBRACK_CARET_BSLASH_BSLASH_BSLASH_COMMA_RBRACK_SLASH
-    case aux_sym_DOT
-    case aux_sym_SLASH_LBRACK_CARET_BSLASH_BSLASH_BSLASH_DOT_RBRACK_SLASH
-    case aux_sym_QMARK
-    case aux_sym_SLASH_LBRACK_CARET_BSLASH_BSLASH_BSLASH_QMARK_RBRACK_SLASH
-    case aux_sym_COLON
-    case aux_sym_SLASH_LBRACK_CARET_BSLASH_BSLASH_BSLASH_COLON_RBRACK_SLASH
-    case aux_sym_SEMI
-    case aux_sym_SLASH_LBRACK_CARET_BSLASH_BSLASH_BSLASH_SEMI_RBRACK_SLASH
-    case aux_sym__
-    case aux_sym_SLASH_LBRACK_CARET_BSLASH_BSLASH_BSLASH_RBRACK_SLASH
-    case sym_integer
-    case sym_float
-    case anon_sym_true
-    case anon_sym_false
-    case anon_sym_TRUE
-    case anon_sym_FALSE
-    case anon_sym_nil
-    case anon_sym_NIL
-    case aux_sym_SLASH_PERCENTQ_QMARK_SLASH
-    case aux_sym_SLASH_PERCENTq_SLASH
-    case anon_sym_SQUOTE
-    case anon_sym_DQUOTE
-    case aux_sym_SLASH_LBRACK_CARET_BSLASH_BSLASH_BSLASH_LT_BSLASH_GT_RBRACK_SLASH
-    case aux_sym_SLASH_LBRACK_CARET_BSLASH_BSLASH_BSLASH_LBRACK_BSLASH_RBRACK_RBRACK_SLASH
-    case aux_sym_SLASH_LBRACK_CARET_BSLASH_BSLASH_BSLASH_LPAREN_BSLASH_RPAREN_RBRACK_SLASH
-    case anon_sym_LBRACE
-    case aux_sym_SLASH_LBRACK_CARET_BSLASH_BSLASH_BSLASH_LBRACE_BSLASH_RBRACE_RBRACK_SLASH
-    case anon_sym_RBRACE
-    case aux_sym_POUND_LBRACE
-    case anon_sym_PERCENTx
-    case aux_sym_SLASH_PERCENT_LBRACKwi_RBRACK_SLASH
-    case aux_sym_SLASH_PERCENT_LBRACKWI_RBRACK_SLASH
-    case anon_sym_EQ_GT
-    case aux_sym_SLASH_BSLASH_LBRACK_LBRACK_CARET_BSLASH_RBRACK_BSLASHn_RBRACK_STAR_BSLASH_RBRACK_PIPE_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_SLASH_BSLASH_BSLASH_BSLASH_LBRACK_BSLASHn_RBRACK_SLASH
-    case aux_sym_SLASH_BSLASH_SLASH_LBRACKa_DASHz_RBRACK_STAR_SLASH
-    case anon_sym_PERCENTr
-    case aux_sym_SLASH_BSLASH_LBRACK_LBRACK_CARET_BSLASH_RBRACK_BSLASHn_RBRACK_STAR_BSLASH_RBRACK_PIPE_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_BANG_BSLASH_BSLASH_BSLASH_LBRACK_BSLASHn_RBRACK_SLASH
-    case aux_sym_SLASH_BSLASH_BANG_LBRACKa_DASHz_RBRACK_STAR_SLASH
-    case aux_sym_SLASH_BSLASH_LBRACK_LBRACK_CARET_BSLASH_RBRACK_BSLASHn_RBRACK_STAR_BSLASH_RBRACK_PIPE_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_AT_BSLASH_BSLASH_BSLASH_LBRACK_BSLASHn_RBRACK_SLASH
-    case aux_sym_SLASH_BSLASH_AT_LBRACKa_DASHz_RBRACK_STAR_SLASH
-    case aux_sym_SLASH_BSLASH_LBRACK_LBRACK_CARET_BSLASH_RBRACK_BSLASHn_RBRACK_STAR_BSLASH_RBRACK_PIPE_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_POUND_BSLASH_BSLASH_BSLASH_LBRACK_BSLASHn_RBRACK_SLASH
-    case aux_sym_SLASH_BSLASH_POUND_LBRACKa_DASHz_RBRACK_STAR_SLASH
-    case aux_sym_SLASH_BSLASH_LBRACK_LBRACK_CARET_BSLASH_RBRACK_BSLASHn_RBRACK_STAR_BSLASH_RBRACK_PIPE_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_DOLLAR_BSLASH_BSLASH_BSLASH_LBRACK_BSLASHn_RBRACK_SLASH
-    case aux_sym_SLASH_BSLASH_DOLLAR_LBRACKa_DASHz_RBRACK_STAR_SLASH
-    case aux_sym_SLASH_BSLASH_LBRACK_LBRACK_CARET_BSLASH_RBRACK_BSLASHn_RBRACK_STAR_BSLASH_RBRACK_PIPE_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_PERCENT_BSLASH_BSLASH_BSLASH_LBRACK_BSLASHn_RBRACK_SLASH
-    case aux_sym_SLASH_BSLASH_PERCENT_LBRACKa_DASHz_RBRACK_STAR_SLASH
-    case aux_sym_SLASH_BSLASH_LBRACK_LBRACK_CARET_BSLASH_RBRACK_BSLASHn_RBRACK_STAR_BSLASH_RBRACK_PIPE_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_CARET_BSLASH_BSLASH_BSLASH_LBRACK_BSLASHn_RBRACK_SLASH
-    case aux_sym_SLASH_BSLASH_CARET_LBRACKa_DASHz_RBRACK_STAR_SLASH
-    case aux_sym_SLASH_BSLASH_LBRACK_LBRACK_CARET_BSLASH_RBRACK_BSLASHn_RBRACK_STAR_BSLASH_RBRACK_PIPE_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_AMP_BSLASH_BSLASH_BSLASH_LBRACK_BSLASHn_RBRACK_SLASH
-    case aux_sym_SLASH_BSLASH_AMP_LBRACKa_DASHz_RBRACK_STAR_SLASH
-    case aux_sym_SLASH_BSLASH_LBRACK_LBRACK_CARET_BSLASH_RBRACK_BSLASHn_RBRACK_STAR_BSLASH_RBRACK_PIPE_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_STAR_BSLASH_BSLASH_BSLASH_LBRACK_BSLASHn_RBRACK_SLASH
-    case aux_sym_SLASH_BSLASH_STAR_LBRACKa_DASHz_RBRACK_STAR_SLASH
-    case aux_sym_SLASH_BSLASH_LBRACK_LBRACK_CARET_BSLASH_RBRACK_BSLASHn_RBRACK_STAR_BSLASH_RBRACK_PIPE_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_RPAREN_BSLASH_BSLASH_BSLASH_LBRACK_BSLASHn_RBRACK_SLASH
-    case aux_sym_SLASH_BSLASH_RPAREN_LBRACKa_DASHz_RBRACK_STAR_SLASH
-    case aux_sym_SLASH_BSLASH_LBRACK_LBRACK_CARET_BSLASH_RBRACK_BSLASHn_RBRACK_STAR_BSLASH_RBRACK_PIPE_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_RBRACK_BSLASH_BSLASH_BSLASH_LBRACK_BSLASHn_RBRACK_SLASH
-    case aux_sym_SLASH_BSLASH_RBRACK_LBRACKa_DASHz_RBRACK_STAR_SLASH
-    case aux_sym_SLASH_BSLASH_LBRACK_LBRACK_CARET_BSLASH_RBRACK_BSLASHn_RBRACK_STAR_BSLASH_RBRACK_PIPE_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_RBRACE_BSLASH_BSLASH_BSLASH_LBRACK_BSLASHn_RBRACK_SLASH
-    case aux_sym_SLASH_BSLASH_RBRACE_LBRACKa_DASHz_RBRACK_STAR_SLASH
-    case aux_sym_SLASH_BSLASH_LBRACK_LBRACK_CARET_BSLASH_RBRACK_BSLASHn_RBRACK_STAR_BSLASH_RBRACK_PIPE_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_GT_BSLASH_BSLASH_BSLASH_LBRACK_BSLASHn_RBRACK_SLASH
-    case aux_sym_SLASH_BSLASH_GT_LBRACKa_DASHz_RBRACK_STAR_SLASH
-    case aux_sym_SLASH_BSLASH_LBRACK_LBRACK_CARET_BSLASH_RBRACK_BSLASHn_RBRACK_STAR_BSLASH_RBRACK_PIPE_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_PIPE_BSLASH_BSLASH_BSLASH_LBRACK_BSLASHn_RBRACK_SLASH
-    case aux_sym_SLASH_BSLASH_PIPE_LBRACKa_DASHz_RBRACK_STAR_SLASH
-    case aux_sym_SLASH_BSLASH_LBRACK_LBRACK_CARET_BSLASH_RBRACK_BSLASHn_RBRACK_STAR_BSLASH_RBRACK_PIPE_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_BSLASH_BSLASH_BSLASH_BSLASH_LBRACK_BSLASHn_RBRACK_SLASH
-    case aux_sym_SLASH_BSLASH_BSLASH_LBRACKa_DASHz_RBRACK_STAR_SLASH
-    case aux_sym_SLASH_BSLASH_LBRACK_LBRACK_CARET_BSLASH_RBRACK_BSLASHn_RBRACK_STAR_BSLASH_RBRACK_PIPE_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_EQ_BSLASH_BSLASH_BSLASH_LBRACK_BSLASHn_RBRACK_SLASH
-    case aux_sym_SLASH_BSLASH_EQ_LBRACKa_DASHz_RBRACK_STAR_SLASH
-    case aux_sym_SLASH_BSLASH_LBRACK_LBRACK_CARET_BSLASH_RBRACK_BSLASHn_RBRACK_STAR_BSLASH_RBRACK_PIPE_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_PLUS_BSLASH_BSLASH_BSLASH_LBRACK_BSLASHn_RBRACK_SLASH
-    case aux_sym_SLASH_BSLASH_PLUS_LBRACKa_DASHz_RBRACK_STAR_SLASH
-    case aux_sym_SLASH_BSLASH_LBRACK_LBRACK_CARET_BSLASH_RBRACK_BSLASHn_RBRACK_STAR_BSLASH_RBRACK_PIPE_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_DASH_BSLASH_BSLASH_BSLASH_LBRACK_BSLASHn_RBRACK_SLASH
-    case aux_sym_SLASH_BSLASH_DASH_LBRACKa_DASHz_RBRACK_STAR_SLASH
-    case aux_sym_SLASH_BSLASH_LBRACK_LBRACK_CARET_BSLASH_RBRACK_BSLASHn_RBRACK_STAR_BSLASH_RBRACK_PIPE_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_TILDE_BSLASH_BSLASH_BSLASH_LBRACK_BSLASHn_RBRACK_SLASH
-    case aux_sym_SLASH_BSLASH_TILDE_LBRACKa_DASHz_RBRACK_STAR_SLASH
-    case aux_sym_SLASH_BSLASH_LBRACK_LBRACK_CARET_BSLASH_RBRACK_BSLASHn_RBRACK_STAR_BSLASH_RBRACK_PIPE_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_BQUOTE_BSLASH_BSLASH_BSLASH_LBRACK_BSLASHn_RBRACK_SLASH
-    case aux_sym_SLASH_BSLASH_BQUOTE_LBRACKa_DASHz_RBRACK_STAR_SLASH
-    case aux_sym_SLASH_BSLASH_LBRACK_LBRACK_CARET_BSLASH_RBRACK_BSLASHn_RBRACK_STAR_BSLASH_RBRACK_PIPE_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_SQUOTE_BSLASH_BSLASH_BSLASH_LBRACK_BSLASHn_RBRACK_SLASH
-    case aux_sym_SLASH_BSLASH_SQUOTE_LBRACKa_DASHz_RBRACK_STAR_SLASH
-    case aux_sym_SLASH_BSLASH_LBRACK_LBRACK_CARET_BSLASH_RBRACK_BSLASHn_RBRACK_STAR_BSLASH_RBRACK_PIPE_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_BSLASH_BSLASH_LBRACK_BSLASHn_RBRACK_SLASH
-    case aux_sym_SLASH_BSLASH_DQUOTE_LBRACKa_DASHz_RBRACK_STAR_SLASH
-    case aux_sym_SLASH_BSLASH_LBRACK_LBRACK_CARET_BSLASH_RBRACK_BSLASHn_RBRACK_STAR_BSLASH_RBRACK_PIPE_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_COMMA_BSLASH_BSLASH_BSLASH_LBRACK_BSLASHn_RBRACK_SLASH
-    case aux_sym_SLASH_BSLASH_COMMA_LBRACKa_DASHz_RBRACK_STAR_SLASH
-    case aux_sym_SLASH_BSLASH_LBRACK_LBRACK_CARET_BSLASH_RBRACK_BSLASHn_RBRACK_STAR_BSLASH_RBRACK_PIPE_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_DOT_BSLASH_BSLASH_BSLASH_LBRACK_BSLASHn_RBRACK_SLASH
-    case aux_sym_SLASH_BSLASH_DOT_LBRACKa_DASHz_RBRACK_STAR_SLASH
-    case aux_sym_SLASH_BSLASH_LBRACK_LBRACK_CARET_BSLASH_RBRACK_BSLASHn_RBRACK_STAR_BSLASH_RBRACK_PIPE_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_QMARK_BSLASH_BSLASH_BSLASH_LBRACK_BSLASHn_RBRACK_SLASH
-    case aux_sym_SLASH_BSLASH_QMARK_LBRACKa_DASHz_RBRACK_STAR_SLASH
-    case aux_sym_SLASH_BSLASH_LBRACK_LBRACK_CARET_BSLASH_RBRACK_BSLASHn_RBRACK_STAR_BSLASH_RBRACK_PIPE_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_COLON_BSLASH_BSLASH_BSLASH_LBRACK_BSLASHn_RBRACK_SLASH
-    case aux_sym_SLASH_BSLASH_COLON_LBRACKa_DASHz_RBRACK_STAR_SLASH
-    case aux_sym_SLASH_BSLASH_LBRACK_LBRACK_CARET_BSLASH_RBRACK_BSLASHn_RBRACK_STAR_BSLASH_RBRACK_PIPE_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_SEMI_BSLASH_BSLASH_BSLASH_LBRACK_BSLASHn_RBRACK_SLASH
-    case aux_sym_SLASH_BSLASH_SEMI_LBRACKa_DASHz_RBRACK_STAR_SLASH
-    case aux_sym_SLASH_BSLASH_LBRACK_LBRACK_CARET_BSLASH_RBRACK_BSLASHn_RBRACK_STAR_BSLASH_RBRACK_PIPE_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_BSLASH_BSLASH_BSLASH_LBRACK_BSLASHn_RBRACK_SLASH
-    case aux_sym_SLASH_BSLASH_LBRACKa_DASHz_RBRACK_STAR_SLASH
-    case aux_sym_LT
-    case aux_sym_LBRACK
-    case aux_sym_LPAREN
-    case aux_sym_LBRACE
-    case anon_sym_DASH_GT
-    case anon_sym_PLUS_AT
-    case anon_sym_DASH_AT
-    case anon_sym_LBRACK_RBRACK
-    case anon_sym_LBRACK_RBRACK_EQ
-    case sym__line_break
-    case anon_sym_SEMI
+    case sym_program = 1
+    case sym__statements = 2
+    case sym__statement = 3
+    case sym__declaration = 4
+    case sym_method_declaration = 5
+    case sym_formal_parameters = 6
+    case sym_class_declaration = 7
+    case sym_module_declaration = 8
+    case sym_while_statement = 9
+    case sym_until_statement = 10
+    case sym_if_statement = 11
+    case sym_unless_statement = 12
+    case sym_for_statement = 13
+    case sym_begin_statement = 14
+    case sym_return_statement = 15
+    case sym_case_statement = 16
+    case sym_when_block = 17
+    case sym_pattern = 18
+    case sym_if_modifier = 19
+    case sym_unless_modifier = 20
+    case sym_while_modifier = 21
+    case sym_until_modifier = 22
+    case sym_rescue_modifier = 23
+    case sym__statement_block = 24
+    case sym__do_block = 25
+    case sym__then_block = 26
+    case sym_elsif_block = 27
+    case sym_else_block = 28
+    case sym_ensure_block = 29
+    case sym_rescue_block = 30
+    case sym_last_exception = 31
+    case sym__then_else_block = 32
+    case sym__then_elsif_else_block = 33
+    case sym__expression = 34
+    case sym__primary = 35
+    case sym_scope_resolution_expression = 36
+    case sym_element_reference = 37
+    case sym_member_access = 38
+    case sym_function_call = 39
+    case sym_argument_list = 40
+    case sym__argument_list = 41
+    case sym_yield = 42
+    case sym_and = 43
+    case sym_or = 44
+    case sym_not = 45
+    case sym_defined = 46
+    case sym_assignment = 47
+    case sym_math_assignment = 48
+    case sym_conditional_assignment = 49
+    case sym_conditional = 50
+    case sym_range = 51
+    case sym_boolean_or = 52
+    case sym_boolean_and = 53
+    case sym_relational = 54
+    case sym_comparison = 55
+    case sym_bitwise_or = 56
+    case sym_bitwise_and = 57
+    case sym_shift = 58
+    case sym_additive = 59
+    case sym_multiplicative = 60
+    case sym_unary_minus = 61
+    case sym_exponential = 62
+    case sym_complement = 63
+    case sym__lhs = 64
+    case sym__variable = 65
+    case sym__literal = 66
+    case sym_symbol = 67
+    case sym_string = 68
+    case sym__quoted_string = 69
+    case sym__single_quoted_continuation = 70
+    case sym__double_quoted_continuation = 71
+    case sym__interpolated_angle = 72
+    case sym__interpolated_bracket = 73
+    case sym__interpolated_paren = 74
+    case sym__interpolated_brace = 75
+    case sym__uninterpolated_angle = 76
+    case sym__uninterpolated_bracket = 77
+    case sym__uninterpolated_paren = 78
+    case sym__uninterpolated_brace = 79
+    case sym_interpolation = 80
+    case sym_subshell = 81
+    case sym_array = 82
+    case sym__array_items = 83
+    case sym_hash = 84
+    case sym__hash_items = 85
+    case sym_pair = 86
+    case sym_regex = 87
+    case sym__regex_interpolated_angle = 88
+    case sym__regex_interpolated_bracket = 89
+    case sym__regex_interpolated_paren = 90
+    case sym__regex_interpolated_brace = 91
+    case sym_lambda_literal = 92
+    case sym_lambda_expression = 93
+    case sym__function_name = 94
+    case sym__terminator = 95
+    case aux_sym_formal_parameters_repeat1 = 96
+    case aux_sym_class_declaration_repeat1 = 97
+    case aux_sym_begin_statement_repeat1 = 98
+    case aux_sym_case_statement_repeat1 = 99
+    case aux_sym__then_elsif_else_block_repeat1 = 100
+    case aux_sym_symbol_repeat1 = 101
+    case aux_sym_symbol_repeat2 = 102
+    case aux_sym_symbol_repeat3 = 103
+    case aux_sym_string_repeat1 = 104
+    case aux_sym_string_repeat2 = 105
+    case aux_sym_string_repeat3 = 106
+    case aux_sym__single_quoted_continuation_repeat1 = 107
+    case aux_sym__double_quoted_continuation_repeat1 = 108
+    case aux_sym__interpolated_angle_repeat1 = 109
+    case aux_sym__interpolated_bracket_repeat1 = 110
+    case aux_sym__interpolated_paren_repeat1 = 111
+    case aux_sym__interpolated_brace_repeat1 = 112
+    case aux_sym__uninterpolated_angle_repeat1 = 113
+    case aux_sym__uninterpolated_bracket_repeat1 = 114
+    case aux_sym__uninterpolated_paren_repeat1 = 115
+    case aux_sym__uninterpolated_brace_repeat1 = 116
+    case aux_sym_subshell_repeat1 = 117
+    case aux_sym_regex_repeat1 = 118
+    case aux_sym_regex_repeat2 = 119
+    case aux_sym_regex_repeat3 = 120
+    case aux_sym__regex_interpolated_angle_repeat1 = 121
+    case aux_sym__regex_interpolated_bracket_repeat1 = 122
+    case aux_sym__regex_interpolated_paren_repeat1 = 123
+    case aux_sym__regex_interpolated_brace_repeat1 = 124
+    case anon_sym_LF__END__ = 125
+    case sym_uninterpreted = 126
+    case anon_sym_undef = 127
+    case anon_sym_alias = 128
+    case anon_sym_def = 129
+    case anon_sym_DOT = 130
+    case anon_sym_LPAREN = 131
+    case anon_sym_RPAREN = 132
+    case anon_sym_end = 133
+    case anon_sym_STAR = 134
+    case anon_sym_AMP = 135
+    case anon_sym_COMMA = 136
+    case anon_sym_class = 137
+    case anon_sym_LT = 138
+    case anon_sym_COLON_COLON = 139
+    case anon_sym_module = 140
+    case anon_sym_while = 141
+    case anon_sym_until = 142
+    case anon_sym_if = 143
+    case anon_sym_unless = 144
+    case anon_sym_for = 145
+    case anon_sym_in = 146
+    case anon_sym_begin = 147
+    case anon_sym_return = 148
+    case anon_sym_case = 149
+    case anon_sym_when = 150
+    case anon_sym_rescue = 151
+    case anon_sym_do = 152
+    case anon_sym_then = 153
+    case anon_sym_elsif = 154
+    case anon_sym_else = 155
+    case anon_sym_ensure = 156
+    case anon_sym_EQ_GT = 157
+    case anon_sym_LBRACK = 158
+    case anon_sym_RBRACK = 159
+    case anon_sym_yield = 160
+    case anon_sym_and = 161
+    case anon_sym_or = 162
+    case anon_sym_not = 163
+    case anon_sym_defined_QMARK = 164
+    case anon_sym_EQ = 165
+    case anon_sym_PLUS_EQ = 166
+    case anon_sym_DASH_EQ = 167
+    case anon_sym_STAR_EQ = 168
+    case anon_sym_STAR_STAR_EQ = 169
+    case anon_sym_SLASH_EQ = 170
+    case anon_sym_PIPE_PIPE_EQ = 171
+    case anon_sym_AMP_AMP_EQ = 172
+    case anon_sym_QMARK = 173
+    case anon_sym_COLON = 174
+    case anon_sym_DOT_DOT = 175
+    case anon_sym_DOT_DOT_DOT = 176
+    case anon_sym_PIPE_PIPE = 177
+    case anon_sym_AMP_AMP = 178
+    case anon_sym_EQ_EQ = 179
+    case anon_sym_BANG_EQ = 180
+    case anon_sym_EQ_EQ_EQ = 181
+    case anon_sym_LT_EQ_GT = 182
+    case anon_sym_EQ_TILDE = 183
+    case anon_sym_BANG_TILDE = 184
+    case anon_sym_LT_EQ = 185
+    case anon_sym_GT = 186
+    case anon_sym_GT_EQ = 187
+    case anon_sym_CARET = 188
+    case anon_sym_PIPE = 189
+    case anon_sym_LT_LT = 190
+    case anon_sym_GT_GT = 191
+    case anon_sym_DASH = 192
+    case anon_sym_PLUS = 193
+    case anon_sym_SLASH = 194
+    case anon_sym_PERCENT = 195
+    case anon_sym_STAR_STAR = 196
+    case anon_sym_BANG = 197
+    case anon_sym_TILDE = 198
+    case anon_sym_self = 199
+    case sym_identifier = 200
+    case sym_comment = 201
+    case aux_sym_SLASH_COLON_LPAREN_LBRACKa_DASHzA_DASHZ_RBRACK_LBRACKa_DASHzA_DASHZ0_DASH9_RBRACK_STAR_BSLASH_QMARK_QMARK_PIPE_DOT_DOT_PIPE_PIPE_PIPE_CARET_PIPE_AMP_PIPE_LT_EQ_GT_PIPE_EQ_EQ_PIPE_EQ_EQ_EQ_PIPE_EQ_TILDE_PIPE_GT_PIPE_GT_EQ_PIPE_LT_PIPE_LT_EQ_PIPE_PLUS_PIPE_DASH_PIPE_STAR_PIPE_SLASH_PIPE_PERCENT_PIPE_STAR_STAR_PIPE_LT_LT_PIPE_GT_GT_PIPE_TILDE_PIPE_PLUS_AT_PIPE_DASH_AT_PIPE_LBRACK_RBRACK_PIPE_LBRACK_RBRACK_EQ_RPAREN_SLASH = 202
+    case anon_sym_COLON_SQUOTE = 203
+    case anon_sym_COLON_DQUOTE = 204
+    case anon_sym_PERCENTs = 205
+    case anon_sym_POUND = 206
+    case aux_sym_SLASH_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_POUND_BSLASH_BSLASH_BSLASH_LF_RBRACK_SLASH = 207
+    case aux_sym_SLASH_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_SLASH_BSLASH_BSLASH_BSLASH_LF_RBRACK_SLASH = 208
+    case anon_sym_BSLASH = 209
+    case aux_sym_SLASH_LBRACK_CARET_BSLASH_BSLASH_BSLASH_BSLASH_BSLASH_LF_RBRACK_SLASH = 210
+    case sym_integer = 211
+    case sym_float = 212
+    case sym_boolean = 213
+    case sym_nil = 214
+    case aux_sym_SLASH_PERCENTQ_QMARK_SLASH = 215
+    case aux_sym_SLASH_POUND_LBRACK_CARET_LBRACE_RBRACE_RBRACK_SLASH = 216
+    case aux_sym_SLASH_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_SLASH_BSLASH_BSLASH_BSLASH_LF_BSLASH_POUND_RBRACK_SLASH = 217
+    case aux_sym_SLASH_LBRACK_CARET_BSLASH_BSLASH_BSLASH_BSLASH_BSLASH_LF_BSLASH_POUND_RBRACK_SLASH = 218
+    case aux_sym_SLASH_PERCENTq_SLASH = 219
+    case anon_sym_SQUOTE = 220
+    case anon_sym_DQUOTE = 221
+    case aux_sym_SLASH_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_SQUOTE_BSLASH_BSLASH_BSLASH_LF_RBRACK_SLASH = 222
+    case aux_sym_SLASH_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_DQUOTE_BSLASH_BSLASH_BSLASH_LF_BSLASH_POUND_RBRACK_SLASH = 223
+    case aux_sym_SLASH_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_GT_BSLASH_BSLASH_BSLASH_LF_BSLASH_POUND_BSLASH_LT_RBRACK_SLASH = 224
+    case aux_sym_SLASH_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_RBRACK_BSLASH_BSLASH_BSLASH_LF_BSLASH_POUND_BSLASH_LBRACK_RBRACK_SLASH = 225
+    case aux_sym_SLASH_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_RPAREN_BSLASH_BSLASH_BSLASH_LF_BSLASH_POUND_BSLASH_LPAREN_RBRACK_SLASH = 226
+    case anon_sym_LBRACE = 227
+    case aux_sym_SLASH_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_RBRACE_BSLASH_BSLASH_BSLASH_LF_BSLASH_POUND_BSLASH_LBRACE_RBRACK_SLASH = 228
+    case anon_sym_RBRACE = 229
+    case aux_sym_SLASH_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_GT_BSLASH_BSLASH_BSLASH_LF_BSLASH_LT_RBRACK_SLASH = 230
+    case aux_sym_SLASH_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_RBRACK_BSLASH_BSLASH_BSLASH_LF_BSLASH_LBRACK_RBRACK_SLASH = 231
+    case aux_sym_SLASH_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_RPAREN_BSLASH_BSLASH_BSLASH_LF_BSLASH_LPAREN_RBRACK_SLASH = 232
+    case aux_sym_SLASH_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_RBRACE_BSLASH_BSLASH_BSLASH_LF_BSLASH_LBRACE_RBRACK_SLASH = 233
+    case anon_sym_POUND_LBRACE = 234
+    case anon_sym_BQUOTE = 235
+    case aux_sym_SLASH_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_BQUOTE_BSLASH_BSLASH_BSLASH_LF_RBRACK_SLASH = 236
+    case anon_sym_PERCENTx = 237
+    case aux_sym_SLASH_PERCENT_LBRACKwi_RBRACK_SLASH = 238
+    case aux_sym_SLASH_PERCENT_LBRACKWI_RBRACK_SLASH = 239
+    case aux_sym_SLASH_BSLASH_LBRACK_LBRACK_CARET_BSLASH_RBRACK_BSLASHn_RBRACK_STAR_BSLASH_RBRACK_PIPE_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_SLASH_BSLASH_SLASH_BSLASH_LBRACK_BSLASH_BSLASH_BSLASH_LF_BSLASH_POUND_RBRACK_SLASH = 240
+    case aux_sym_SLASH_BSLASH_SLASH_LBRACKa_DASHz_RBRACK_STAR_SLASH = 241
+    case anon_sym_PERCENTr = 242
+    case aux_sym_SLASH_BSLASH_LBRACK_LBRACK_CARET_BSLASH_RBRACK_BSLASHn_RBRACK_STAR_BSLASH_RBRACK_PIPE_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_POUND_BSLASH_POUND_BSLASH_LBRACK_BSLASH_BSLASH_BSLASH_LF_RBRACK_SLASH = 243
+    case aux_sym_SLASH_BSLASH_POUND_LBRACKa_DASHz_RBRACK_STAR_SLASH = 244
+    case aux_sym_SLASH_BSLASH_LBRACK_LBRACK_CARET_BSLASH_RBRACK_BSLASHn_RBRACK_STAR_BSLASH_RBRACK_PIPE_LBRACK_CARET_BSLASH_BSLASH_BSLASH_BSLASH_BSLASH_LBRACK_BSLASH_BSLASH_BSLASH_LF_BSLASH_POUND_RBRACK_SLASH = 245
+    case aux_sym_SLASH_BSLASH_BSLASH_LBRACKa_DASHz_RBRACK_STAR_SLASH = 246
+    case aux_sym_SLASH_BSLASH_LBRACK_LBRACK_CARET_BSLASH_RBRACK_BSLASHn_RBRACK_STAR_BSLASH_RBRACK_PIPE_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_LT_BSLASH_GT_BSLASH_LBRACK_BSLASH_BSLASH_BSLASH_LF_BSLASH_POUND_RBRACK_SLASH = 247
+    case aux_sym_SLASH_BSLASH_GT_LBRACKa_DASHz_RBRACK_STAR_SLASH = 248
+    case aux_sym_SLASH_BSLASH_LBRACK_LBRACK_CARET_BSLASH_RBRACK_BSLASHn_RBRACK_STAR_BSLASH_RBRACK_PIPE_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_LBRACK_BSLASH_RBRACK_BSLASH_LBRACK_BSLASH_BSLASH_BSLASH_LF_BSLASH_POUND_RBRACK_SLASH = 249
+    case aux_sym_SLASH_BSLASH_RBRACK_LBRACKa_DASHz_RBRACK_STAR_SLASH = 250
+    case aux_sym_SLASH_BSLASH_LBRACK_LBRACK_CARET_BSLASH_RBRACK_BSLASHn_RBRACK_STAR_BSLASH_RBRACK_PIPE_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_LPAREN_BSLASH_RPAREN_BSLASH_LBRACK_BSLASH_BSLASH_BSLASH_LF_BSLASH_POUND_RBRACK_SLASH = 251
+    case aux_sym_SLASH_BSLASH_RPAREN_LBRACKa_DASHz_RBRACK_STAR_SLASH = 252
+    case aux_sym_SLASH_BSLASH_LBRACK_LBRACK_CARET_BSLASH_RBRACK_BSLASHn_RBRACK_STAR_BSLASH_RBRACK_PIPE_BSLASH_BSLASH_DOT_PIPE_LBRACK_CARET_BSLASH_LBRACE_BSLASH_RBRACE_BSLASH_LBRACK_BSLASH_BSLASH_BSLASH_LF_BSLASH_POUND_RBRACK_SLASH = 253
+    case aux_sym_SLASH_BSLASH_RBRACE_LBRACKa_DASHz_RBRACK_STAR_SLASH = 254
+    case anon_sym_DASH_GT = 255
+    case anon_sym_lambda = 256
+    case anon_sym_PLUS_AT = 257
+    case anon_sym_DASH_AT = 258
+    case anon_sym_LBRACK_RBRACK = 259
+    case anon_sym_LBRACK_RBRACK_EQ = 260
+    case sym__line_break = 261
+    case anon_sym_SEMI = 262
 };

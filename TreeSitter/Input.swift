@@ -23,7 +23,7 @@ public class Input {
 }
 
 func asTSInput(_ payload: UnsafeMutableRawPointer) -> TSInput {
-    return TSInput(payload: payload, read_fn: { payload, read in
+    return TSInput(payload: payload, read: { payload, read in
         //let pointer = UnsafeMutablePointer<Input>(payload)
         
         //print(pointer)
@@ -40,7 +40,7 @@ func asTSInput(_ payload: UnsafeMutableRawPointer) -> TSInput {
         
         return input.data.withUnsafeBytes { $0 } + 2 + previousPosition;
         
-        }, seek_fn: { payload, character, byte in
+    }, seek: { payload, character, byte in
             
             let input = payload!.load(as: Input.self)
             input.position = byte

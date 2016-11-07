@@ -16,7 +16,7 @@ public class Document {
     
     
     public init(input: Input, language: Language) {
-        self.documentPointer = ts_document_make()
+        self.documentPointer = ts_document_new()
         self.language = language
         self.input = input
         ts_document_set_language(documentPointer, language.languagePointer)
