@@ -14,7 +14,7 @@ public protocol LanguageSymbolProtocol {
     //var tokenType: TokenType? {get} // REMOVE THIS
     static var languagePointer: UnsafeMutablePointer<TSLanguage> { get }
     
-    static func tokenType(for node: inout Node, at index: UInt32) -> TokenType?
+    static func tokenType(for node: inout Node, at index: Int) -> TokenType?
 }
 
 /*

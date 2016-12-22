@@ -67,7 +67,7 @@ public class TextStorage: NSTextStorage {
             var node = node
             
             guard node.symbol != 0 else { continue }
-            guard let tokenType = language.symbol.tokenType(for: &node, at: location) else { continue }
+            guard let tokenType = language.symbol.tokenType(for: &node, at: Int(location)) else { continue }
             guard language.metadata(for: node.symbol).structural else {
                 continue
             }

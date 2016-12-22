@@ -12,14 +12,14 @@ extension Json: LanguageSymbolProtocol {
     
     public static var languagePointer = ts_language_json()!
     
-    public static func tokenType(for node: inout Node, at index: UInt32) -> TokenType? {
+    public static func tokenType(for node: inout Node, at index: Int) -> TokenType? {
         guard let symbol = Json(rawValue: node.symbol) else { return nil }
         
         if symbol == Json.sym_pair {
             let firstString = node.children.first(where: {
                 $0.symbol == Json.sym_string.rawValue
             })
-            if let s = firstString, s.range.contains(index) {
+            if let s = firstString, s.range.contains(UInt32(index)) {
                 node = s
                 return .text
             }

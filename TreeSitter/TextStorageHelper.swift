@@ -47,7 +47,7 @@ public class TextStorageDelegate: NSObject, NSTextStorageDelegate {
             
             guard node.symbol != 0 else { continue }
             var node = node
-            guard let tokenType = language.symbol.tokenType(for: &node, at: node.start) else { continue }
+            guard let tokenType = language.symbol.tokenType(for: &node, at: Int(node.start)) else { continue }
             guard language.metadata(for: node.symbol).structural else {
                 continue
             }

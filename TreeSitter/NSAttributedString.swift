@@ -20,7 +20,7 @@ extension Node {
             let tokenType = language.symbol.tokenType(for: &copy, at: -1),
             language.metadata(for: symbol).structural,
             let color = theme[tokenType],
-            self.start < length && self.end < length && self.range.length > 0
+            self.start < UInt32(length) && self.end < UInt32(length) && self.range.count > 0
             else {
                 children.forEach { $0.write(to: attributedString, language: language, theme: theme, font: font, length: length) }
                 return
@@ -29,7 +29,7 @@ extension Node {
         attributedString.setAttributes([
             NSFontAttributeName: font,
             NSForegroundColorAttributeName: color
-            ], range: self.range)
+            ], range: NSRange(self.range))
     }
 }
 
