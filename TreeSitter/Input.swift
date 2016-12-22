@@ -11,9 +11,9 @@ import TreeSitterRuntime
 
 public class Input {
     var data: Data
-    var position: Int
-    var length: Int {
-        return data.count - 2
+    var position: UInt32
+    var length: UInt32 {
+        return UInt32(data.count - 2)
     }
     
     public init(data: Data) {
@@ -34,11 +34,11 @@ func asTSInput(_ payload: UnsafeMutableRawPointer) -> TSInput {
         }
         let previousPosition = input.position
         input.position = (input.length)
-        read?.pointee = (input.position) - previousPosition
+        read?.pointee = UInt32(input.position - previousPosition)
         payload?.storeBytes(of: input, as: Input.self)
         //print(input.position, input.length)
         
-        return input.data.withUnsafeBytes { $0 } + 2 + previousPosition;
+        return input.data.withUnsafeBytes { $0 } + 2 + Int(previousPosition);
         
     }, seek: { payload, character, byte in
             

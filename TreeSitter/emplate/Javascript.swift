@@ -13,7 +13,7 @@ extension Javascript: LanguageSymbolProtocol {
     
     public static var languagePointer = ts_language_javascript()!
     
-    public static func tokenType(for node: inout Node, at index: Int) -> TokenType? {
+    public static func tokenType(for node: inout Node, at index: UInt32) -> TokenType? {
         guard let symbol = Javascript(rawValue: node.symbol) else { return nil }
         switch symbol {
         case .sym_string:

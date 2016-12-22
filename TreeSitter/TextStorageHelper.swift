@@ -25,7 +25,7 @@ public class TextStorageDelegate: NSObject, NSTextStorageDelegate {
         
         let start = Point(row: 0, column: 0)
         
-        let edit = TSInputEdit(start_byte: range.location * 2, bytes_removed: range.length * 2, bytes_added: str.characters.count * 2, start_point: start, extent_removed: .zero, extent_added: Point(row: 0, column: str.characters.count * 2))
+        let edit = TSInputEdit(start_byte: UInt32(range.location) * 2, bytes_removed: UInt32(range.length) * 2, bytes_added: UInt32(str.characters.count) * 2, start_point: start, extent_removed: .zero, extent_added: Point(row: 0, column:  UInt32(str.characters.count) * 2))
         document.input.data.replaceCharactersInRange(range, replacementText: str)
         
         document.makeInputEdit(edit)
@@ -42,11 +42,12 @@ public class TextStorageDelegate: NSObject, NSTextStorageDelegate {
         let theme = ColorTheme.default
         
         for node in document.rootNode.children {
-            guard changedIndices.contains(integersIn: node.range.toRange()!) else { continue }
+            let range = Int(node.start) ... Int(node.end)
+            guard changedIndices.contains(integersIn: range) else { continue }
             
             guard node.symbol != 0 else { continue }
             var node = node
-            guard let tokenType = language.symbol.tokenType(for: &node, at: node.range.location) else { continue }
+            guard let tokenType = language.symbol.tokenType(for: &node, at: node.start) else { continue }
             guard language.metadata(for: node.symbol).structural else {
                 continue
             }

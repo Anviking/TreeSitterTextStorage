@@ -20,6 +20,7 @@ public enum TraverseAction {
     case proceed, ignoreSiblings, ignoreChildren, ignoreChild(Int)
 }
 
+
 extension Node {
     
     public var hasChanges: Bool {
@@ -42,8 +43,8 @@ extension Node {
         return ts_node_end_point(self)
     }
     
-    public var range: NSRange {
-        return NSMakeRange(Int(start), Int(end - start))
+    public var range: CountableClosedRange<UInt32> {
+        return start ... end
     }
     
     public func stringInDocument(_ document: OpaquePointer) -> String {
@@ -93,10 +94,10 @@ public struct NodeChildrenCollection: Collection {
 
 
 public struct TraverseInRangeGenerator: IteratorProtocol, Sequence {
-    let index: Int
+    let index: UInt32
     let document: Document
     var children: IndexingIterator<NodeChildrenCollection>
-    init(node: Node, index: Int, document: Document) {
+    init(node: Node, index: UInt32, document: Document) {
         self.index = index
         self.document = document
         
@@ -104,7 +105,7 @@ public struct TraverseInRangeGenerator: IteratorProtocol, Sequence {
     }
     
     public mutating func next() -> Node? {
-        for child in children where child.range.containsIndex(index) {
+        for child in children where child.range.contains(index) {
             children = child.children.makeIterator()
             return child
         }

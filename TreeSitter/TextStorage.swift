@@ -35,7 +35,7 @@ public class TextStorage: NSTextStorage {
         self.cache = Array(repeating: nil, count: data.count)
         self.language = language
         super.init()
-        _length = length
+        _length = UInt32(length)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -44,22 +44,23 @@ public class TextStorage: NSTextStorage {
     
     public var document: Document
     
-    private var _length = 0
+    private var _length: UInt32 = 0
     
     public override var string: String {
         return String(data: document.input.data, encoding: String.Encoding.utf16)!
     }
 
     
-    var cache: [(TokenType?, NSRange)?]
+    var cache: [(TokenType?, CountableClosedRange<UInt32>)?]
     
     public override func attributes(at location: Int, effectiveRange range: NSRangePointer?) -> [String : Any] {
+        
         if let cached = cache[location] {
-            range?.pointee = cached.1
+            range?.pointee = NSRange(cached.1)
             let color = cached.0.flatMap { theme[$0] }
             return attributesForColor(color ?? textColor)
         }
-        
+        let location = UInt32(location)
         var lastNode = document.rootNode
         for node in TraverseInRangeGenerator(node: document.rootNode, index: location, document: document) {
             lastNode = node
@@ -72,10 +73,10 @@ public class TextStorage: NSTextStorage {
             }
             
             guard let color = theme[tokenType] else { continue }
-            guard node.start < _length && node.end < length && node.range.length > 0  else { continue }
+            guard node.start < _length && node.end < UInt32(length) && node.range.count > 0  else { continue }
             
-            range?.pointee = node.range
-            cache[location] = (tokenType, node.range)
+            range?.pointee = NSRange(node.range)
+            cache[Int(location)] = (tokenType, node.range)
             return attributesForColor(color)
         }
         
@@ -86,15 +87,15 @@ public class TextStorage: NSTextStorage {
         
         let r: NSRange
         if let endNode = lastNode.children.filter({ $0.start > UInt32(location) }).first {
-            r = NSMakeRange(location, endNode.start - location)
+            r = NSRange(location: location, length: endNode.start - location)
         } else if ts_node_eq(document.rootNode, lastNode) {
-            r = NSRange(location: location, length: _length-location)
+            r = NSRange(location: location, length: _length - location)
         } else {
-            r = lastNode.range
+            r = NSRange(lastNode.range)
         }
         
         range?.pointee = r
-        cache[location] = (nil, r)
+        cache[location] = (nil, r.uint32range)
         return attributesForColor(textColor)
     }
     
@@ -105,36 +106,40 @@ public class TextStorage: NSTextStorage {
     public override func replaceCharacters(in range: NSRange, with str: String) {
         let date = Date()
         
-        let editExtentEnd = range.location + str.lengthOfBytes(using: .utf16)
-        let node = ts_node_descendant_for_char_range(document.rootNode, range.location, editExtentEnd)
+        let nsRange = range
+        let range = range.uint32range
+        
+        let editExtentEnd = range.lowerBound + UInt32(str.lengthOfBytes(using: .utf16))
+        let node = ts_node_descendant_for_char_range(document.rootNode, range.lowerBound, editExtentEnd)
         
         let startPoint = ts_node_start_point(node)
         let endPoint = ts_node_end_point(node)
         
-        let edit = TSInputEdit(start_byte: range.location * 2, bytes_removed: range.length, bytes_added: str.characters.count, start_point: startPoint, extent_removed: endPoint, extent_added: endPoint)
+        let edit = TSInputEdit(start_byte: range.lowerBound * 2, bytes_removed: UInt32(range.count), bytes_added: UInt32(str.characters.count), start_point: startPoint, extent_removed: endPoint, extent_added: endPoint)
         
         
         
         
-        let delta = str.characters.count - range.length
-        _length += delta
-        cache = Array(repeating: nil, count: _length)
+        let delta = str.characters.count - range.count
+        _length += UInt32(delta)
+        cache = Array(repeating: nil, count: Int(_length))
         
         let actions: NSTextStorageEditActions = [.editedCharacters, .editedAttributes]
-        delegate?.textStorage?(self, willProcessEditing: actions, range: range, changeInLength: delta)
+        
+        delegate?.textStorage?(self, willProcessEditing: actions, range: nsRange, changeInLength: delta)
         document.makeInputEdit(edit)
-        document.input.data.replaceCharactersInRange(range, replacementText: str)
-        self.edited(actions, range: range, changeInLength: delta)
+        document.input.data.replaceCharactersInRange(nsRange, replacementText: str)
+        self.edited(actions, range: nsRange, changeInLength: delta)
         
         
-        delegate?.textStorage?(self, didProcessEditing: actions, range: range, changeInLength: delta)
+        delegate?.textStorage?(self, didProcessEditing: actions, range: nsRange, changeInLength: delta)
         print("Tokenizing took: \(abs(date.timeIntervalSinceNow * 1000)) ms")
         
         func printIdentifiers(node: Node) {
             if node.symbol == Javascript.sym_identifier.rawValue {
                 
-                let start = string.index(string.startIndex, offsetBy: node.start)
-                let end = string.index(string.startIndex, offsetBy: node.end)
+                let start = string.index(string.startIndex, offsetBy: Int(node.start))
+                let end = string.index(string.startIndex, offsetBy: Int(node.end))
                 let str = string.substring(with: start ..< end)
                 if node.parent.symbol == Javascript.sym_var_assignment.rawValue {
                     print("decl", str)

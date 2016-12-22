@@ -19,9 +19,32 @@ extension NSRange {
         return true
     }
     
-    func containsIndex(_ index: Int) -> Bool {
+    func contains(_ index: Int) -> Bool {
         let range = location ..< (location + length)
         return range.contains(index)
+    }
+    
+    var uint32range: CountableClosedRange<UInt32> {
+        return UInt32(location) ... UInt32(location + length)
+    }
+    
+    init(_ uint32range: CountableClosedRange<UInt32>) {
+        self.init(location: Int(uint32range.lowerBound), length: uint32range.count)
+    }
+    
+    init(location: UInt32, length: UInt32) {
+        self.init(location: Int(location), length: Int(length))
+    }
+}
+
+extension Array {
+    subscript(_ index: UInt32) -> Element {
+        get {
+            return self[Int(index)]
+        }
+        set {
+            self[Int(index)] = newValue
+        }
     }
 }
 

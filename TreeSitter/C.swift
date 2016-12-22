@@ -13,7 +13,7 @@ extension C: LanguageSymbolProtocol {
     
     public static var languagePointer = ts_language_c()!
     
-    public static func tokenType(for node: inout Node, at index: Int) -> TokenType? {
+    public static func tokenType(for node: inout Node, at index: UInt32) -> TokenType? {
         guard let symbol = C(rawValue: node.symbol) else { return nil }
         
         

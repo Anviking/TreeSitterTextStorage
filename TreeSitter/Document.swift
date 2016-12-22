@@ -46,7 +46,7 @@ public class Document {
         let bufferSize = 1024
         
         let start = UnsafeMutablePointer<UnsafeMutablePointer<TSRange>?>.allocate(capacity: 1)
-        let count = UnsafeMutablePointer<Int>.allocate(capacity: 1)
+        let count = UnsafeMutablePointer<UInt32>.allocate(capacity: 1)
         
         defer { start.deallocate(capacity: 1) }
         defer { count.deallocate(capacity: 1) }
@@ -54,7 +54,7 @@ public class Document {
         
         ts_document_parse_and_get_changed_ranges(documentPointer, start, count)
         
-        let buffer = UnsafeMutableBufferPointer(start: start.pointee!, count: count.move())
+        let buffer = UnsafeMutableBufferPointer(start: start.pointee!, count: Int(count.move()))
         return Array(buffer)
     }
     
