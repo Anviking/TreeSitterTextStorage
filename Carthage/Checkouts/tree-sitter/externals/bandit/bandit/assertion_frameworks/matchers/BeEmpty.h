@@ -8,10 +8,10 @@ namespace bandit { namespace Matchers {
     class BeEmpty : public Matcher
     {
     private:
-        // BeEmpty & operator=(const BeEmpty &);
+        BeEmpty & operator=(const BeEmpty &);
 
     public:
-        explicit BeEmpty() : Matcher() {}
+        BeEmpty() : Matcher() {}
 
         template<typename U>
         bool matches(const U& container) const

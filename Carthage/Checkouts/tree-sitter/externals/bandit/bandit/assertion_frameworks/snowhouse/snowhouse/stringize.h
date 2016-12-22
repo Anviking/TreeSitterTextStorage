@@ -7,8 +7,6 @@
 #ifndef IGLOO_STRINGIZE_H
 #define IGLOO_STRINGIZE_H
 
-#include <cstddef>
-
 namespace snowhouse {
   namespace detail {
 
@@ -87,18 +85,6 @@ namespace snowhouse {
       return detail::DefaultStringizer< T, detail::is_output_streamable<T>::value >::ToString(value);
     }
   };
-
-#if __cplusplus > 199711L
-  // We need this because nullptr_t has ambiguous overloads of operator<< in the standard library.
-  template<>
-  struct Stringizer<std::nullptr_t>
-  {
-    static std::string ToString(std::nullptr_t)
-    {
-      return "nullptr";
-    }
-  };
-#endif
 }
 
 #endif

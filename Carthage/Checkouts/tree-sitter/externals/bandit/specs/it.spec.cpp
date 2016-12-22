@@ -74,10 +74,6 @@ go_bandit([](){
           AssertThat(reporter->call_log(), Has().None().EqualTo("it_succeeded: my it"));
         });
       
-        it("tells run_policy that we have a failing test", [&](){
-          call_it();
-          AssertThat(run_policy->has_encountered_failure(), IsTrue());
-        });
       });
 
       describe("but with a std::exception in after_each", [&](){
@@ -95,12 +91,7 @@ go_bandit([](){
           call_it();
           AssertThat(reporter->call_log(), Has().None().EqualTo("it_succeeded: my it"));
         });
-
-        it("tells run_policy that we have a failing test", [&](){
-          call_it();
-          AssertThat(run_policy->has_encountered_failure(), IsTrue());
-        });
-
+      
       });
 
       describe("but with an unknown error in after_each", [&](){
@@ -118,11 +109,7 @@ go_bandit([](){
           call_it();
           AssertThat(reporter->call_log(), Has().None().EqualTo("it_succeeded: my it"));
         });
-
-        it("tells run_policy that we have a failing test", [&](){
-          call_it();
-          AssertThat(run_policy->has_encountered_failure(), IsTrue());
-        });
+      
       });
 
       describe("but with a failing before_each", [&](){
@@ -140,11 +127,7 @@ go_bandit([](){
           call_it();
           AssertThat(reporter->call_log(), Has().None().EqualTo("it_succeeded: my it"));
         });
-
-        it("tells run_policy that we have a failing test", [&](){
-          call_it();
-          AssertThat(run_policy->has_encountered_failure(), IsTrue());
-        });
+      
       });
 
       describe("but with a std::exception in before_each", [&](){
@@ -162,11 +145,7 @@ go_bandit([](){
           call_it();
           AssertThat(reporter->call_log(), Has().None().EqualTo("it_succeeded: my it"));
         });
-
-        it("tells run_policy that we have a failing test", [&](){
-          call_it();
-          AssertThat(run_policy->has_encountered_failure(), IsTrue());
-        });
+      
       });
 
       describe("but with an unknown error in before_each", [&](){
@@ -184,11 +163,7 @@ go_bandit([](){
           call_it();
           AssertThat(reporter->call_log(), Has().None().EqualTo("it_succeeded: my it"));
         });
-
-        it("tells run_policy that we have a failing test", [&](){
-          call_it();
-          AssertThat(run_policy->has_encountered_failure(), IsTrue());
-        });
+      
       });
 
     });
@@ -213,10 +188,6 @@ go_bandit([](){
         AssertThat(context->call_log(), Has().Exactly(1).EqualTo("run_after_eaches"));
       });
 
-      it("tells run_policy that we have a failing test", [&](){
-        call_it();
-        AssertThat(run_policy->has_encountered_failure(), IsTrue());
-      });
     });
 
 
@@ -238,11 +209,6 @@ go_bandit([](){
       it("calls after_each in context", [&](){
         call_it();
         AssertThat(context->call_log(), Has().Exactly(1).EqualTo("run_after_eaches"));
-      });
-
-      it("tells run_policy that we have a failing test", [&](){
-        call_it();
-        AssertThat(run_policy->has_encountered_failure(), IsTrue());
       });
     });
 
@@ -267,10 +233,6 @@ go_bandit([](){
         AssertThat(context->call_log(), Has().Exactly(1).EqualTo("run_after_eaches"));
       });
       
-      it("tells run_policy that we have a failing test", [&](){
-        call_it();
-        AssertThat(run_policy->has_encountered_failure(), IsTrue());
-      });
     
     });
     

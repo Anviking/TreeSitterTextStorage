@@ -15,13 +15,13 @@ namespace bandit { namespace specs { namespace util {
   //
   struct argv_helper
   {
-    argv_helper(int argc_a, const char* argv_a[])
-      : argc_(argc_a) 
+    argv_helper(int argc, const char* argv[])
+      : argc_(argc) 
     {
-      non_const_argv_ = new char*[argc_];
-      for(int i=0; i < argc_; i++)
+      non_const_argv_ = new char*[argc];
+      for(int i=0; i < argc; i++)
       {
-		std::string s(argv_a[i]);
+		std::string s(argv[i]);
         non_const_argv_[i] = new char[s.size() + 1];
         for(size_t c=0;c<s.size();c++)
 		{

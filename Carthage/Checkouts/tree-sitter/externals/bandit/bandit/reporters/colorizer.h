@@ -1,8 +1,8 @@
 #ifndef BANDIT_REPORTERS_COLORIZER_H
 #define BANDIT_REPORTERS_COLORIZER_H
 
-#if defined(_WIN32) && !defined(BANDIT_CONFIG_COLOR_ANSI)
-  #ifndef NOMINMAX
+#ifdef _WIN32
+  #ifndef MINGW32
     #define NOMINMAX
   #endif
 
@@ -12,7 +12,7 @@
 
 namespace bandit { namespace detail {
 
-#if defined(_WIN32) && !defined(BANDIT_CONFIG_COLOR_ANSI)
+#ifdef _WIN32
   struct colorizer
   {
     colorizer(bool colors_enabled = true)
@@ -79,7 +79,7 @@ namespace bandit { namespace detail {
   private:
 	  WORD get_console_color() const
 	  {
-		  CONSOLE_SCREEN_BUFFER_INFO info{};
+		  CONSOLE_SCREEN_BUFFER_INFO info = {0};
 		  GetConsoleScreenBufferInfo(stdout_handle_, &info);
 		  return info.wAttributes;
 	  }

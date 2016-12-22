@@ -29,11 +29,11 @@ features
 requirements
 ------------
 
-* [CMake 2.8.12][cmk] or newer. The executable `cmake` should be on the system path.
+* [CMake 2.8.6][cmk] or newer. The executable `cmake` should be on the system path.
 * [Visual Studio C++][vslstd], [MinGW][mingw] or [Cygwin][cgwn] under Windows.
-* [GCC][gcc] or [Clang][clang] under Linux or OS X.
+* [GCC][gcc] under Linux or OS X.
 * [Intel C++ compiler][intel] under Windows, Linux or OS X.
-* [Xcode][xcdt] application or Xcode Command Line Tools under OS X.
+* [Xcode][xcdt] developer tools package under OS X. This includes [Clang][clang].
 
 installation
 ------------
@@ -75,7 +75,19 @@ set the `COTIRE_CXX_PREFIX_HEADER_INIT` property before invoking cotire:
 
 As a side effect, cotire generates a new target named `MyExecutable_unity`, which lets you perform
 a unity build for the original target. The unity target inherits all build settings from the
-original target, including linked libraries and target dependencies.
+original target except for linked libraries and target dependencies. To get a workable unity
+target, add another `target_link_libraries` call:
+
+    cotire(MyExecutable)
+    target_link_libraries(MyExecutable_unity ${MyExecutableLibraries})
+
+If CMake version 2.8.11 or later is used, it is possible to also inherit linked libraries from
+the original target by setting the property `COTIRE_UNITY_LINK_LIBRARIES_INIT`:
+
+    set_target_properties(MyExecutable PROPERTIES COTIRE_UNITY_LINK_LIBRARIES_INIT "COPY")
+    cotire(MyExecutable)
+
+See the [cotire manual][manual] for more information.
 
 For Makefile based generators you can then invoke a unity build that produces the same output as
 the original target, but does so much faster by entering:
@@ -104,8 +116,6 @@ modifications, because they [break][EoUB] the use of some C and C++ language fea
 Generally, modern C++ code which makes heavy use of header-only libraries will profit the most from
 cotiring.
 
-This [blog post][shrp] discusses speedup results obtained for real-world projects.
-
 known issues
 ------------
 
@@ -119,19 +129,18 @@ known issues
 [ccrc]:http://www.cmake.org/Wiki/CMake_Cross_Compiling
 [cgwn]:http://www.cygwin.com/
 [clang]:http://clang.llvm.org/
-[cmk]:http://www.cmake.org/download/
+[cmk]:http://www.cmake.org/cmake/resources/software.html
 [gcc]:http://gcc.gnu.org/
 [manual]:https://github.com/sakra/cotire/blob/master/MANUAL.md
 [mingw]:http://www.mingw.org/
-[ninja]:http://martine.github.io/ninja/
+[ninja]:http://martine.github.com/ninja/
 [pch]:http://en.wikipedia.org/wiki/Precompiled_header
 [pfh]:http://en.wikipedia.org/wiki/Prefix_header
 [scu]:http://en.wikipedia.org/wiki/Single_Compilation_Unit
 [vslstd]:http://msdn.microsoft.com/vstudio/
-[xcdt]:http://developer.apple.com/xcode/
+[xcdt]:http://developer.apple.com/tools/xcode/
 [PCHH]:http://gcc.gnu.org/wiki/PCHHaters
-[EoUB]:http://engineering-game-dev.com/2009/12/15/the-evils-of-unity-builds/
-[jom]:http://wiki.qt.io/Jom
+[EoUB]:http://leewinder.co.uk/blog/?p=394
+[jom]:http://qt-project.org/wiki/jom
 [intel]:http://software.intel.com/en-us/c-compilers
 [XGE]:http://www.incredibuild.com
-[shrp]:http://unriskinsight.blogspot.co.at/2014/09/sharpen-your-tools.html

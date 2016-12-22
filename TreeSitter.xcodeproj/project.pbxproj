@@ -900,10 +900,7 @@
 				INFOPLIST_FILE = TreeSitter/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/tree-sitter/out/Release",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				LLVM_LTO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.anviking.TreeSitter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -913,7 +910,7 @@
 				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/tree-sitter $(SRCROOT)/languages $(SRCROOT)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/tree-sitter/** $(SRCROOT)/tree-sitter/src/runtime $(SRCROOT)/tree-sitter/include";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Carthage/Checkouts/tree-sitter/** $(SRCROOT)/Carthage/Checkouts/tree-sitter/src/runtime $(SRCROOT)/Carthage/Checkouts/tree-sitter/include";
 			};
 			name = Debug;
 		};
@@ -930,10 +927,7 @@
 				INFOPLIST_FILE = TreeSitter/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/tree-sitter/out/Release",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				LLVM_LTO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.anviking.TreeSitter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -943,7 +937,7 @@
 				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/tree-sitter $(SRCROOT)/languages $(SRCROOT)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/tree-sitter/** $(SRCROOT)/tree-sitter/src/runtime $(SRCROOT)/tree-sitter/include";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Carthage/Checkouts/tree-sitter/** $(SRCROOT)/Carthage/Checkouts/tree-sitter/src/runtime $(SRCROOT)/Carthage/Checkouts/tree-sitter/include";
 			};
 			name = Release;
 		};

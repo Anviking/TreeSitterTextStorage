@@ -8,7 +8,7 @@
 #define IGLOO_COLLECTIONCONSTRAINTEVALUATOR_H
 
 #include <string>
-#include "../invalidexpressionexception.h"
+#include "../../../assertionexception.h"
 
 namespace snowhouse
 {
@@ -91,7 +91,7 @@ private:
     std::ostringstream stm;
     stm << "This string seems to contain an invalid line ending at position "
         << newline << ":\n" << str << std::endl;
-    throw InvalidExpressionException(stm.str());
+    throw AssertionException(stm.str());
   }
 };
 

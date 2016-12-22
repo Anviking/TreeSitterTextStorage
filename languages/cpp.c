@@ -1,6 +1,7 @@
 #include "parser.h"
 
 #define STATE_COUNT 1332
+#define TOKEN_COUNT 173
 #define SYMBOL_COUNT 173
 
 enum {

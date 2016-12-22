@@ -8,21 +8,16 @@ namespace bandit { namespace Matchers {
     class BeFalsy : public Matcher
     {
     private:
-        // BeFalsy& operator=(const BeFalsy&);
+        BeFalsy& operator=(const BeFalsy&);
 
     public:
-        explicit BeFalsy() : Matcher() {}
-        // ~BeFalsy() {}
+        BeFalsy() : Matcher() {}
+        ~BeFalsy() {}
 
         template<typename U>
         bool matches(const U& actualValue) const
 	{
 	    return !actualValue;
-	}
-
-        bool matches(const std::nullptr_t&) const
-	{
-	    return true;
 	}
 
 

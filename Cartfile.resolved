@@ -1,4 +1,4 @@
-github "tree-sitter/tree-sitter" "269ee1c1207bc6b3ecf907e464d1f57e9e88e941"
+github "Anviking/tree-sitter" "7db739385fd167d22b775d41fafdab2cf0432b0a"
 github "tree-sitter/tree-sitter-c" "e87026a962645ee225c12a75b1556293218e3f76"
 github "tree-sitter/tree-sitter-cpp" "bf73d07a014fc1f8b2c345739836f6a64bf1ff5d"
 github "tree-sitter/tree-sitter-go" "0cc565e6aaedc0465b1e397cf8310d6ea8407dce"

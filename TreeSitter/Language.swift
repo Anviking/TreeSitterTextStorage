@@ -39,7 +39,7 @@ public enum Language {
     
     
     func metadata(for symbol: UInt16) -> TSSymbolMetadata {
-        guard (2 ..< 2 + languagePointer.pointee.symbol_count).contains(Int(symbol)) else {
+        guard (2 ..< 2 + languagePointer.pointee.symbol_count).contains(UInt32(Int(symbol))) else {
             fatalError("wrong symbol \(symbol)")
         }
         let p = languagePointer.pointee.symbol_metadata + Int(symbol - 2)
