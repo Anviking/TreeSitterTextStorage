@@ -14,6 +14,15 @@ echo "#include \"../tree-sitter/include/tree_sitter/parser.h\"" >> $umbrella_hea
 for language in Carthage/Checkouts/*
 do
 	name=${language##*-}
+
+    # If the folder is tree-sitter/tree-sitter, don't do anything
+    # This is very hacky, and I'm not 100% sure why it works. Fixme, maybe.
+    if [ "$name" == "sitter" ]
+    then
+        echo "Skipping $language"
+        continue
+    fi
+
 	echo "Processing $name"
 
 	new=./languages/$name.c

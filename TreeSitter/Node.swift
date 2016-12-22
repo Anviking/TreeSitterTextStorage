@@ -26,11 +26,11 @@ extension Node {
         return ts_node_has_changes(self)
     }
     
-    public var start: Int {
+    public var start: UInt32 {
         return ts_node_start_char(self)
     }
     
-    public var end: Int {
+    public var end: UInt32 {
         return ts_node_end_char(self)
     }
     
@@ -43,7 +43,7 @@ extension Node {
     }
     
     public var range: NSRange {
-        return NSMakeRange(start, end - start)
+        return NSMakeRange(Int(start), Int(end - start))
     }
     
     public func stringInDocument(_ document: OpaquePointer) -> String {
@@ -67,22 +67,22 @@ public struct NodeChildrenCollection: Collection {
     
     private var index = 0
     let node: Node
-    public let count: Int
+    public let count: UInt32
     init(node: Node) {
         self.count = ts_node_child_count(node)
         self.node = node
     }
     
-    public var startIndex: Int { return 0 }
+    public var startIndex: UInt32 { return 0 }
     
     /// A "past-the-end" element index; the successor of the last valid
     /// subscript argument.
-    public var endIndex: Int { return count }
-    public subscript (index: Int) -> Node {
+    public var endIndex: UInt32 { return count }
+    public subscript (index: UInt32) -> Node {
         return ts_node_child(node, index)
     }
     
-    public func index(after i: Int) -> Int {
+    public func index(after i: UInt32) -> UInt32 {
         return i + 1
     }
     

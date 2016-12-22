@@ -85,7 +85,7 @@ public class TextStorage: NSTextStorage {
         
         
         let r: NSRange
-        if let endNode = lastNode.children.filter({ $0.start > location }).first {
+        if let endNode = lastNode.children.filter({ $0.start > UInt32(location) }).first {
             r = NSMakeRange(location, endNode.start - location)
         } else if ts_node_eq(document.rootNode, lastNode) {
             r = NSRange(location: location, length: _length-location)

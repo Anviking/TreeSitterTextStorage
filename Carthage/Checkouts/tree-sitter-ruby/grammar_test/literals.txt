@@ -3,10 +3,21 @@ symbol
 ======
 
 :foo
+:foo!
+:foo?
+:@foo
+:@@foo
+:$foo
 
 ---
 
-(program (symbol))
+(program
+	(symbol)
+	(symbol)
+	(symbol)
+	(symbol)
+	(symbol)
+	(symbol))
 
 ====================
 single quoted symbol
@@ -23,10 +34,11 @@ double quoted symbol
 ====================
 
 :"foo bar"
+:"#"
 
 ---
 
-(program (symbol))
+(program (symbol) (symbol))
 
 =======================================
 double quoted symbol with interpolation
@@ -37,18 +49,6 @@ double quoted symbol with interpolation
 ---
 
 (program (symbol (interpolation (identifier))))
-
-=========================================
-percent symbol with unbalanced delimiters
-=========================================
-
-%s/a/
-%s\a\
-%s#a#
-
----
-
-(program (symbol) (symbol) (symbol))
 
 =======================================
 percent symbol with balanced delimiters
@@ -72,6 +72,16 @@ integer
 ---
 
 (program (integer))
+
+=======
+integer as object
+=======
+
+3.times
+
+---
+
+(program (call (integer) (identifier)))
 
 =======================
 integer with underscore
@@ -238,6 +248,16 @@ double-quoted string with backslash and character
 
 (program (string))
 
+=================================
+double-quoted string with just pound
+=================================
+
+"#"
+
+---
+
+(program (string))
+
 =============
 interpolation
 =============
@@ -258,18 +278,6 @@ escaped interpolation
 
 (program (string))
 
-===========================================
-percent q string with unbalanced delimiters
-===========================================
-
-%q/a/
-%q\a\
-%q#a#
-
----
-
-(program (string) (string) (string))
-
 =========================================
 percent q string with balanced delimiters
 =========================================
@@ -282,30 +290,6 @@ percent q string with balanced delimiters
 ---
 
 (program (string) (string) (string) (string))
-
-=========================================
-percent string with unbalanced delimiters
-=========================================
-
-%/a/
-%\a\
-%#a#
-
----
-
-(program (string) (string) (string))
-
-===========================================
-percent Q string with unbalanced delimiters
-===========================================
-
-%Q#a#
-%Q/a/
-%Q\a\
-
----
-
-(program (string) (string) (string))
 
 =========================================
 percent string with balanced delimiters
@@ -337,7 +321,7 @@ percent Q string with balanced delimiters
 string chaining
 ===============
 
-%q{a} "b" "c"
+%q(a) "b" "c"
 
 ---
 
@@ -383,6 +367,17 @@ array
 
 (program (array (identifier) (identifier)))
 
+=====
+array as object
+=====
+
+[1, 2].any? { |i| i > 1 }
+
+---
+(program
+	(method_call (call (array (integer) (integer)) (identifier))
+		(block (formal_parameters (identifier)) (binary (identifier) (integer)))))
+
 =========================
 array with trailing comma
 =========================
@@ -413,16 +408,6 @@ percent w array
 
 (program (array))
 
-==========================
-unbalanced percent w array
-==========================
-
-%w/one two/
-
----
-
-(program (array))
-
 ===================================
 percent W array with interpolations
 ===================================
@@ -448,16 +433,6 @@ percent i array
 ===============
 
 %i(word word)
-
----
-
-(program (array))
-
-==========================
-unbalanced percent i array
-==========================
-
-%i/one two/
 
 ---
 
@@ -529,53 +504,31 @@ regular expression with interpolation
 
 /word#{foo}word/
 /word#word/
+/#/
 
 ---
 
 (program
 	(regex (interpolation (identifier)))
+	(regex)
 	(regex))
-
-=======================================================
-percent r regular expression with unbalanced delimiters
-=======================================================
-
-%r/a/
-%r\a\
-%r#a#
-
----
-
-(program (regex) (regex) (regex))
 
 =====================================================
 percent r regular expression with balanced delimiters
 =====================================================
 
-%r<a<b>c>
-%r{a{b}c}
-%r[a[b]c]
 %r(a(b)c)
+%r(#)
 
 ---
 
-(program (regex) (regex) (regex) (regex))
-
-=========================================================================
-percent r regular expression with unbalanced delimiters and interpolation
-=========================================================================
-
-%r/a#{b}c/
-
----
-
-(program (regex (interpolation (identifier))))
+(program (regex) (regex))
 
 =======================================================================
 percent r regular expression with balanced delimiters and interpolation
 =======================================================================
 
-%r[a#{b}c]
+%r(a#{b}c)
 
 ---
 
@@ -589,7 +542,7 @@ empty function
 
 ---
 
-(program (lambda_literal))
+(program (lambda))
 
 ==================
 lambda literal with body
@@ -599,17 +552,24 @@ lambda literal with body
 
 ---
 
-(program (lambda_literal (identifier)))
+(program (lambda (identifier)))
 
 ====================
 lambda literal with an arg
 ====================
 
 -> foo { 1 }
+-> (foo) { 1 }
+-> *foo { 1 }
+-> foo: 1 { 2 }
 
 ---
 
-(program (lambda_literal (identifier) (integer)))
+(program
+	(lambda (identifier) (integer))
+	(lambda (formal_parameters (identifier)) (integer))
+	(lambda (splat_parameter (identifier)) (integer))
+	(lambda (keyword_parameter (identifier) (integer)) (integer)))
 
 ===========================
 lambda literal with multiple args
@@ -622,4 +582,16 @@ lambda literal with multiple args
 
 ---
 
-(program (lambda_literal (formal_parameters (identifier) (identifier) (identifier)) (integer) (integer)))
+(program (lambda (formal_parameters (identifier) (identifier) (identifier)) (integer) (integer)))
+
+====================
+lambda literal with do end
+====================
+
+-> (foo) do
+	1
+end
+
+---
+
+(program (lambda (formal_parameters (identifier)) (integer)))

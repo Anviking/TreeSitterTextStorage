@@ -1,5 +1,6 @@
 const PREC = {
   COMMA: -1,
+  DECLARATION: 1,
   ASSIGN: 0,
   OBJECT: 1,
   TERNARY: 1,
@@ -56,13 +57,7 @@ module.exports = grammar({
 
     _statements: $ => choice(
       seq($._statement, optional($._statements)),
-      choice(
-        $.trailing_break_statement,
-        $.trailing_yield_statement,
-        $.trailing_throw_statement,
-        $.trailing_return_statement,
-        $.trailing_expression_statement
-      )
+      $._trailing_statement
     ),
 
     //
@@ -88,13 +83,12 @@ module.exports = grammar({
     ),
 
     // A function, generator, class, or variable declaration
-    _declaration: $ => choice(
+    _declaration: $ => prec(PREC.DECLARATION, choice(
       $.function,
       $.generator_function,
-      $.anonymous_class,
       $.class,
       $.var_declaration
-    ),
+    )),
 
     //
     // Import declarations
@@ -142,7 +136,7 @@ module.exports = grammar({
       $.export_statement,
       $.import_statement,
       $.expression_statement,
-      $.var_declaration,
+      $._declaration,
       $.statement_block,
 
       $.if_statement,
@@ -162,9 +156,30 @@ module.exports = grammar({
       $.empty_statement
     ),
 
+    _trailing_statement: $ => choice(
+      $.trailing_break_statement,
+      $.trailing_continue_statement,
+      $.trailing_yield_statement,
+      $.trailing_throw_statement,
+      $.trailing_return_statement,
+      $.trailing_expression_statement,
+      $.trailing_if_statement,
+      $.trailing_for_statement,
+      $.trailing_for_in_statement,
+      $.trailing_for_of_statement,
+      $.trailing_while_statement,
+      $.trailing_do_statement,
+      $.trailing_var_declaration
+    ),
+
     expression_statement: $ => seq(
       choice($._expression, $.comma_op),
       terminator()
+    ),
+
+    _statements: $ => choice(
+      seq($._statement, optional($._statements)),
+      $._trailing_statement
     ),
 
     trailing_expression_statement: $ => seq(
@@ -181,6 +196,15 @@ module.exports = grammar({
       terminator()
     ),
 
+    trailing_var_declaration: $ => seq(
+      variableType(),
+      commaSep1(choice(
+        $.identifier,
+        $.assignment_pattern,
+        $.var_assignment
+      ))
+    ),
+
     statement_block: $ => seq(
       '{', optional($._statements), '}'
     ),
@@ -188,11 +212,27 @@ module.exports = grammar({
     if_statement: $ => prec.right(seq(
       'if',
       $._paren_expression,
-      $._statement,
-      optional(seq(
-        'else',
-        $._statement
-      ))
+      choice(
+        $._statement,
+        seq(
+          $._statement,
+          'else',
+          $._statement
+        )
+      )
+    )),
+
+    trailing_if_statement: $ => prec.right(seq(
+      'if',
+      $._paren_expression,
+      choice(
+        $._trailing_statement,
+        seq(
+          $._statement,
+          'else',
+          $._trailing_statement
+        )
+      )
     )),
 
     switch_statement: $ => seq(
@@ -215,6 +255,20 @@ module.exports = grammar({
       $._statement
     ),
 
+    trailing_for_statement: $ => seq(
+      'for',
+      '(',
+      choice(
+        $.var_declaration,
+        seq(commaSep1($._expression), ';'),
+        ';'
+      ),
+      optional($._expression), ';',
+      optional($._expression),
+      ')',
+      $._trailing_statement
+    ),
+
     for_in_statement: $ => seq(
       'for',
       '(',
@@ -224,6 +278,17 @@ module.exports = grammar({
       $._expression,
       ')',
       $._statement
+    ),
+
+    trailing_for_in_statement: $ => seq(
+      'for',
+      '(',
+      optional(variableType()),
+      $._expression,
+      'in',
+      $._expression,
+      ')',
+      $._trailing_statement
     ),
 
     for_of_statement: $ => seq(
@@ -237,10 +302,27 @@ module.exports = grammar({
       $._statement
     ),
 
+    trailing_for_of_statement: $ => seq(
+      'for',
+      '(',
+      optional(variableType()),
+      $._expression,
+      'of',
+      $._expression,
+      ')',
+      $._trailing_statement
+    ),
+
     while_statement: $ => seq(
       'while',
       $._paren_expression,
       $._statement
+    ),
+
+    trailing_while_statement: $ => seq(
+      'while',
+      $._paren_expression,
+      $._trailing_statement
     ),
 
     do_statement: $ => seq(
@@ -249,6 +331,13 @@ module.exports = grammar({
       'while',
       $._paren_expression,
       terminator()
+    ),
+
+    trailing_do_statement: $ => seq(
+      'do',
+      $.statement_block,
+      'while',
+      $._paren_expression
     ),
 
     try_statement: $ => seq(
@@ -263,22 +352,24 @@ module.exports = grammar({
       terminator()
     ),
 
+    trailing_break_statement: $ => 'break',
+
     continue_statement: $ => seq(
       'continue',
       terminator()
     ),
 
-    trailing_break_statement: $ => 'break',
+    trailing_continue_statement: $ => 'continue',
 
     return_statement: $ => seq(
       'return',
-      optional($._expression),
+      optional(choice($._expression, $.comma_op)),
       terminator()
     ),
 
     trailing_return_statement: $ => seq(
       'return',
-      optional($._expression)
+      optional(choice($._expression, $.comma_op))
     ),
 
     yield_statement: $ => seq(
@@ -457,7 +548,7 @@ module.exports = grammar({
     ),
 
     function_call: $ => prec(PREC.CALL, seq(
-      choice($._expression, $.super),
+      choice($._expression, $.super, $.function),
       $.arguments
     )),
 
@@ -499,7 +590,7 @@ module.exports = grammar({
         $.member_access,
         $.subscript_access
       ),
-      choice('+=', '-=', '*=', '/='),
+      choice('+=', '-=', '*=', '/=', '^='),
       $._expression
     )),
 
