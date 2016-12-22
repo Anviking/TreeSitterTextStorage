@@ -10,6 +10,11 @@ import Foundation
 import TreeSitterRuntime
 
 public typealias Node = TSNode
+public typealias Point = TSPoint
+
+extension Point {
+    static let zero = Point(row: 0, column: 0)
+}
 
 public enum TraverseAction {
     case proceed, ignoreSiblings, ignoreChildren, ignoreChild(Int)
@@ -27,6 +32,14 @@ extension Node {
     
     public var end: Int {
         return ts_node_end_char(self)
+    }
+    
+    public var startPoint: Point {
+        return ts_node_start_point(self)
+    }
+    
+    public var endPoint: Point {
+        return ts_node_end_point(self)
     }
     
     public var range: NSRange {

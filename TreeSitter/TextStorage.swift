@@ -113,6 +113,9 @@ public class TextStorage: NSTextStorage {
         
         let edit = TSInputEdit(start_byte: range.location * 2, bytes_removed: range.length, bytes_added: str.characters.count, start_point: startPoint, extent_removed: endPoint, extent_added: endPoint)
         
+        
+        
+        
         let delta = str.characters.count - range.length
         _length += delta
         cache = Array(repeating: nil, count: _length)
@@ -122,7 +125,8 @@ public class TextStorage: NSTextStorage {
         document.makeInputEdit(edit)
         document.input.data.replaceCharactersInRange(range, replacementText: str)
         self.edited(actions, range: range, changeInLength: delta)
-        document.parse()
+        
+        
         delegate?.textStorage?(self, didProcessEditing: actions, range: range, changeInLength: delta)
         print("Tokenizing took: \(abs(date.timeIntervalSinceNow * 1000)) ms")
         

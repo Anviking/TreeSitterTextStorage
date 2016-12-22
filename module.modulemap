@@ -1,4 +1,5 @@
 module TreeSitterRuntime [extern_c] {
+    header "tree-sitter/include/tree_sitter/runtime.h"
     umbrella "tree-sitter/include"
     //umbrella "src/runtime"
     export *

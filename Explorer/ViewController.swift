@@ -18,6 +18,8 @@ class ViewController: UIViewController, UITextViewDelegate {
     
     var document: OpaquePointer!
     
+    var tokenizer: TextStorageDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -27,8 +29,14 @@ class ViewController: UIViewController, UITextViewDelegate {
         
         let frame = CGRect(x: 0, y: 0, width: 100, height: 100)
         
+        let document = Document(text: str, language: .c)
+        tokenizer = TextStorageDelegate(document: document)
         
-        let textView = TextView(frame: frame, theme: .civicModified, language: .javascript, text: str)
+        let textView = UITextView(frame: frame)
+        textView.text = str
+        textView.textStorage.delegate = tokenizer
+        
+        
         textView.backgroundColor = ColorTheme.dusk[.background]
         textView.autocapitalizationType = .none
         textView.autocorrectionType = .no

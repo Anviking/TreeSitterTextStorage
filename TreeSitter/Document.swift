@@ -15,6 +15,11 @@ public class Document {
     var input: Input
     
     
+    public convenience init (text: String, language: Language) {
+        let data = text.data(using: String.Encoding.utf16)!
+        self.init(input: Input(data: data), language: language)
+    }
+    
     public init(input: Input, language: Language) {
         self.documentPointer = ts_document_new()
         self.language = language
@@ -24,7 +29,7 @@ public class Document {
         let a = asTSInput(&self.input)
         print(a.payload)
         ts_document_set_input(documentPointer, a)
-        parse()
+        print(parseAndGetChangedRanges())
     }
     
     var rootNode: Node {
@@ -35,6 +40,22 @@ public class Document {
     public func parse() {
         ts_document_parse(documentPointer)
         print(ts_document_parse_count(documentPointer))
+    }
+    
+    public func parseAndGetChangedRanges() -> [TSRange?] {
+        let bufferSize = 1024
+        
+        let start = UnsafeMutablePointer<UnsafeMutablePointer<TSRange>?>.allocate(capacity: 1)
+        let count = UnsafeMutablePointer<Int>.allocate(capacity: 1)
+        
+        defer { start.deallocate(capacity: 1) }
+        defer { count.deallocate(capacity: 1) }
+        
+        
+        ts_document_parse_and_get_changed_ranges(documentPointer, start, count)
+        
+        let buffer = UnsafeMutableBufferPointer(start: start.pointee!, count: count.move())
+        return Array(buffer)
     }
     
     func makeInputEdit(_ edit: TSInputEdit) {
