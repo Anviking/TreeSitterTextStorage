@@ -52,8 +52,8 @@ public class Document {
         defer { count.deallocate(capacity: 1) }
         
         
-        ts_document_parse(documentPointer)
-        //ts_document_parse_and_get_changed_ranges(documentPointer, start, count)
+        //ts_document_parse(documentPointer)
+        ts_document_parse_and_get_changed_ranges(documentPointer, start, count)
         
         guard let startValue = start.pointee else { return [] }
         
