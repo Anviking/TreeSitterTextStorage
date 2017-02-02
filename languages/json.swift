@@ -1,5 +1,6 @@
 
 
+
 public enum Json: UInt16 {
     case anon_sym_LBRACE = 1
     case anon_sym_COMMA = 2

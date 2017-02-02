@@ -1,5 +1,6 @@
 
 
+
 public enum Go: UInt16 {
     case anon_sym_LF = 1
     case anon_sym_SEMI = 2

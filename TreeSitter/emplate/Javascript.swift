@@ -7,11 +7,12 @@
 //
 
 import Foundation
-import Language
+import TreeSitterRuntime
+import Languages
 
 extension Javascript: LanguageSymbolProtocol {
     
-    public static var languagePointer = ts_language_javascript()!
+    public static var languagePointer = tree_sitter_javascript()!
     
     public static func tokenType(for node: inout Node, at index: Int) -> TokenType? {
         guard let symbol = Javascript(rawValue: node.symbol) else { return nil }

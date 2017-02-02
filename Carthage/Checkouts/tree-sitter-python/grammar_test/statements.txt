@@ -1,0 +1,457 @@
+=====================================
+Import statements
+=====================================
+
+import a, b
+import b.c as d
+
+---
+
+(module
+  (import_statement
+    (dotted_name (identifier))
+    (dotted_name (identifier)))
+  (import_statement
+    (aliased_import
+      (dotted_name (identifier) (identifier))
+      (identifier))))
+
+=====================================
+Import-from statements
+=====================================
+
+from a import b
+from a import *
+from a import (b, c)
+
+---
+
+(module
+  (import_from_statement
+    (dotted_name (identifier))
+    (dotted_name (identifier)))
+  (import_from_statement
+    (dotted_name (identifier))
+    (wildcard_import))
+  (import_from_statement
+    (dotted_name (identifier))
+    (dotted_name (identifier))
+    (dotted_name (identifier))))
+
+=====================================
+Print statements
+=====================================
+
+print a
+print b, c
+
+---
+
+(module
+  (print_statement (identifier))
+  (print_statement (identifier) (identifier)))
+
+=====================================
+Expression statements
+=====================================
+
+a
+b + c
+
+---
+
+(module
+  (expression_statement (identifier))
+  (expression_statement (binary_operator (identifier) (identifier))))
+
+=====================================
+Delete statements
+=====================================
+
+del a[1], b[2]
+
+---
+
+(module
+  (delete_statement (expression_list
+    (subscript (identifier) (number))
+    (subscript (identifier) (number)))))
+
+=====================================
+Control-flow statements
+=====================================
+
+while true:
+  pass
+  break
+  continue
+
+---
+
+(module
+  (while_statement (identifier)
+    (pass_statement)
+    (break_statement)
+    (continue_statement)))
+
+=====================================
+Return statements
+=====================================
+
+return
+return a + b, c
+return not b
+
+---
+
+(module
+  (return_statement)
+  (return_statement (expression_list
+    (binary_operator (identifier) (identifier))
+    (identifier)))
+  (return_statement (expression_list (not_operator (identifier)))))
+
+=====================================
+If statements
+=====================================
+
+if a:
+  b
+  c
+
+---
+
+(module
+  (if_statement (identifier)
+    (expression_statement (identifier))
+    (expression_statement (identifier))))
+
+=====================================
+If else statements
+=====================================
+
+if a:
+  b
+elif c:
+  d
+else:
+  f
+
+---
+
+(module
+  (if_statement (identifier)
+    (expression_statement (identifier))
+    (elif_clause (identifier)
+      (expression_statement (identifier)))
+    (else_clause
+      (expression_statement (identifier)))))
+
+=====================================
+Nested if statements
+=====================================
+
+if a:
+  if b:
+    c
+  else:
+    if e:
+      f
+g
+
+---
+
+(module
+  (if_statement (identifier)
+    (if_statement (identifier)
+      (expression_statement (identifier))
+      (else_clause
+        (if_statement (identifier)
+          (expression_statement (identifier))))))
+  (expression_statement (identifier)))
+
+=====================================
+While statements
+=====================================
+
+while a:
+  b
+
+while c:
+  d
+else:
+  e
+  f
+
+---
+
+(module
+  (while_statement (identifier)
+    (expression_statement (identifier)))
+  (while_statement (identifier)
+    (expression_statement (identifier))
+    (else_clause
+      (expression_statement (identifier))
+      (expression_statement (identifier)))))
+
+=====================================
+For statements
+=====================================
+
+for line, i in lines:
+  print line
+  for character, j in line:
+    print character
+else:
+  print x
+
+---
+
+(module
+  (for_statement
+    (variables (identifier) (identifier))
+    (expression_list (identifier))
+    (print_statement (identifier))
+    (for_statement
+      (variables (identifier) (identifier))
+      (expression_list (identifier))
+      (print_statement (identifier)))
+    (else_clause
+      (print_statement (identifier)))))
+
+=====================================
+Try statements
+=====================================
+
+try:
+  a
+except b:
+  c
+except d as e:
+  f
+except g, h:
+  i
+except:
+  j
+
+try:
+  a
+finally:
+  b
+
+---
+
+(module
+  (try_statement
+    (expression_statement (identifier))
+    (except_clause (identifier)
+      (expression_statement (identifier)))
+    (except_clause (identifier) (identifier)
+      (expression_statement (identifier)))
+    (except_clause (identifier) (identifier)
+      (expression_statement (identifier)))
+    (except_clause
+      (expression_statement (identifier))))
+  (try_statement
+    (expression_statement (identifier))
+    (finally_clause
+      (expression_statement (identifier)))))
+
+=====================================
+With statements
+=====================================
+
+with a as b:
+  c
+
+---
+
+(module
+  (with_statement
+    (with_item (identifier) (identifier))
+    (expression_statement (identifier))))
+
+=====================================
+Function definitions
+=====================================
+
+def a():
+  b
+
+def c(d):
+  e
+
+def g(g, h,):
+  i
+
+---
+
+(module
+  (function_definition
+    (identifier)
+    (parameters)
+    (expression_statement (identifier)))
+  (function_definition
+    (identifier)
+    (parameters (identifier))
+    (expression_statement (identifier)))
+  (function_definition
+    (identifier)
+    (parameters (identifier) (identifier))
+    (expression_statement (identifier))))
+
+==============================================
+Function definitions with default parameters
+==============================================
+
+def a(b = 1, c = 2,):
+  d
+
+---
+
+(module
+  (function_definition
+    (identifier)
+    (parameters
+      (default_parameter (identifier) (number))
+      (default_parameter (identifier) (number)))
+    (expression_statement (identifier))))
+
+==============================================
+Function definitions with list splat parameters
+==============================================
+
+def a(b, *c):
+  d
+  e
+
+---
+
+(module
+  (function_definition
+    (identifier)
+    (parameters
+      (identifier)
+      (list_splat_parameter (identifier)))
+    (expression_statement (identifier))
+    (expression_statement (identifier))))
+
+======================================================
+Function definitions with dictionary splat parameters
+======================================================
+
+def a(b, **c):
+  print d
+
+def e(*f, **g):
+  print h
+
+---
+
+(module
+  (function_definition
+    (identifier)
+    (parameters
+      (identifier)
+      (dictionary_splat_parameter (identifier)))
+    (print_statement (identifier)))
+
+  (function_definition
+    (identifier)
+    (parameters
+      (list_splat_parameter (identifier))
+      (dictionary_splat_parameter (identifier)))
+    (print_statement (identifier))))
+
+====================================================
+Class definitions
+====================================================
+
+class A:
+  def b(self):
+    return c
+
+---
+
+(module
+  (class_definition
+    (identifier)
+    (function_definition
+      (identifier)
+      (parameters (identifier))
+      (return_statement (expression_list (identifier))))))
+
+====================================================
+Class definitions with superclasses
+====================================================
+
+class A(B, C):
+  def d():
+    e
+
+---
+
+(module
+  (class_definition
+    (identifier)
+    (expression_list (identifier) (identifier))
+    (function_definition
+      (identifier)
+      (parameters)
+      (expression_statement (identifier)))))
+
+====================================================
+Decorated definitions
+====================================================
+
+@a.b
+class C:
+
+  @d(1)
+  @e(2, 3)
+  def f():
+    g
+
+---
+
+(module
+  (decorated_definition
+    (decorator (dotted_name (identifier) (identifier)))
+    (class_definition
+      (identifier)
+      (decorated_definition
+        (decorator (dotted_name (identifier)) (arguments (number)))
+        (decorator (dotted_name (identifier)) (arguments (number) (number)))
+        (function_definition (identifier) (parameters) (expression_statement (identifier)))))))
+
+====================================================
+Raise statements
+====================================================
+
+raise
+raise RuntimeError('NO')
+
+---
+
+(module
+  (raise_statement)
+  (raise_statement (expression_list
+    (call (identifier) (string)))))
+
+====================================================
+Comments
+====================================================
+
+print a
+# hi
+print b # bye
+print c
+
+---
+
+(module
+  (print_statement (identifier))
+  (comment)
+  (print_statement (identifier))
+  (comment)
+  (print_statement (identifier)))

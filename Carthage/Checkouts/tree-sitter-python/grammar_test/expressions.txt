@@ -1,0 +1,266 @@
+=====================================
+Subscript expressions
+=====================================
+
+a[1]
+b[2, 3]
+c[4, 5,]
+
+---
+
+(module
+  (expression_statement (subscript (identifier) (number)))
+  (expression_statement (subscript (identifier) (number) (number)))
+  (expression_statement (subscript (identifier) (number) (number))))
+
+
+=====================================
+Subscript slice expressions
+=====================================
+
+a[:]
+b[5:]
+b[5:6, ...]
+
+---
+
+(module
+  (expression_statement (subscript
+    (identifier)
+    (slice)))
+  (expression_statement (subscript
+    (identifier)
+    (slice (number))))
+  (expression_statement (subscript
+    (identifier)
+    (slice (number) (number))
+    (ellipsis))))
+
+=====================================
+Attribute references
+=====================================
+
+a.b.c
+
+---
+
+(module
+  (expression_statement
+    (attribute
+      (attribute (identifier) (identifier))
+      (identifier))))
+
+=====================================
+Call expressions
+=====================================
+
+__a__()
+b(1)
+c(e, f=g, h)
+i(j, 5,)
+
+---
+
+(module
+  (expression_statement (call
+    (identifier)))
+  (expression_statement (call
+    (identifier)
+    (number)))
+  (expression_statement (call
+    (identifier)
+    (identifier)
+    (keyword_argument (identifier) (identifier))
+    (identifier)))
+  (expression_statement (call (identifier) (identifier) (number))))
+
+=====================================
+Calls with splats
+=====================================
+
+a(*b)
+c(d, *e, f, **g)
+
+---
+
+(module
+  (expression_statement (call
+    (identifier)
+    (list_splat_argument (identifier))))
+  (expression_statement (call
+    (identifier)
+    (identifier)
+    (list_splat_argument (identifier))
+    (identifier)
+    (dictionary_splat_argument (identifier)))))
+
+=====================================
+Math operators
+=====================================
+
+a + b * c ** d - e / 5
+-5
++x
+
+---
+
+(module
+  (expression_statement
+    (binary_operator
+      (binary_operator
+        (identifier)
+        (binary_operator
+          (identifier)
+          (binary_operator
+            (identifier)
+            (identifier))))
+      (binary_operator
+        (identifier)
+        (number))))
+  (expression_statement (unary_operator (number)))
+  (expression_statement (unary_operator (identifier))))
+
+=====================================
+Bitwise operators
+=====================================
+
+a << b | c >> d & e
+
+---
+
+(module
+  (expression_statement
+    (binary_operator
+      (binary_operator
+        (identifier)
+        (identifier))
+      (binary_operator
+        (binary_operator
+          (identifier)
+          (identifier))
+        (identifier)))))
+
+=====================================
+Boolean operators
+=====================================
+
+a or b and c
+not d
+
+---
+
+(module
+  (expression_statement
+    (boolean_operator
+      (identifier)
+      (boolean_operator
+        (identifier)
+        (identifier))))
+  (expression_statement
+    (not_operator (identifier))))
+
+=====================================
+Comparison operators
+=====================================
+
+a < b <= c == d >= e > f
+not a == b or c == d
+
+---
+
+(module
+  (expression_statement
+    (comparison_operator
+      (identifier)
+      (identifier)
+      (identifier)
+      (identifier)
+      (identifier)
+      (identifier)))
+  (expression_statement
+    (not_operator (boolean_operator
+      (comparison_operator (identifier) (identifier))
+      (comparison_operator (identifier) (identifier))))))
+
+====================================================
+Assignments
+====================================================
+
+a, b = 1, 2
+a[b] = c = d
+
+---
+
+(module
+  (expression_statement
+    (assignment
+      (expression_list
+        (identifier)
+        (identifier))
+      (expression_list
+        (number)
+        (number))))
+  (expression_statement
+    (assignment
+      (expression_list
+        (subscript (identifier) (identifier)))
+      (assignment
+        (expression_list (identifier))
+        (expression_list (identifier))))))
+
+====================================================
+Augmented assignments
+====================================================
+
+a += 1
+b >>= 2
+
+---
+
+(module
+  (expression_statement
+    (augmented_assignment
+      (expression_list (identifier))
+      (expression_list (number))))
+  (expression_statement
+    (augmented_assignment
+      (expression_list (identifier))
+      (expression_list (number)))))
+
+====================================================
+Yield expressions
+====================================================
+
+yield
+yield 1
+x = yield 2
+
+---
+
+(module
+  (expression_statement (yield))
+  (expression_statement (yield (expression_list (number))))
+  (expression_statement
+    (assignment
+      (expression_list (identifier))
+      (yield (expression_list (number))))))
+
+====================================================
+lambdas
+====================================================
+
+A = lambda b, c: d("e" % f)
+B = lambda: True
+
+---
+
+(module
+  (expression_statement (assignment
+    (expression_list (identifier))
+    (expression_list (lambda
+      (identifier)
+      (identifier)
+      (call (identifier) (binary_operator (string) (identifier)))))))
+  (expression_statement (assignment
+    (expression_list (identifier))
+    (expression_list (lambda (true))))))

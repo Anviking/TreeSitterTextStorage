@@ -7,11 +7,12 @@
 //
 
 import Foundation
-import Language
+import TreeSitterRuntime
+import Languages
 
 extension Cpp: LanguageSymbolProtocol {
     
-    public static var languagePointer = ts_language_cpp()!
+    public static var languagePointer = tree_sitter_cpp()!
     
     public static func tokenType(for node: inout Node, at index: Int) -> TokenType? {
         guard let symbol = Cpp(rawValue: node.symbol) else { return nil }

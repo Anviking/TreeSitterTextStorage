@@ -37,7 +37,7 @@ do
     awk '1;/}/{exit}' $new | sed '/^#/ d' | sed -e "s/^enum/$enum_decl/g" -e 's/    /    case /' -e 's/,//' -e 's/ts_builtin_sym_start/2/' >> languages/$name.swift
 
     # print line to umbrella header
-    echo "TSLanguage *ts_language_$name();" >> $umbrella_header
+    echo "TSLanguage *tree_sitter_$name();" >> $umbrella_header
 done
 
 

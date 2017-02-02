@@ -8,7 +8,6 @@
 
 import Foundation
 import TreeSitterRuntime
-import Language
 
 public enum Language {
     case c
@@ -25,13 +24,14 @@ public enum Language {
     var symbol: LanguageSymbolProtocol.Type {
         switch self {
         case .c:
-            return C.self
+            return Ruby.self
+            //return C.self
         case .ruby:
             return Ruby.self
         case .javascript:
             return Javascript.self
         case .json:
-            return Json.self
+            fatalError()
         case .cpp:
             return Cpp.self
         }
@@ -39,10 +39,10 @@ public enum Language {
     
     
     func metadata(for symbol: UInt16) -> TSSymbolMetadata {
-        guard (2 ..< 2 + languagePointer.pointee.symbol_count).contains(UInt32(Int(symbol))) else {
+        guard (0 ..< languagePointer.pointee.symbol_count).contains(UInt32(Int(symbol))) else {
             fatalError("wrong symbol \(symbol)")
         }
-        let p = languagePointer.pointee.symbol_metadata + Int(symbol - 2)
+        let p = languagePointer.pointee.symbol_metadata + Int(symbol)
         return p.pointee
     }
     

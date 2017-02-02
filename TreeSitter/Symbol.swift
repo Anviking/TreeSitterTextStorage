@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import Language
+import TreeSitterRuntime
 
 public protocol LanguageSymbolProtocol {
     init?(rawValue: UInt16)

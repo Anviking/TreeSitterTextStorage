@@ -7,17 +7,18 @@
 //
 
 import Foundation
-import Language
+import TreeSitterRuntime
+import Languages
 
 extension Ruby: LanguageSymbolProtocol {
     
     // FIXME
-    public static var languagePointer = ts_language_javascript()!
+    public static var languagePointer = tree_sitter_javascript()!
     
     public static func tokenType(for node: inout Node, at index: Int) -> TokenType? {
         guard let symbol = Ruby(rawValue: node.symbol) else { return nil }
         switch symbol {
-        case .sym_string, .sym__quoted_string:
+        case .sym_string:
             return .string
         case .sym_integer, .sym_float:
             return .number

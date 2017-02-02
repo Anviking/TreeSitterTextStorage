@@ -1,0 +1,204 @@
+=====================================
+Numbers
+=====================================
+
+123.4
+0xDEAD
+
+---
+
+(module
+  (expression_statement (number))
+  (expression_statement (number)))
+
+=====================================
+Strings
+=====================================
+
+"I'm ok"
+'"ok"'
+r'hi'
+ur"bye"
+b'sup'
+
+---
+
+(module
+  (expression_statement (string))
+  (expression_statement (string))
+  (expression_statement (string))
+  (expression_statement (string))
+  (expression_statement (string)))
+
+=====================================
+Other primitives
+=====================================
+
+True
+False
+None
+
+---
+
+(module
+  (expression_statement (true))
+  (expression_statement (false))
+  (expression_statement (none)))
+
+=====================================
+Concatenated strings
+=====================================
+
+"one" "two" "three"
+
+---
+
+(module
+  (expression_statement (concatenated_string
+    (string)
+    (string)
+    (string))))
+
+=====================================
+Multi-line strings
+=====================================
+
+"""
+Hi "hello"
+This is documentation
+"""
+
+'''
+Hello again.
+It is me.
+'''
+
+---
+
+(module
+  (expression_statement (string))
+  (expression_statement (string)))
+
+=====================================
+Lists
+=====================================
+
+[a, b, [c, d]]
+
+---
+
+(module
+  (expression_statement (list
+    (identifier)
+    (identifier)
+    (list
+      (identifier)
+      (identifier)))))
+
+=====================================
+List comprehensions
+=====================================
+
+[a + b for (a, b) in items]
+
+---
+
+(module
+  (expression_statement (list_comprehension
+    (binary_operator
+      (identifier)
+      (identifier))
+    (variables
+      (tuple (identifier) (identifier)))
+    (identifier))))
+
+=====================================
+Dictionaries
+=====================================
+
+{a: 1, b: 2}
+{}
+
+---
+
+(module
+  (expression_statement (dictionary
+    (pair (identifier) (number))
+    (pair (identifier) (number))))
+  (expression_statement (dictionary)))
+
+=====================================
+Dictionary comprehensions
+=====================================
+
+{a: b for a, b in items}
+
+---
+
+(module
+  (expression_statement (dictionary_comprehension
+    (pair (identifier) (identifier))
+    (variables (identifier) (identifier))
+    (identifier))))
+
+=====================================
+Sets
+=====================================
+
+{a, b, c,}
+
+---
+
+(module
+  (expression_statement (set
+    (identifier)
+    (identifier)
+    (identifier))))
+
+=====================================
+Set comprehensions
+=====================================
+
+{a[b][c] for a, b, c in items}
+
+---
+
+(module
+  (expression_statement (set_comprehension
+    (subscript (subscript (identifier) (identifier)) (identifier))
+    (variables (identifier) (identifier) (identifier))
+    (identifier))))
+
+=====================================
+Tuples
+=====================================
+
+(a, b)
+(a, b, c,)
+
+---
+
+(module
+  (expression_statement (tuple (identifier) (identifier)))
+  (expression_statement (tuple (identifier) (identifier) (identifier))))
+
+=====================================
+Generator expression
+=====================================
+
+(a[b][c] for a, b, c in items)
+dict((a, b) for a, b in d)
+
+---
+
+(module
+  (expression_statement (generator_expression
+    (subscript (subscript (identifier) (identifier)) (identifier))
+    (variables (identifier) (identifier) (identifier))
+    (identifier)))
+  (expression_statement (call
+    (identifier)
+    (generator_expression
+      (tuple (identifier) (identifier))
+      (variables (identifier) (identifier))
+      (identifier)))))

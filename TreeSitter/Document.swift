@@ -52,14 +52,18 @@ public class Document {
         defer { count.deallocate(capacity: 1) }
         
         
-        ts_document_parse_and_get_changed_ranges(documentPointer, start, count)
+        ts_document_parse(documentPointer)
+        //ts_document_parse_and_get_changed_ranges(documentPointer, start, count)
         
-        let buffer = UnsafeMutableBufferPointer(start: start.pointee!, count: Int(count.move()))
+        guard let startValue = start.pointee else { return [] }
+        
+        let buffer = UnsafeMutableBufferPointer(start: startValue, count: Int(count.move()))
         return Array(buffer)
     }
     
     func makeInputEdit(_ edit: TSInputEdit) {
         ts_document_edit(documentPointer, edit)
+        
     }
     
     func stringForNode(_ node: Node) -> String {

@@ -7,10 +7,12 @@
 //
 
 import Foundation
-import Language
+import TreeSitterRuntime
+import Languages
+
 extension Json: LanguageSymbolProtocol {
     
-    public static var languagePointer = ts_language_json()!
+    public static var languagePointer = tree_sitter_json()!
     
     public static func tokenType(for node: inout Node, at index: Int) -> TokenType? {
         guard let symbol = Json(rawValue: node.symbol) else { return nil }

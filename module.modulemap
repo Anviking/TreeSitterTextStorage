@@ -1,11 +1,12 @@
 module TreeSitterRuntime [extern_c] {
     header "Carthage/Checkouts/tree-sitter/include/tree_sitter/runtime.h"
     umbrella "Carthage/Checkouts/tree-sitter/include"
+
     //umbrella "src/runtime"
     export *
 }
 
-module Language [extern_c] {
+module Languages [extern_c] {
     header "languages/languages.h"
     export *
 }

@@ -7,15 +7,16 @@
 //
 
 import Foundation
-import Language
+import TreeSitterRuntime
 
 extension C: LanguageSymbolProtocol {
     
     public static var languagePointer = ts_language_c()!
     
     public static func tokenType(for node: inout Node, at index: Int) -> TokenType? {
+        print(node.symbol)
         guard let symbol = C(rawValue: node.symbol) else { return nil }
-        
+        print(symbol)
         
         if symbol == C.sym_identifier && node.parent.symbol == C.sym_function_declarator.rawValue {
             return .projectMethodNames
