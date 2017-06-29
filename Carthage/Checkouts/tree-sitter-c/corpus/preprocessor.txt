@@ -1,0 +1,135 @@
+============================================
+Include directives
+============================================
+
+#include "some/path.h"
+#include <stdint.h>
+
+---
+
+(translation_unit
+  (preproc_include (string_literal))
+  (preproc_include (system_lib_string)))
+
+============================================
+Object-like macro definitions
+============================================
+
+#define ONE
+#define TWO int a = b;
+#define THREE \
+  c == d ? \
+  e : \
+  f
+#define FOUR (mno * pq)
+
+---
+
+(translation_unit
+  (preproc_def (identifier))
+  (preproc_def (identifier) (preproc_arg))
+  (preproc_def (identifier) (preproc_arg))
+  (preproc_def (identifier) (preproc_arg)))
+
+============================================
+Function-like macro definitions
+============================================
+
+#define ONE() a
+#define TWO(b) c
+#define THREE(d, e) f
+#define FOUR(...) g
+#define FIVE(h, i, ...) j
+
+---
+
+(translation_unit
+  (preproc_function_def (identifier) (preproc_params) (preproc_arg))
+  (preproc_function_def (identifier) (preproc_params (identifier)) (preproc_arg))
+  (preproc_function_def (identifier) (preproc_params (identifier) (identifier)) (preproc_arg))
+  (preproc_function_def (identifier) (preproc_params) (preproc_arg))
+  (preproc_function_def (identifier) (preproc_params (identifier) (identifier)) (preproc_arg)))
+
+============================================
+Ifdefs
+============================================
+
+#ifndef DEFINE1
+int j;
+#endif
+
+#ifdef DEFINE2
+ssize_t b;
+#define c 32
+#else
+int b;
+#define c 16
+#endif
+
+#ifdef DEFINE2
+#else
+#  ifdef DEFINE3
+#  else
+#  endif
+#endif
+
+---
+
+(translation_unit
+  (preproc_ifdef
+    (identifier)
+    (declaration (identifier) (identifier)))
+
+  (preproc_ifdef
+    (identifier)
+    (declaration (identifier) (identifier))
+    (preproc_def (identifier) (preproc_arg))
+    (preproc_else
+      (declaration (identifier) (identifier))
+      (preproc_def (identifier) (preproc_arg))))
+
+  (preproc_ifdef
+    (identifier)
+    (preproc_else
+      (preproc_ifdef
+        (identifier)
+        (preproc_else)))))
+
+===============================================================
+General if blocks
+==========================================
+
+#if defined(__GNUC__) && defined(__PIC__)
+#define inline inline __attribute__((always_inline))
+#endif
+
+---
+
+(translation_unit
+  (preproc_if
+    (preproc_arg)
+    (preproc_def (identifier) (preproc_arg))))
+
+============================================
+Preprocessor conditionals in functions
+============================================
+
+int main() {
+  #if a
+    return 0;
+  #else
+    return 1;
+  #endif
+}
+
+---
+
+(translation_unit
+  (function_definition
+    (identifier)
+    (function_declarator (identifier))
+    (compound_statement
+      (preproc_if (preproc_arg)
+        (return_statement (number_literal))
+        (preproc_else
+          (return_statement (number_literal)))))))

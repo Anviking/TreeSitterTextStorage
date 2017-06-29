@@ -1,0 +1,35 @@
+==========================================
+The auto type
+==========================================
+
+void foo() {
+  auto x = 1;
+}
+
+---
+
+(translation_unit
+  (function_definition
+    (identifier)
+    (function_declarator (identifier))
+    (compound_statement
+      (declaration (auto) (init_declarator (identifier) (number_literal))))))
+
+==========================================
+Namespaced types
+==========================================
+
+std::string my_string;
+std::vector<int>::size_typ my_string;
+
+---
+
+(translation_unit
+  (declaration
+    (scoped_identifier (identifier) (identifier))
+    (identifier))
+  (declaration
+    (scoped_identifier
+      (template_call (scoped_identifier (identifier) (identifier)) (type_name (identifier)))
+      (identifier))
+    (identifier)))

@@ -4,43 +4,15 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Explorer.xcscheme</key>
+		<key>Demo.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
-		<key>TreeSitter.xcscheme_^#shared#^_</key>
+		<key>TreeSitter.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
-		</dict>
-	</dict>
-	<key>SuppressBuildableAutocreation</key>
-	<dict>
-		<key>8FA59A631CD80EBD0041E6C4</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>8FA59A6D1CD80EBE0041E6C4</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>8FFA48CA1CD94EE400018FA6</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>8FFA48E11CD94EE500018FA6</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>8FFA48EC1CD94EE500018FA6</key>
-		<dict>
-			<key>primary</key>
-			<true/>
+			<integer>2</integer>
 		</dict>
 	</dict>
 </dict>

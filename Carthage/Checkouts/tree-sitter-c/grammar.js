@@ -29,23 +29,60 @@ module.exports = grammar({
   ],
 
   conflicts: $ => [
-    [$._type_specifier, $._expression],
-    [$.sizeof_expression, $.cast_expression],
-    [$._type_specifier, $._expression, $.macro_type_specifier],
+    // Thing (
+    //   ^
+    // This could be:
+    //   * a type name in a declaration with a parenthesized variable name:
+    //       int (b) = 0;
+    //   * a variable name in a function definition with no return type:
+    //       main () {}
+    //   * a function name in a function call:
+    //       puts("hi");
+    //   * the name of a macro that defines a type:
+    //       Array(int) x;
+    [$._declarator, $._expression],
+    [$._declarator, $._expression, $._type_specifier],
+    [$._declarator, $._expression, $._type_specifier, $.macro_type_specifier],
+    [$._expression, $._type_specifier],
+    [$._expression, $._type_specifier, $.macro_type_specifier],
     [$._type_specifier, $.macro_type_specifier],
+
+    // unsigned x
+    //    ^
+    // This could be:
+    //   * a modifier for the type that follows:
+    //       unsigned int x = 5;
+    //   * a type in itself:
+    //       unsigned x = 5;
+    [$.sized_type_specifier],
+
+    // void foo(int (bar)
+    //                ^
+    // This could be:
+    //   * the type of the first parameter to a callback function:
+    //       void foo(int (int), bool);
+    //   * a parenthesized name for the first parameter:
+    //       void foo(int (some_int), bool);
+    [$._declarator, $._type_specifier],
+    [$._declarator, $._type_specifier, $.macro_type_specifier],
   ],
 
   rules: {
-    translation_unit: $ => repeat(choice(
+    translation_unit: $ => repeat($._top_level_item),
+
+    _top_level_item: $ => choice(
       $._preproc_statement,
       $.function_definition,
       $.declaration,
-      $._empty_declaration
-    )),
+      $._statement,
+      $._empty_declaration,
+      $.linkage_specification
+    ),
 
     // Preprocesser
 
     _preproc_statement: $ => choice(
+      $.preproc_if,
       $.preproc_ifdef,
       $.preproc_include,
       $.preproc_def,
@@ -54,7 +91,7 @@ module.exports = grammar({
     ),
 
     preproc_include: $ => seq(
-      '#include',
+      /#[ \t]*include/,
       choice(
         $.string_literal,
         $.system_lib_string
@@ -62,14 +99,17 @@ module.exports = grammar({
     ),
 
     preproc_def: $ => seq(
-      '#define',
+      /#[ \t]*define/,
       $.identifier,
-      optional($.preproc_arg),
+      optional(seq(
+        /[ \t]+/,
+        $.preproc_arg
+      )),
       '\n'
     ),
 
     preproc_function_def: $ => seq(
-      '#define',
+      /#[ \t]*define/,
       $.identifier,
       $.preproc_params,
       optional($.preproc_arg),
@@ -87,41 +127,42 @@ module.exports = grammar({
 
     preproc_arg: $ => token(prec(-1, repeat1(choice(/./, '\\\n')))),
 
-    preproc_ifdef: $ => seq(
-      choice('#ifdef', '#ifndef'),
-      $.identifier,
-      repeat(choice(
-        $._preproc_statement,
-        $.function_definition,
-        $.declaration
-      )),
+    preproc_if: $ => seq(
+      /#[ \t]*if/,
+      $.preproc_arg,
+      repeat($._top_level_item),
       optional($.preproc_else),
-      '#endif'
+      /#[ \t]*endif/
+    ),
+
+    preproc_ifdef: $ => seq(
+      choice(
+        /#[ \t]*ifdef/,
+        /#[ \t]*ifndef/
+      ),
+      $.identifier,
+      repeat($._top_level_item),
+      optional($.preproc_else),
+      /#[ \t]*endif/
     ),
 
     preproc_else: $ => seq(
-      '#else',
-      repeat(choice(
-        $._preproc_statement,
-        $.function_definition,
-        $.declaration
-      ))
+      /#[ \t]*else/,
+      repeat($._top_level_item)
     ),
 
-    preproc_directive: $ => (/#\a\w*/),
+    preproc_directive: $ => /#[ \t]*\a\w*/,
 
     // Main Grammar
 
     function_definition: $ => seq(
       optional($._declaration_specifiers),
-      $._type_specifier,
       $._declarator,
       $.compound_statement
     ),
 
     declaration: $ => seq(
-      optional($._declaration_specifiers),
-      $._type_specifier,
+      $._declaration_specifiers,
       commaSep1(choice(
         $._declarator,
         $.init_declarator
@@ -129,11 +170,35 @@ module.exports = grammar({
       ';'
     ),
 
-    _declaration_specifiers: $ => repeat1(choice(
-      $.storage_class_specifier,
-      $.type_qualifier,
-      $.function_specifier
-    )),
+    _declaration_specifiers: $ => seq(
+      repeat(choice(
+        $.storage_class_specifier,
+        $.type_qualifier,
+        $.function_specifier
+      )),
+      $._type_specifier,
+      repeat(choice(
+        $.storage_class_specifier,
+        $.type_qualifier,
+        $.function_specifier
+      ))
+    ),
+
+    linkage_specification: $ => seq(
+      'extern',
+      $.string_literal,
+      choice(
+        $.function_definition,
+        $.declaration,
+        $.declaration_list
+      )
+    ),
+
+    declaration_list: $ => seq(
+      '{',
+      repeat($._top_level_item),
+      '}'
+    ),
 
     _declarator: $ => choice(
       $.pointer_declarator,
@@ -167,7 +232,7 @@ module.exports = grammar({
     )),
 
     abstract_function_declarator: $ => prec(1, seq(
-      $._abstract_declarator,
+      optional($._abstract_declarator),
       '(',
       optional($.parameter_type_list),
       ')'
@@ -176,20 +241,16 @@ module.exports = grammar({
     array_declarator: $ => prec(1, seq(
       $._declarator,
       '[',
-      choice(
-        seq(optional('static'), repeat($.type_qualifier), optional($._expression)),
-        seq(repeat($.type_qualifier), 'static', $._expression)
-      ),
+      optional($._declaration_specifiers),
+      optional($._expression),
       ']'
     )),
 
     abstract_array_declarator: $ => prec(1, seq(
       optional($._abstract_declarator),
       '[',
-      choice(
-        seq(optional('static'), repeat($.type_qualifier), optional($._expression)),
-        seq(repeat($.type_qualifier), 'static', $._expression)
-      ),
+      optional($._declaration_specifiers),
+      optional($._expression),
       ']'
     )),
 
@@ -201,11 +262,7 @@ module.exports = grammar({
 
     compound_statement: $ => seq(
       '{',
-      repeat(choice(
-        $.declaration,
-        $._empty_declaration,
-        $._statement
-      )),
+      repeat($._top_level_item),
       '}'
     ),
 
@@ -240,7 +297,7 @@ module.exports = grammar({
         'long',
         'short'
       )),
-      $.identifier
+      optional($.identifier)
     ),
 
     enum_specifier: $ => seq(
@@ -268,9 +325,7 @@ module.exports = grammar({
         $.identifier,
         seq(
           optional($.identifier),
-          '{',
-          repeat($.struct_declaration),
-          '}'
+          $.member_declaration_list
         )
       )
     ),
@@ -281,16 +336,19 @@ module.exports = grammar({
         $.identifier,
         seq(
           optional($.identifier),
-          '{',
-          repeat($.struct_declaration),
-          '}'
+          $.member_declaration_list
         )
       )
     ),
 
-    struct_declaration: $ => seq(
-      repeat($.type_qualifier),
-      $._type_specifier,
+    member_declaration_list: $ => seq(
+      '{',
+      repeat($.member_declaration),
+      '}'
+    ),
+
+    member_declaration: $ => seq(
+      optional($._declaration_specifiers),
       commaSep($._declarator),
       optional(seq(':', $._expression)),
       ';'
@@ -307,8 +365,7 @@ module.exports = grammar({
     )),
 
     parameter_declaration: $ => seq(
-      optional($._declaration_specifiers),
-      $._type_specifier,
+      $._declaration_specifiers,
       optional(choice($._declarator, $._abstract_declarator))
     ),
 
@@ -337,7 +394,11 @@ module.exports = grammar({
     ),
 
     expression_statement: $ => seq(
-      optional($._expression), ';'
+      optional(choice(
+        $._expression,
+        $.comma_expression
+      )),
+      ';'
     ),
 
     if_statement: $ => prec.right(seq(
@@ -362,7 +423,10 @@ module.exports = grammar({
         'default'
       ),
       ':',
-      $._statement
+      choice(
+        $._statement,
+        $.declaration
+      )
     ),
 
     while_statement: $ => seq(
@@ -430,8 +494,15 @@ module.exports = grammar({
       $.identifier,
       $.number_literal,
       $.string_literal,
+      $.concatenated_string,
       $.char_literal,
-      seq('(', $._expression, ')')
+      $.parenthesized_expression
+    ),
+
+    comma_expression: $ => seq(
+      $._expression,
+      ',',
+      choice($._expression, $.comma_expression)
     ),
 
     conditional_expression: $ => prec.right(PREC.CONDITIONAL, seq(
@@ -515,18 +586,27 @@ module.exports = grammar({
       $._expression, '[', $._expression, ']')
     ),
 
-    call_expression: $ => prec(PREC.CALL, seq(
-      $._expression, '(', commaSep($._expression), ')')
-    ),
+    call_expression: $ => prec(PREC.CALL, seq($._expression, $.argument_list)),
 
-    field_expression: $ => choice(
-      prec.left(PREC.FIELD, seq($._expression, '.', $.identifier)),
-      prec.left(PREC.FIELD, seq($._expression, '->', $.identifier))
+    argument_list: $ => seq('(', commaSep($._expression), ')'),
+
+    field_expression: $ => seq(
+      prec(PREC.FIELD, seq(
+        $._expression,
+        choice('.', '->')
+      )),
+      $.identifier
     ),
 
     compound_literal_expression: $ => seq(
       prec(PREC.CAST, seq('(', $.type_name, ')')),
       $.initializer_list
+    ),
+
+    parenthesized_expression: $ => seq(
+      '(',
+      choice($._expression, $.comma_expression),
+      ')'
     ),
 
     type_name: $ => seq(
@@ -537,8 +617,10 @@ module.exports = grammar({
 
     initializer_list: $ => seq(
       '{',
-      $._initializer_list_contents,
-      optional(','),
+      optional(seq(
+        $._initializer_list_contents,
+        optional(',')
+      )),
       '}'
     ),
 
@@ -560,11 +642,14 @@ module.exports = grammar({
       $.initializer_list
     ),
 
-    number_literal: $ => token(choice(
-      /\d+(\.\d+)?/,
-      /\d+u/,
-      seq('0x', /[0-9a-fA-f]+/),
-      seq('0b', /[01]+/)
+    number_literal: $ => token(seq(
+      choice(
+        /\d+(\.\d+)?/,
+        /\d+u/,
+        seq('0x', /[0-9a-fA-f]+/),
+        seq('0b', /[01]+/)
+      ),
+      repeat(choice('u', 'l', 'U', 'L'))
     )),
 
     char_literal: $ => token(seq(
@@ -576,9 +661,14 @@ module.exports = grammar({
       '\''
     )),
 
+    concatenated_string: $ => seq(
+      $.string_literal,
+      repeat1($.string_literal)
+    ),
+
     string_literal: $ => token(seq(
       '"',
-      repeat(choice(/[^"]/, '\\"')),
+      repeat(choice(/[^\\"\n]/, /\\./)),
       '"')
     ),
 
@@ -591,15 +681,14 @@ module.exports = grammar({
     identifier: $ => (/[\a_][\a\d_]*/),
 
     _empty_declaration: $ => seq(
-      optional($._declaration_specifiers),
-      $._type_specifier,
+      $._declaration_specifiers,
       ';'
     ),
 
     macro_type_specifier: $ => seq(
       $.identifier,
       '(',
-      $._type_specifier,
+      $.type_name,
       ')'
     ),
 
@@ -616,6 +705,8 @@ module.exports = grammar({
     ))
   }
 });
+
+module.exports.PREC = PREC
 
 function commaSep (rule) {
   return optional(commaSep1(rule))

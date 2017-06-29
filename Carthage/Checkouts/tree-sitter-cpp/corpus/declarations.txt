@@ -1,0 +1,340 @@
+=========================================
+Namespace definitions
+=========================================
+
+namespace std {
+
+int x;
+
+}  // namespace std
+
+---
+
+(translation_unit
+  (namespace_definition
+    (identifier)
+    (declaration_list
+      (declaration (identifier) (identifier))))
+  (comment))
+
+=========================================
+Using declarations
+=========================================
+
+using a;
+using ::b;
+using c::d;
+using ::e::f::g;
+using h = i::j;
+using namespace std;
+
+---
+
+(translation_unit
+  (using_declaration (identifier))
+  (using_declaration (scoped_identifier (identifier)))
+  (using_declaration (scoped_identifier (identifier) (identifier)))
+  (using_declaration
+    (scoped_identifier
+      (scoped_identifier (scoped_identifier (identifier)) (identifier))
+      (identifier)))
+  (alias_declaration
+    (identifier)
+    (type_name (scoped_identifier (identifier) (identifier))))
+  (using_declaration (identifier)))
+
+=========================================
+Reference declarations
+=========================================
+
+int main() {
+  T &x = y<T &>();
+}
+
+---
+
+(translation_unit
+  (function_definition
+    (identifier)
+    (function_declarator (identifier))
+    (compound_statement
+      (declaration
+        (identifier)
+        (init_declarator
+          (reference_declarator (identifier))
+          (call_expression
+            (template_call (identifier) (type_name (identifier) (abstract_reference_declarator)))
+            (argument_list)))))))
+
+=========================================
+R-value reference declarations
+=========================================
+
+int main(T &&);
+
+int main(T &&t) {
+  const U &&u = v;
+}
+
+---
+
+(translation_unit
+  (declaration
+    (identifier)
+    (function_declarator
+      (identifier)
+      (parameter_type_list (parameter_declaration (identifier) (abstract_reference_declarator)))))
+  (function_definition
+    (identifier)
+    (function_declarator
+      (identifier)
+      (parameter_type_list (parameter_declaration (identifier) (reference_declarator (identifier)))))
+    (compound_statement
+      (declaration
+        (type_qualifier)
+        (identifier)
+        (init_declarator (reference_declarator (identifier)) (identifier))))))
+
+=========================================
+Inline method definitions
+=========================================
+
+struct S {
+  int f;
+
+  S() : f(0) {}
+
+ private:
+  int getF() const { return f; }
+};
+
+---
+
+(translation_unit
+  (struct_specifier (identifier) (member_declaration_list
+    (member_declaration (identifier) (identifier))
+    (function_definition
+      (function_declarator (identifier))
+      (member_initializer_list (member_initializer (identifier) (argument_list (number_literal))))
+      (compound_statement))
+    (access_specifier)
+    (function_definition
+      (identifier)
+      (function_declarator (identifier) (type_qualifier))
+      (compound_statement (return_statement (identifier)))))))
+
+=========================================
+Constructor and destructor declarations
+=========================================
+
+class C {
+  void *data_;
+
+ public:
+  C();
+  C(int, float);
+  ~C();
+};
+
+---
+
+(translation_unit
+  (class_specifier (identifier) (member_declaration_list
+    (member_declaration (identifier) (pointer_declarator (identifier)))
+    (access_specifier)
+    (member_declaration (function_declarator (identifier)))
+    (member_declaration (function_declarator (identifier) (parameter_type_list
+      (parameter_declaration (identifier))
+      (parameter_declaration (identifier)))))
+    (member_declaration (function_declarator (destructor_name (identifier)))))))
+
+=========================================
+Classes with inheritance
+=========================================
+
+class A : public B {
+};
+
+class C : C::D, public E {
+};
+
+---
+
+(translation_unit
+  (class_specifier
+    (identifier)
+    (base_class_clause (identifier))
+    (member_declaration_list))
+  (class_specifier
+    (identifier)
+    (base_class_clause (scoped_identifier (identifier) (identifier)) (identifier))
+    (member_declaration_list)))
+
+=========================================
+Friend declarations
+=========================================
+
+struct C {
+  friend class D;
+  friend int f(C &);
+};
+
+---
+
+(translation_unit
+  (struct_specifier (identifier) (member_declaration_list
+    (member_declaration (type_qualifier) (class_specifier (identifier)))
+    (member_declaration (type_qualifier) (identifier) (function_declarator
+      (identifier)
+      (parameter_type_list (parameter_declaration (identifier) (abstract_reference_declarator))))))))
+
+=========================================
+Function parameters with default values
+=========================================
+
+int foo(bool x = 5) {}
+
+---
+
+(translation_unit
+  (function_definition
+    (identifier)
+    (function_declarator
+      (identifier)
+      (parameter_type_list
+        (parameter_declaration (identifier) (init_declarator (identifier) (number_literal)))))
+    (compound_statement)))
+
+=========================================
+Operator overload declarations
+=========================================
+
+ostream &operator<<(ostream &, const A &a);
+
+bool A::operator!=(const A &other) const;
+
+---
+
+(translation_unit
+  (declaration
+    (identifier)
+    (reference_declarator
+      (function_declarator
+        (operator_name)
+        (parameter_type_list
+          (parameter_declaration (identifier) (abstract_reference_declarator))
+          (parameter_declaration (type_qualifier) (identifier) (reference_declarator (identifier)))))))
+  (declaration
+    (identifier)
+    (function_declarator
+      (scoped_identifier (identifier) (operator_name))
+      (parameter_type_list
+        (parameter_declaration (type_qualifier) (identifier) (reference_declarator (identifier))))
+      (type_qualifier))))
+
+=========================================
+Template declarations
+=========================================
+
+template <typename T>
+void foo(T &t);
+
+template <typename T, int u>
+int bar(T &t) { return u; }
+
+template <typename T>
+class Foo {};
+
+---
+
+(translation_unit
+  (template_declaration
+    (template_parameter_list
+      (type_parameter_declaration (identifier)))
+    (declaration
+      (identifier)
+      (function_declarator
+        (identifier)
+        (parameter_type_list (parameter_declaration (identifier) (reference_declarator (identifier)))))))
+  (template_declaration
+    (template_parameter_list
+      (type_parameter_declaration (identifier))
+      (parameter_declaration (identifier) (identifier)))
+    (function_definition
+      (identifier)
+      (function_declarator
+        (identifier)
+        (parameter_type_list (parameter_declaration (identifier) (reference_declarator (identifier)))))
+      (compound_statement (return_statement (identifier)))))
+  (template_declaration
+    (template_parameter_list (type_parameter_declaration (identifier)))
+    (class_specifier (identifier) (member_declaration_list))))
+
+=========================================
+Template specializations
+=========================================
+
+template <>
+void foo<T>(T &t);
+
+template <>
+struct foo::bar<T> {};
+
+---
+
+(translation_unit
+  (template_declaration
+    (template_parameter_list)
+    (declaration
+      (identifier)
+      (function_declarator
+        (template_call (identifier) (type_name (identifier)))
+        (parameter_type_list (parameter_declaration (identifier) (reference_declarator (identifier)))))))
+  (template_declaration
+    (template_parameter_list)
+    (struct_specifier
+      (template_call (scoped_identifier (identifier) (identifier)) (type_name (identifier)))
+      (member_declaration_list))))
+
+==========================================
+Declarations with braced initializer lists
+==========================================
+
+A foo{1, 2};
+
+---
+
+(translation_unit
+  (declaration
+    (identifier)
+    (init_declarator (identifier) (initializer_list (number_literal) (number_literal)))))
+
+===========================================
+Empty function bodies
+===========================================
+
+int main() {}
+
+---
+
+(translation_unit
+  (function_definition (identifier) (function_declarator (identifier)) (compound_statement)))
+
+==========================================
+Explicit template instantiations
+==========================================
+
+template A<int, bool>::A(char *, size_t);
+
+---
+
+(translation_unit
+  (template_instantiation
+    (member_declaration
+      (function_declarator
+        (scoped_identifier
+          (template_call (identifier) (type_name (identifier)) (type_name (identifier)))
+          (identifier))
+        (parameter_type_list
+          (parameter_declaration (identifier) (abstract_pointer_declarator))
+          (parameter_declaration (identifier)))))))

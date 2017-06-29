@@ -1,0 +1,87 @@
+============================================
+If statements
+============================================
+
+int main() {
+  if (a)
+    1;
+
+  if (!a) {
+    2;
+  } else {
+    3;
+  }
+}
+
+---
+
+(translation_unit
+  (function_definition
+    (identifier)
+    (function_declarator (identifier))
+    (compound_statement
+      (if_statement (identifier)
+        (expression_statement (number_literal)))
+      (if_statement (logical_expression (identifier))
+        (compound_statement
+          (expression_statement (number_literal)))
+        (compound_statement
+          (expression_statement (number_literal)))))))
+
+============================================
+For loops
+============================================
+
+int main() {
+  for (;;)
+    1;
+
+  for (int i = 0; i < 5; next(), i++) {
+    2;
+  }
+
+  for (start(); check(); step())
+    3;
+}
+
+---
+
+(translation_unit
+  (function_definition
+    (identifier)
+    (function_declarator (identifier))
+    (compound_statement
+      (for_statement
+        (expression_statement (number_literal)))
+      (for_statement
+        (declaration (identifier) (init_declarator (identifier) (number_literal)))
+        (relational_expression (identifier) (number_literal))
+        (call_expression (identifier) (argument_list))
+        (math_expression (identifier))
+        (compound_statement (expression_statement (number_literal))))
+      (for_statement
+        (call_expression (identifier) (argument_list))
+        (call_expression (identifier) (argument_list))
+        (call_expression (identifier) (argument_list))
+        (expression_statement (number_literal))))))
+
+============================================
+While loops
+============================================
+
+int main() {
+  while (x)
+    printf("hi");
+}
+
+---
+
+(translation_unit
+  (function_definition
+    (identifier)
+    (function_declarator (identifier))
+    (compound_statement
+      (while_statement (identifier)
+        (expression_statement (call_expression
+          (identifier)
+          (argument_list (string_literal))))))))

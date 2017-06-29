@@ -48,9 +48,6 @@ static void *record_allocation(void *result) {
 }
 
 static void record_deallocation(void *pointer) {
-  if (!_enabled)
-    return;
-
   auto entry = _outstanding_allocations.find(pointer);
   if (entry != _outstanding_allocations.end()) {
     _outstanding_allocations.erase(entry);
@@ -71,8 +68,8 @@ void *ts_record_calloc(size_t count, size_t size) {
 }
 
 void ts_record_free(void *pointer) {
-  free(pointer);
   record_deallocation(pointer);
+  free(pointer);
 }
 
 bool ts_record_allocations_toggle(bool value) {

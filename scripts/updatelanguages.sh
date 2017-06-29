@@ -3,12 +3,12 @@
 BASEDIR=$(dirname "$0")
 cd $BASEDIR/..
 
-carthage update --no-build
+#carthage update --no-build
 
 # clearing files
-rm -rf languages/*
+rm -rf TreeSitter/Languages/*
 
-umbrella_header=./languages/languages.h
+umbrella_header=./TreeSitter/Languages/languages.h
 echo "#include \"../tree-sitter/include/tree_sitter/parser.h\"" >> $umbrella_header
 
 for language in Carthage/Checkouts/*
@@ -25,7 +25,7 @@ do
 
 	echo "Processing $name"
 
-	new=./languages/$name.c
+	new=./TreeSitter/Languages/$name.c
 
 	# replace import
 	new_import="#include \"parser.h\""
@@ -34,7 +34,7 @@ do
     # save swift file
     enum_name="$(tr '[:lower:]' '[:upper:]' <<< ${name:0:1})${name:1}"
     enum_decl="public enum $enum_name: UInt16"
-    awk '1;/}/{exit}' $new | sed '/^#/ d' | sed -e "s/^enum/$enum_decl/g" -e 's/  [ ]*/    case /' -e 's/,//' -e 's/ts_builtin_sym_start/2/' >> languages/$name.swift
+    awk '1;/}/{exit}' $new | sed '/^#/ d' | sed -e "s/^enum/$enum_decl/g" -e 's/  [ ]*/    case /' -e 's/,//' -e 's/ts_builtin_sym_start/2/' >> TreeSitter/Languages/$name.swift
 
     # print line to umbrella header
     echo "TSLanguage *tree_sitter_$name();" >> $umbrella_header

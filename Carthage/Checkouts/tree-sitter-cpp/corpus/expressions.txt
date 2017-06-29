@@ -1,0 +1,212 @@
+================================================
+Scoped function calls
+================================================
+
+int main() {
+  abc::def("hello", "world");
+}
+
+---
+
+(translation_unit (function_definition
+  (identifier)
+  (function_declarator (identifier))
+  (compound_statement
+    (expression_statement (call_expression
+      (scoped_identifier (identifier) (identifier))
+      (argument_list
+        (string_literal)
+        (string_literal)))))))
+
+=================================================
+Compound literals without parentheses
+=================================================
+
+T x = T{0};
+U<V> y = U<V>{0};
+
+---
+
+(translation_unit
+  (declaration
+    (identifier)
+    (init_declarator
+      (identifier)
+      (compound_literal_expression
+        (identifier)
+        (initializer_list (number_literal)))))
+  (declaration
+    (template_call (identifier) (type_name (identifier)))
+    (init_declarator
+      (identifier)
+      (compound_literal_expression
+        (template_call (identifier) (type_name (identifier)))
+        (initializer_list (number_literal))))))
+
+=================================================
+Explicit destructor calls
+=================================================
+
+int main() {
+  foo.~Foo();
+  bar->~Bar();
+}
+
+---
+
+(translation_unit
+  (function_definition
+    (identifier)
+    (function_declarator (identifier))
+    (compound_statement
+      (expression_statement (call_expression
+        (field_expression (identifier) (destructor_name (identifier)))
+        (argument_list)))
+      (expression_statement (call_expression
+        (field_expression (identifier) (destructor_name (identifier)))
+        (argument_list))))))
+
+=================================================
+New and Delete expressions
+=================================================
+
+int main() {
+  auto a = new T();
+  auto b = new U::V{};
+  auto c = new (&d) T();
+  auto c = new T[5][3]();
+  delete a;
+  ::delete[] c;
+}
+
+---
+
+(translation_unit
+  (function_definition
+    (identifier)
+    (function_declarator (identifier))
+    (compound_statement
+      (declaration
+        (auto)
+        (init_declarator
+          (identifier)
+          (new_expression (identifier) (argument_list))))
+      (declaration
+        (auto)
+        (init_declarator
+          (identifier)
+          (new_expression (scoped_identifier (identifier) (identifier)) (initializer_list))))
+      (declaration
+        (auto)
+        (init_declarator
+          (identifier)
+          (new_expression (parenthesized_expression (pointer_expression (identifier))) (identifier) (argument_list))))
+      (declaration
+        (auto)
+        (init_declarator
+          (identifier)
+          (new_expression
+            (identifier)
+            (new_declarator (number_literal) (new_declarator (number_literal)))
+            (argument_list))))
+      (expression_statement (delete_expression (identifier)))
+      (expression_statement (delete_expression (identifier))))))
+
+====================================================
+Initializer lists as arguments
+====================================================
+
+int main() {
+  pairs.push_back({true, false});
+}
+
+---
+
+(translation_unit
+  (function_definition
+    (identifier)
+    (function_declarator (identifier))
+    (compound_statement
+      (expression_statement (call_expression
+        (field_expression (identifier) (identifier))
+        (argument_list (initializer_list (identifier) (identifier))))))))
+
+====================================================
+Lambda expressions
+====================================================
+
+auto f = [&](int x) -> bool {
+  return true;
+};
+
+---
+
+(translation_unit
+  (declaration
+    (auto)
+    (init_declarator
+      (identifier)
+      (lambda_expression
+        (lambda_capture_specifier (lambda_default_capture))
+        (abstract_function_declarator
+          (parameter_type_list (parameter_declaration (identifier) (identifier)))
+          (trailing_return_type (identifier)))
+        (compound_statement (return_statement (identifier)))))))
+
+====================================================
+Nested template calls
+====================================================
+
+class A {
+  B<C::D<E, F>>::G field;
+
+  H<I<J>> method() {
+    K::L<M<N>> variable1 = K::L<M<N>>{};
+  }
+};
+
+---
+
+(translation_unit
+  (class_specifier (identifier) (member_declaration_list
+    (member_declaration
+      (scoped_identifier
+        (template_call
+          (identifier)
+          (type_name (template_call
+            (scoped_identifier (identifier) (identifier))
+            (type_name (identifier)) (type_name (identifier)))))
+        (identifier))
+      (identifier))
+    (function_definition
+      (template_call (identifier) (type_name (template_call (identifier) (type_name (identifier)))))
+      (function_declarator (identifier))
+      (compound_statement
+        (declaration
+          (template_call
+            (scoped_identifier (identifier) (identifier))
+            (type_name (template_call (identifier) (type_name (identifier)))))
+          (init_declarator
+            (identifier)
+            (compound_literal_expression
+              (template_call
+                (scoped_identifier (identifier) (identifier))
+                (type_name (template_call (identifier) (type_name (identifier)))))
+              (initializer_list)))))))))
+
+====================================================
+Comma expressions at the start of blocks
+====================================================
+
+int main() { a(), b(); }
+
+---
+
+(translation_unit
+  (function_definition
+    (identifier)
+    (function_declarator (identifier))
+    (compound_statement
+      (expression_statement (comma_expression
+        (call_expression (identifier) (argument_list))
+        (call_expression (identifier) (argument_list)))))))
