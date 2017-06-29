@@ -9,7 +9,7 @@
 #include "compiler/parse_table.h"
 #include "compiler/syntax_grammar.h"
 #include "compiler/lexical_grammar.h"
-#include "compiler/rules/built_in_symbols.h"
+#include "compiler/rule.h"
 #include "compiler/util/string_helpers.h"
 #include "tree_sitter/runtime.h"
 
@@ -25,8 +25,6 @@ using std::to_string;
 using std::vector;
 using util::escape_char;
 using rules::Symbol;
-
-static Variable EOF_ENTRY("end", VariableTypeNamed, rule_ptr());
 
 static const map<char, string> REPLACEMENTS({
   { '~', "TILDE" },
@@ -128,10 +126,16 @@ class CCodeGenerator {
   }
 
   void add_stats() {
-    size_t token_count = 1 + lexical_grammar.variables.size();
-    for (const ExternalToken &external_token : syntax_grammar.external_tokens) {
-      if (external_token.corresponding_internal_token == rules::NONE()) {
+    size_t token_count = 0;
+    for (const auto &entry : parse_table.symbols) {
+      const Symbol &symbol = entry.first;
+      if (symbol.is_terminal()) {
         token_count++;
+      } else if (symbol.is_external()) {
+        const ExternalToken &external_token = syntax_grammar.external_tokens[symbol.index];
+        if (external_token.corresponding_internal_token == rules::NONE()) {
+          token_count++;
+        }
       }
     }
 
@@ -213,9 +217,10 @@ class CCodeGenerator {
       line("START_LEXER();");
       _switch("state", [&]() {
         size_t i = 0;
-        for (const LexState &state : lex_table.states)
+        for (const LexState &state : lex_table.states) {
           _case(to_string(i++), [&]() { add_lex_state(state); });
-        _default([&]() { line("LEX_ERROR();"); });
+        }
+        _default([&]() { line("return false;"); });
       });
     });
     line("}");
@@ -251,7 +256,7 @@ class CCodeGenerator {
           if (symbol.is_external()) {
             needs_external_scanner = true;
             external_token_indices.insert(symbol.index);
-          } else if (symbol.is_token()) {
+          } else if (symbol.is_terminal()) {
             auto corresponding_external_token =
               external_tokens_by_corresponding_internal_token.find(symbol.index);
             if (corresponding_external_token != external_tokens_by_corresponding_internal_token.end()) {
@@ -290,10 +295,10 @@ class CCodeGenerator {
   }
 
   void add_external_scanner_symbol_map() {
-    line("TSSymbol ts_external_scanner_symbol_map[EXTERNAL_TOKEN_COUNT] = {");
+    line("static TSSymbol ts_external_scanner_symbol_map[EXTERNAL_TOKEN_COUNT] = {");
     indent([&]() {
       for (size_t i = 0; i < syntax_grammar.external_tokens.size(); i++) {
-        line("[" + external_token_id(i) + "] = " + symbol_id(Symbol(i, Symbol::External)) + ",");
+        line("[" + external_token_id(i) + "] = " + symbol_id(Symbol::external(i)) + ",");
       }
     });
     line("};");
@@ -334,7 +339,7 @@ class CCodeGenerator {
         line("[" + to_string(state_id++) + "] = {");
         indent([&]() {
           for (const auto &entry : state.nonterminal_entries) {
-            line("[" + symbol_id(Symbol(entry.first, Symbol::NonTerminal)) + "] = STATE(");
+            line("[" + symbol_id(Symbol::non_terminal(entry.first)) + "] = STATE(");
             add(to_string(entry.second));
             add("),");
           }
@@ -392,18 +397,18 @@ class CCodeGenerator {
   }
 
   void add_lex_state(const LexState &lex_state) {
-    if (lex_state.is_token_start)
-      line("START_TOKEN();");
+    if (lex_state.accept_action.is_present()) {
+      add_accept_token_action(lex_state.accept_action);
+    }
 
-    for (const auto &pair : lex_state.advance_actions)
-      if (!pair.first.is_empty())
+    for (const auto &pair : lex_state.advance_actions) {
+      if (!pair.first.is_empty()) {
         _if([&]() { add_character_set_condition(pair.first); },
             [&]() { add_advance_action(pair.second); });
+      }
+    }
 
-    if (lex_state.accept_action.is_present())
-      add_accept_token_action(lex_state.accept_action);
-    else
-      line("LEX_ERROR();");
+    line("END_STATE();");
   }
 
   void add_character_set_condition(const rules::CharacterSet &rule) {
@@ -424,8 +429,7 @@ class CCodeGenerator {
       for (const auto &range : ranges) {
         if (!first) {
           add(" ||");
-          line();
-          add_padding();
+          line("  ");
         }
 
         add("(");
@@ -438,20 +442,20 @@ class CCodeGenerator {
   }
 
   void add_character_range_condition(const rules::CharacterRange &range) {
-    string lookahead("lookahead");
     if (range.min == range.max) {
-      add(lookahead + " == " + escape_char(range.min));
+      add("lookahead == " + escape_char(range.min));
     } else {
-      add(escape_char(range.min) + string(" <= ") + lookahead + " && " +
-          lookahead + " <= " + escape_char(range.max));
+      add(escape_char(range.min) + string(" <= lookahead && lookahead <= ") +
+          escape_char(range.max));
     }
   }
 
   void add_advance_action(const AdvanceAction &action) {
-    if (action.in_main_token)
+    if (action.in_main_token) {
       line("ADVANCE(" + to_string(action.state_index) + ");");
-    else
+    } else {
       line("SKIP(" + to_string(action.state_index) + ");");
+    }
   }
 
   void add_accept_token_action(const AcceptTokenAction &action) {
@@ -522,7 +526,7 @@ class CCodeGenerator {
   // Helper functions
 
   string external_token_id(Symbol::Index index) {
-    return "ts_external_token_" + syntax_grammar.external_tokens[index].name;
+    return "ts_external_token_" + sanitize_name(syntax_grammar.external_tokens[index].name);
   }
 
   string symbol_id(const Symbol &symbol) {
@@ -561,7 +565,7 @@ class CCodeGenerator {
         return { variable.name, variable.type };
       }
       case Symbol::Terminal: {
-        const Variable &variable = lexical_grammar.variables[symbol.index];
+        const LexicalVariable &variable = lexical_grammar.variables[symbol.index];
         return { variable.name, variable.type };
       }
       case Symbol::External:
@@ -665,7 +669,7 @@ class CCodeGenerator {
 
   void add_padding() {
     for (size_t i = 0; i < indent_level; i++)
-      add("    ");
+      add("  ");
   }
 
   void indent(function<void()> body) {
@@ -682,9 +686,13 @@ class CCodeGenerator {
 string c_code(string name, const ParseTable &parse_table,
               const LexTable &lex_table, const SyntaxGrammar &syntax_grammar,
               const LexicalGrammar &lexical_grammar) {
-  return CCodeGenerator(name, parse_table, lex_table, syntax_grammar,
-                        lexical_grammar)
-    .code();
+  return CCodeGenerator(
+    name,
+    parse_table,
+    lex_table,
+    syntax_grammar,
+    lexical_grammar
+  ).code();
 }
 
 }  // namespace generate_code

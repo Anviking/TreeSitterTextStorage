@@ -34,7 +34,7 @@ do
     # save swift file
     enum_name="$(tr '[:lower:]' '[:upper:]' <<< ${name:0:1})${name:1}"
     enum_decl="public enum $enum_name: UInt16"
-    awk '1;/}/{exit}' $new | sed '/^#/ d' | sed -e "s/^enum/$enum_decl/g" -e 's/    /    case /' -e 's/,//' -e 's/ts_builtin_sym_start/2/' >> languages/$name.swift
+    awk '1;/}/{exit}' $new | sed '/^#/ d' | sed -e "s/^enum/$enum_decl/g" -e 's/  [ ]*/    case /' -e 's/,//' -e 's/ts_builtin_sym_start/2/' >> languages/$name.swift
 
     # print line to umbrella header
     echo "TSLanguage *tree_sitter_$name();" >> $umbrella_header

@@ -71,9 +71,19 @@ namespace bandit { namespace detail {
         return options_[ONLY].arg ? options_[ONLY].arg : "";
       }
 
+      bool break_on_failure() const
+      {
+          return options_[BREAK_ON_FAILURE] != NULL;
+      }
+
+      bool dry_run() const
+      {
+          return options_[DRY_RUN] != NULL;
+      }
+
       private:
-        enum option_index { UNKNOWN, VERSION, HELP, REPORTER, NO_COLOR, 
-          FORMATTER, SKIP, ONLY };
+        enum option_index { UNKNOWN, VERSION, HELP, REPORTER, NO_COLOR,
+          FORMATTER, SKIP, ONLY, BREAK_ON_FAILURE, DRY_RUN };
 
         static const option::Descriptor* usage()
         {
@@ -88,6 +98,8 @@ namespace bandit { namespace detail {
             {FORMATTER, 0, "", "formatter", option::Arg::Optional, "  --formatter=<formatter>, \tSelect formatting of errors (default, vs)"},
             {SKIP, 0, "", "skip", option::Arg::Optional, "  --skip=<substring>, \tskip all 'describe' and 'it' containing substring"},
             {ONLY, 0, "", "only", option::Arg::Optional, "  --only=<substring>, \tonly run 'describe' and 'it' containing substring"},
+            {BREAK_ON_FAILURE, 0, "", "break-on-failure", option::Arg::Optional, "  --break-on-failure, \tstop test run on first failing test"},
+            {DRY_RUN, 0, "", "dry-run", option::Arg::Optional, "  --dry-run, \tdon't run tests. Just list progress. Use to list available tests"},
             {0, 0, 0, 0, 0, 0}
           };
 

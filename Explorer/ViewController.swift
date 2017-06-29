@@ -24,17 +24,16 @@ class ViewController: UIViewController, UITextViewDelegate {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        let url = Bundle.main.url(forResource: "c", withExtension: "txt")!
-        let str = try! String(contentsOf: url)
+        let url = Bundle.main.url(forResource: "javascript", withExtension: "txt")!
+        let str = "//var a = 2"//try! String(contentsOf: url)
         
         let frame = CGRect(x: 0, y: 0, width: 100, height: 100)
         
-        let document = Document(text: str, language: .c)
-        tokenizer = TextStorageDelegate(document: document)
+        let document = Document(text: str, language: .javascript)
         
-        let textView = UITextView(frame: frame)
-        textView.text = str
-        textView.textStorage.delegate = tokenizer
+        let textView = TextView(frame: frame, theme: .civicModified, language: .javascript, text: str)
+        //textView.text = str
+        //textView.textStorage.delegate = tokenizer
         
         
         textView.backgroundColor = ColorTheme.dusk[.background]

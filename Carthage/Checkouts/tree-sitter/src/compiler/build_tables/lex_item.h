@@ -5,8 +5,7 @@
 #include <map>
 #include <utility>
 #include <string>
-#include "compiler/rules/character_set.h"
-#include "compiler/rules/symbol.h"
+#include "compiler/rule.h"
 #include "compiler/precedence_range.h"
 
 namespace tree_sitter {
@@ -14,19 +13,18 @@ namespace build_tables {
 
 class LexItem {
  public:
-  LexItem(const rules::Symbol &, rule_ptr);
+  LexItem(const rules::Symbol &, const rules::Rule &);
 
   struct CompletionStatus {
     bool is_done;
     PrecedenceRange precedence;
-    bool is_string;
   };
 
   bool operator==(const LexItem &other) const;
   CompletionStatus completion_status() const;
 
   rules::Symbol lhs;
-  rule_ptr rule;
+  rules::Rule rule;
 };
 
 }  // namespace build_tables

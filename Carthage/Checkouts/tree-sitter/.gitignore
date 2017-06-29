@@ -1,15 +1,17 @@
-.idea
+# Compiled binaries
+out
 
+# Generated build config files 
 gyp-mac-tool
 Makefile
 *.Makefile
 *.target.mk
+
+# IDE files
+.idea
 *.xcodeproj
 
-spec/run.out*
+# Dev dependencies
+test/fixtures/grammars/*
+!test/fixtures/grammars/.gitkeep
 externals/cpplint.py
-out
-*.pyc
-
-spec/fixtures/grammars/*
-!spec/fixtures/grammars/.gitkeep

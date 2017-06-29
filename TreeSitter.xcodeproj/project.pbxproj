@@ -20,7 +20,6 @@
 		8F03C79C1E0BFB8E001C7F95 /* node.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F03C7831E0BFB8E001C7F95 /* node.c */; };
 		8F03C79D1E0BFB8E001C7F95 /* node.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F03C7841E0BFB8E001C7F95 /* node.h */; };
 		8F03C79E1E0BFB8E001C7F95 /* parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F03C7851E0BFB8E001C7F95 /* parser.c */; };
-		8F03C79F1E0BFB8E001C7F95 /* parser.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F03C7861E0BFB8E001C7F95 /* parser.h */; };
 		8F03C7A01E0BFB8E001C7F95 /* point.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F03C7871E0BFB8E001C7F95 /* point.h */; };
 		8F03C7A11E0BFB8E001C7F95 /* reduce_action.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F03C7881E0BFB8E001C7F95 /* reduce_action.h */; };
 		8F03C7A21E0BFB8E001C7F95 /* stack.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F03C7891E0BFB8E001C7F95 /* stack.c */; };
@@ -33,29 +32,23 @@
 		8F03C7A91E0BFB8E001C7F95 /* utf16.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F03C7901E0BFB8E001C7F95 /* utf16.c */; };
 		8F03C7AA1E0BFB8E001C7F95 /* utf16.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F03C7911E0BFB8E001C7F95 /* utf16.h */; };
 		8F2531BF1D2C5BE200AE3EEE /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2531BE1D2C5BE200AE3EEE /* TextView.swift */; };
-		8F2754A31E425DCD00078F8C /* c.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8FFA48BE1CD93C5900018FA6 /* c.txt */; };
 		8F29AB1A1CD9682F00BBBEEA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F29AB191CD9682F00BBBEEA /* UIKit.framework */; };
 		8F29EE281CD968A400AE4A59 /* testRuby.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8F29EE271CD968A400AE4A59 /* testRuby.txt */; };
 		8F29EE291CD96AAE00AE4A59 /* testRuby.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8F29EE271CD968A400AE4A59 /* testRuby.txt */; };
 		8F29EE2B1CD96C2700AE4A59 /* Ruby.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F29EE2A1CD96C2700AE4A59 /* Ruby.swift */; };
 		8F29EE2F1CD96CB400AE4A59 /* Symbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F29EE2E1CD96CB400AE4A59 /* Symbol.swift */; };
-		8F3992541D2D9A3B00D7C8EC /* C++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3992531D2D9A3B00D7C8EC /* C++.swift */; };
+		8F6229AA1EE83F2900832040 /* ruby.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6229A91EE83F2500832040 /* ruby.swift */; };
+		8F6229B01EE97F9500832040 /* parser.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F03C7861E0BFB8E001C7F95 /* parser.h */; };
 		8F9EF3FB1CDB722100F2A5A8 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9EF3FA1CDB722100F2A5A8 /* Node.swift */; };
 		8F9EF3FD1CDB724000F2A5A8 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9EF3FC1CDB724000F2A5A8 /* Extensions.swift */; };
 		8F9EF4011CDC0C8300F2A5A8 /* TextStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9EF4001CDC0C8300F2A5A8 /* TextStorage.swift */; };
 		8F9EF4031CDC0E2000F2A5A8 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9EF4021CDC0E2000F2A5A8 /* Document.swift */; };
 		8F9EF4051CDC184B00F2A5A8 /* Input.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9EF4041CDC184B00F2A5A8 /* Input.swift */; };
 		8F9EF4071CDC1E0000F2A5A8 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9EF4061CDC1E0000F2A5A8 /* Language.swift */; };
-		8F9FF02B1D7C0DDB002AE8D5 /* c.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F9FF01F1D7C0DDB002AE8D5 /* c.c */; };
-		8F9FF02C1D7C0DDB002AE8D5 /* c.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9FF0201D7C0DDB002AE8D5 /* c.swift */; };
-		8F9FF02D1D7C0DDB002AE8D5 /* cpp.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F9FF0211D7C0DDB002AE8D5 /* cpp.c */; };
-		8F9FF02E1D7C0DDB002AE8D5 /* cpp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9FF0221D7C0DDB002AE8D5 /* cpp.swift */; };
 		8F9FF02F1D7C0DDB002AE8D5 /* go.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F9FF0231D7C0DDB002AE8D5 /* go.c */; };
-		8F9FF0301D7C0DDB002AE8D5 /* go.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9FF0241D7C0DDB002AE8D5 /* go.swift */; };
 		8F9FF0311D7C0DDB002AE8D5 /* javascript.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F9FF0251D7C0DDB002AE8D5 /* javascript.c */; };
 		8F9FF0321D7C0DDB002AE8D5 /* javascript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9FF0261D7C0DDB002AE8D5 /* javascript.swift */; };
 		8F9FF0341D7C0DDB002AE8D5 /* json.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9FF0281D7C0DDB002AE8D5 /* json.swift */; };
-		8F9FF0361D7C0DDB002AE8D5 /* ruby.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9FF02A1D7C0DDB002AE8D5 /* ruby.swift */; };
 		8FA59A681CD80EBD0041E6C4 /* TreeSitter.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FA59A671CD80EBD0041E6C4 /* TreeSitter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8FA59A6F1CD80EBE0041E6C4 /* TreeSitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA59A641CD80EBD0041E6C4 /* TreeSitter.framework */; };
 		8FA59A741CD80EBE0041E6C4 /* TreeSitterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA59A731CD80EBE0041E6C4 /* TreeSitterTests.swift */; };
@@ -63,8 +56,8 @@
 		8FB48EC11D2E7E8F00BC50A1 /* javascript.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8FB48EC01D2E7E8F00BC50A1 /* javascript.txt */; };
 		8FB48EC71D2E898400BC50A1 /* json.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8FB48EC61D2E898400BC50A1 /* json.txt */; };
 		8FB48EC81D2FF36100BC50A1 /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = 8FA5C6BF1CD8F56700BF090B /* test.json */; };
-		8FBB84551E43500C006E2281 /* json.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F9FF0271D7C0DDB002AE8D5 /* json.c */; };
 		8FBB84561E435015006E2281 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB48EC41D2E884F00BC50A1 /* JSON.swift */; };
+		8FBB84571E43598B006E2281 /* c.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8FFA48BE1CD93C5900018FA6 /* c.txt */; };
 		8FDCBA611CDA10B3009A829F /* LayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDCBA601CDA10B3009A829F /* LayoutManager.swift */; };
 		8FE5A3C51DD01FD600833B64 /* TextStorageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE5A3C41DD01FD600833B64 /* TextStorageHelper.swift */; };
 		8FFA48C11CD93D2700018FA6 /* test.swift in Resources */ = {isa = PBXBuildFile; fileRef = 8F8119591CD935AD006A9980 /* test.swift */; };
@@ -144,6 +137,8 @@
 		8F29EE2C1CD96C7F00AE4A59 /* C.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = C.swift; sourceTree = "<group>"; };
 		8F29EE2E1CD96CB400AE4A59 /* Symbol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Symbol.swift; sourceTree = "<group>"; };
 		8F3992531D2D9A3B00D7C8EC /* C++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "C++.swift"; path = "emplate/C++.swift"; sourceTree = "<group>"; };
+		8F6229A81EE83F2500832040 /* ruby.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ruby.c; sourceTree = "<group>"; };
+		8F6229A91EE83F2500832040 /* ruby.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ruby.swift; sourceTree = "<group>"; };
 		8F8119591CD935AD006A9980 /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
 		8F9EF3FA1CDB722100F2A5A8 /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		8F9EF3FC1CDB724000F2A5A8 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -161,8 +156,6 @@
 		8F9FF0261D7C0DDB002AE8D5 /* javascript.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = javascript.swift; sourceTree = "<group>"; };
 		8F9FF0271D7C0DDB002AE8D5 /* json.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = json.c; sourceTree = "<group>"; };
 		8F9FF0281D7C0DDB002AE8D5 /* json.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = json.swift; sourceTree = "<group>"; };
-		8F9FF0291D7C0DDB002AE8D5 /* ruby.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ruby.c; sourceTree = "<group>"; };
-		8F9FF02A1D7C0DDB002AE8D5 /* ruby.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ruby.swift; sourceTree = "<group>"; };
 		8FA59A641CD80EBD0041E6C4 /* TreeSitter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TreeSitter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FA59A671CD80EBD0041E6C4 /* TreeSitter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TreeSitter.h; sourceTree = "<group>"; };
 		8FA59A691CD80EBD0041E6C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -299,8 +292,8 @@
 				8F9FF0261D7C0DDB002AE8D5 /* javascript.swift */,
 				8F9FF0271D7C0DDB002AE8D5 /* json.c */,
 				8F9FF0281D7C0DDB002AE8D5 /* json.swift */,
-				8F9FF0291D7C0DDB002AE8D5 /* ruby.c */,
-				8F9FF02A1D7C0DDB002AE8D5 /* ruby.swift */,
+				8F6229A81EE83F2500832040 /* ruby.c */,
+				8F6229A91EE83F2500832040 /* ruby.swift */,
 			);
 			path = languages;
 			sourceTree = SOURCE_ROOT;
@@ -413,9 +406,9 @@
 				8F03C7AA1E0BFB8E001C7F95 /* utf16.h in Headers */,
 				8F03C7921E0BFB8E001C7F95 /* alloc.h in Headers */,
 				8FA59A681CD80EBD0041E6C4 /* TreeSitter.h in Headers */,
-				8F03C79F1E0BFB8E001C7F95 /* parser.h in Headers */,
 				8F03C7991E0BFB8E001C7F95 /* length.h in Headers */,
 				8F03C7A51E0BFB8E001C7F95 /* string_input.h in Headers */,
+				8F6229B01EE97F9500832040 /* parser.h in Headers */,
 				8F03C7961E0BFB8E001C7F95 /* error_costs.h in Headers */,
 				8F03C79B1E0BFB8E001C7F95 /* lexer.h in Headers */,
 				8F03C7A81E0BFB8E001C7F95 /* tree.h in Headers */,
@@ -542,6 +535,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FBB84571E43598B006E2281 /* c.txt in Resources */,
 				8F29EE281CD968A400AE4A59 /* testRuby.txt in Resources */,
 				8FFA48C11CD93D2700018FA6 /* test.swift in Resources */,
 			);
@@ -557,7 +551,6 @@
 				8FFA48D91CD94EE400018FA6 /* Assets.xcassets in Resources */,
 				8FB48EC71D2E898400BC50A1 /* json.txt in Resources */,
 				8FB48EC11D2E7E8F00BC50A1 /* javascript.txt in Resources */,
-				8F2754A31E425DCD00078F8C /* c.txt in Resources */,
 				8FFA48D71CD94EE400018FA6 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -571,28 +564,21 @@
 			files = (
 				8F03C7A21E0BFB8E001C7F95 /* stack.c in Sources */,
 				8F9EF3FB1CDB722100F2A5A8 /* Node.swift in Sources */,
-				8F9FF0361D7C0DDB002AE8D5 /* ruby.swift in Sources */,
 				8FBB84561E435015006E2281 /* JSON.swift in Sources */,
+				8F6229AA1EE83F2900832040 /* ruby.swift in Sources */,
 				8F9FF0321D7C0DDB002AE8D5 /* javascript.swift in Sources */,
 				8F03C7941E0BFB8E001C7F95 /* document.c in Sources */,
 				8F9FF0311D7C0DDB002AE8D5 /* javascript.c in Sources */,
-				8F3992541D2D9A3B00D7C8EC /* C++.swift in Sources */,
 				8FE5A3C51DD01FD600833B64 /* TextStorageHelper.swift in Sources */,
-				8F9FF0301D7C0DDB002AE8D5 /* go.swift in Sources */,
-				8F9FF02C1D7C0DDB002AE8D5 /* c.swift in Sources */,
 				8F9EF4051CDC184B00F2A5A8 /* Input.swift in Sources */,
 				8F9EF4011CDC0C8300F2A5A8 /* TextStorage.swift in Sources */,
 				8F03C79E1E0BFB8E001C7F95 /* parser.c in Sources */,
 				8F03C7A71E0BFB8E001C7F95 /* tree.c in Sources */,
-				8F9FF02B1D7C0DDB002AE8D5 /* c.c in Sources */,
 				8FB48EBF1D2E7D1400BC50A1 /* Javascript.swift in Sources */,
 				8F03C79A1E0BFB8E001C7F95 /* lexer.c in Sources */,
 				8F03C7A91E0BFB8E001C7F95 /* utf16.c in Sources */,
-				8F9FF02D1D7C0DDB002AE8D5 /* cpp.c in Sources */,
 				8F29EE2F1CD96CB400AE4A59 /* Symbol.swift in Sources */,
-				8FBB84551E43500C006E2281 /* json.c in Sources */,
 				8F2531BF1D2C5BE200AE3EEE /* TextView.swift in Sources */,
-				8F9FF02E1D7C0DDB002AE8D5 /* cpp.swift in Sources */,
 				8F9EF4071CDC1E0000F2A5A8 /* Language.swift in Sources */,
 				8F9EF4031CDC0E2000F2A5A8 /* Document.swift in Sources */,
 				8F03C7971E0BFB8E001C7F95 /* language.c in Sources */,

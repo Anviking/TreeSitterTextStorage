@@ -1,6 +1,6 @@
 {
   "name": "tree-sitter-c",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "description": "C grammar for node-tree-sitter",
   "main": "index.js",
   "keywords": [
@@ -14,7 +14,7 @@
     "nan": "^2.4.0"
   },
   "devDependencies": {
-    "tree-sitter-cli": "^0.4.0"
+    "tree-sitter-cli": "^0.5.1"
   },
   "scripts": {
     "build": "tree-sitter generate && node-gyp build",

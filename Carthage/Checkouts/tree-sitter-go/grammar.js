@@ -192,7 +192,7 @@ module.exports = grammar({
     parameter_declaration: $ => seq(
       optional($.identifier),
       optional('...'),
-      $._simple_type
+      $._type
     ),
 
     type_declaration: $ => seq(
@@ -339,8 +339,11 @@ module.exports = grammar({
       $.break_statement,
       $.continue_statement,
       $.goto_statement,
-      $.block
+      $.block,
+      $.empty_statement
     ),
+
+    empty_statement: $ => ';',
 
     _simple_statement: $ => choice(
       $._expression,
@@ -716,9 +719,14 @@ module.exports = grammar({
       '='
     )),
 
+    // http://stackoverflow.com/questions/13014947/regex-to-match-a-c-style-multiline-comment/36328890#36328890
     comment: $ => token(choice(
       seq('//', /.*/),
-      seq('/*', repeat(choice(/[^\*]/, /\*[^\/]/)), '*/')
+      seq(
+        '/*',
+        /[^*]*\*+([^/*][^*]*\*+)*/,
+        '/'
+      )
     ))
   }
 })

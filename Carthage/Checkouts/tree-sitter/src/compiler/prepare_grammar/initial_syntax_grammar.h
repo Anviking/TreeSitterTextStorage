@@ -4,9 +4,9 @@
 #include <set>
 #include <vector>
 #include "tree_sitter/compiler.h"
-#include "compiler/rules/symbol.h"
+#include "compiler/grammar.h"
 #include "compiler/syntax_grammar.h"
-#include "compiler/variable.h"
+#include "compiler/rule.h"
 
 namespace tree_sitter {
 namespace prepare_grammar {
@@ -14,7 +14,7 @@ namespace prepare_grammar {
 struct InitialSyntaxGrammar {
   std::vector<Variable> variables;
   std::set<rules::Symbol> extra_tokens;
-  std::set<ConflictSet> expected_conflicts;
+  std::set<std::set<rules::Symbol>> expected_conflicts;
   std::vector<ExternalToken> external_tokens;
 };
 

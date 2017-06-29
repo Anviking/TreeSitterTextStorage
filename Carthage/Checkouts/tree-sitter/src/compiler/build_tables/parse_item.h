@@ -4,16 +4,14 @@
 #include <map>
 #include <utility>
 #include "compiler/build_tables/lookahead_set.h"
-#include "compiler/rules/symbol.h"
-#include "compiler/rules/metadata.h"
+#include "compiler/rule.h"
 #include "compiler/syntax_grammar.h"
 #include "compiler/precedence_range.h"
 
 namespace tree_sitter {
 namespace build_tables {
 
-class ParseItem {
- public:
+struct ParseItem {
   ParseItem();
   ParseItem(const rules::Symbol &, const Production &, unsigned int);
 
@@ -36,8 +34,7 @@ class ParseItem {
   unsigned int step_index;
 };
 
-class ParseItemSet {
- public:
+struct ParseItemSet {
   ParseItemSet();
   explicit ParseItemSet(const std::map<ParseItem, LookaheadSet> &);
 

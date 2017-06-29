@@ -9,7 +9,6 @@
 import XCTest
 @testable import TreeSitter
 import TreeSitterRuntime
-import TreeSitterRuntime
 
 func getExtent(_ string: String) -> Point {
     var result = Point.zero
@@ -42,29 +41,37 @@ class TreeSitterTests: XCTestCase {
         let bundle = Bundle(for: TreeSitterTests.self)
         let url = bundle.url(forResource: "c", withExtension: "txt")!
         let string = try! String(contentsOf: url)
-        let document = Document(text: string, language: .c)
+        let _ = Document(text: string, language: .c)
     }
 
     func testSmall() {
-        let string = "#pragma mark\n//hi"
-        let document = Document(text: string, language: .c)
-        let a = C(rawValue: document.rootNode.children[0].symbol)!
-        let b = C(rawValue: document.rootNode.children[1].symbol)!
-        XCTAssertEqual(a, .sym_preproc_call)
-        XCTAssertEqual(b, .sym_comment)
+        let string = "//A" + "\n" + "var a = 2"
+        let document = Document(text: string, language: .javascript)
+        print(document.stringForNode(document.rootNode))
+        XCTAssert(C.anon_sym_POUNDinclude.rawValue == 1)
+        let a = Javascript(rawValue: document.rootNode.children[0].symbol)!
+        let b = Javascript(rawValue: document.rootNode.children[1].symbol)!
+        XCTAssertEqual(a, .sym_comment)
+        XCTAssertEqual(b, .sym_trailing_var_declaration)
+        
+        var n = document.rootNode.children.first!
+        
+        print(Language.javascript.symbol.tokenType(for: &n, at: 0))
         
         let p = string.utf16.count
         let r = NSRange(location: p, length: 0)
-        let replacement = "\n#include"
+        let replacement = "\n1"
         
         document.input.data.replaceCharactersInRange(r, replacementText: replacement)
         
-        let edit = TSInputEdit(start_byte: UInt32(p) * 2, bytes_removed: 0, bytes_added: UInt32(replacement.utf16.count) * 2, start_point: Point(row: 1, column: 4), extent_removed: .zero, extent_added: Point(row: 1, column: 9))
+        let edit = TSInputEdit(start_byte: UInt32(p) * 2, bytes_removed: 0, bytes_added: UInt32(replacement.utf16.count) * 2, start_point: Point(row: 1, column: 4), extent_removed: .zero, extent_added: Point(row: 1, column: 1))
         document.makeInputEdit(edit)
-        document.parse()
-        
+        let ranges = document.parseAndGetChangedRanges()
+        print(ranges)
         print(String(data: document.input.data, encoding: .utf16))
+        print(document.stringForNode(document.rootNode))
         print("new",document.rootNode.children.flatMap({C(rawValue: $0.symbol)}))
+        
     }
     
 }

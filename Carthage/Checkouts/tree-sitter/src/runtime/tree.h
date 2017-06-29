@@ -34,6 +34,7 @@ typedef struct Tree {
 
   Length padding;
   Length size;
+  uint32_t bytes_scanned;
 
   TSSymbol symbol;
   TSStateId parse_state;
@@ -68,15 +69,18 @@ typedef Array(TreePathEntry) TreePath;
 bool ts_tree_array_copy(TreeArray, TreeArray *);
 void ts_tree_array_delete(TreeArray *);
 uint32_t ts_tree_array_essential_count(const TreeArray *);
+TreeArray ts_tree_array_remove_last_n(TreeArray *, uint32_t);
+TreeArray ts_tree_array_remove_trailing_extras(TreeArray *);
 
 Tree *ts_tree_make_leaf(TSSymbol, Length, Length, TSSymbolMetadata);
 Tree *ts_tree_make_node(TSSymbol, uint32_t, Tree **, TSSymbolMetadata);
 Tree *ts_tree_make_copy(Tree *child);
 Tree *ts_tree_make_error_node(TreeArray *);
-Tree *ts_tree_make_error(Length, Length, char);
+Tree *ts_tree_make_error(Length, Length, int32_t);
 void ts_tree_retain(Tree *tree);
 void ts_tree_release(Tree *tree);
 bool ts_tree_eq(const Tree *tree1, const Tree *tree2);
+bool ts_tree_tokens_eq(const Tree *, const Tree *);
 int ts_tree_compare(const Tree *tree1, const Tree *tree2);
 
 uint32_t ts_tree_start_column(const Tree *self);
@@ -104,6 +108,8 @@ static inline bool ts_tree_is_fragile(const Tree *tree) {
   return tree->fragile_left || tree->fragile_right ||
          ts_tree_total_bytes(tree) == 0;
 }
+
+bool ts_external_token_state_eq(const TSExternalTokenState *, const TSExternalTokenState *);
 
 #ifdef __cplusplus
 }

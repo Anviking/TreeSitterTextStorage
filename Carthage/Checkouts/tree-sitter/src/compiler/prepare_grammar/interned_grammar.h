@@ -4,18 +4,17 @@
 #include <set>
 #include <vector>
 #include "tree_sitter/compiler.h"
-#include "compiler/rules/symbol.h"
-#include "compiler/syntax_grammar.h"
-#include "compiler/variable.h"
+#include "compiler/grammar.h"
+#include "compiler/rule.h"
 
 namespace tree_sitter {
 namespace prepare_grammar {
 
 struct InternedGrammar {
   std::vector<Variable> variables;
-  std::vector<rule_ptr> extra_tokens;
-  std::set<ConflictSet> expected_conflicts;
-  std::vector<ExternalToken> external_tokens;
+  std::vector<rules::Rule> extra_tokens;
+  std::set<std::set<rules::Symbol>> expected_conflicts;
+  std::vector<Variable> external_tokens;
 };
 
 }  // namespace prepare_grammar

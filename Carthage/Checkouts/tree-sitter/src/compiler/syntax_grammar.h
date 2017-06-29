@@ -4,23 +4,16 @@
 #include <vector>
 #include <string>
 #include <set>
-#include "compiler/rules/symbol.h"
-#include "compiler/rules/metadata.h"
-#include "compiler/variable.h"
+#include "compiler/rule.h"
+#include "compiler/grammar.h"
 
 namespace tree_sitter {
 
-struct ExternalToken {
-  std::string name;
-  VariableType type;
-  rules::Symbol corresponding_internal_token;
-
-  bool operator==(const ExternalToken &) const;
-};
-
 struct ProductionStep {
-  ProductionStep(const rules::Symbol &, int, rules::Associativity);
-  bool operator==(const ProductionStep &) const;
+  inline bool operator==(const ProductionStep &other) const {
+    return symbol == other.symbol && precedence == other.precedence &&
+           associativity == other.associativity;
+  }
 
   rules::Symbol symbol;
   int precedence;
@@ -30,15 +23,24 @@ struct ProductionStep {
 typedef std::vector<ProductionStep> Production;
 
 struct SyntaxVariable {
-  SyntaxVariable(const std::string &, VariableType,
-                 const std::vector<Production> &);
-
   std::string name;
-  std::vector<Production> productions;
   VariableType type;
+  std::vector<Production> productions;
 };
 
-typedef std::set<rules::Symbol> ConflictSet;
+using ConflictSet = std::set<rules::Symbol>;
+
+struct ExternalToken {
+  std::string name;
+  VariableType type;
+  rules::Symbol corresponding_internal_token;
+
+  inline bool operator==(const ExternalToken &other) const {
+    return name == other.name &&
+      type == other.type &&
+      corresponding_internal_token == other.corresponding_internal_token;
+  }
+};
 
 struct SyntaxGrammar {
   std::vector<SyntaxVariable> variables;

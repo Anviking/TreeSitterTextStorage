@@ -23,11 +23,27 @@ Template strings
 `multi
   line`;
 
+`multi
+  ${2 + 2}
+  hello
+  ${1 + 1,2 + 2}
+  line`;
+
+`$$$$`;
+`$$$$${ 1 }`;
+
+`\ `
+
+`The command \`git ${args.join(' ')}\` exited with an unexpected code: ${exitCode}. The caller should either handle this error, or expect that exit code.`
+
 ----
 
 (program
-  (expression_statement (template_string))
-  (expression_statement (template_string)))
+  (expression_statement (template_string (template_chars)))
+  (expression_statement (template_string (template_chars)))
+  (expression_statement (template_string (template_chars) (template_substitution (math_op (number) (number))) (template_chars) (template_substitution (comma_op (math_op (number) (number)) (math_op (number) (number)))) (template_chars)))
+  (expression_statement (template_string (template_chars))) (expression_statement (template_string (template_chars) (template_substitution (number))))
+	(expression_statement (template_string (template_chars))) (expression_statement (template_string (template_chars) (template_substitution (function_call (member_access (identifier) (identifier)) (arguments (string)))) (template_chars) (template_substitution (identifier)) (template_chars))))
 
 ============================================
 Numbers
@@ -35,11 +51,19 @@ Numbers
 
 101;
 3.14;
+3.14e+1;
 0x1ABCDEFabcdef;
+0o7632157312;
+0b1010101001;
+1e+3;
 
 ---
 
 (program
+  (expression_statement (number))
+  (expression_statement (number))
+  (expression_statement (number))
+  (expression_statement (number))
   (expression_statement (number))
   (expression_statement (number))
   (expression_statement (number)))
@@ -104,8 +128,11 @@ Objects
 ============================================
 
 {};
-{ key1: "value1" };
-{ key1: "value1", "key2": value2, key3: 3.0 };
+{ a: "b" };
+{ c: "d", "e": f, 1: 2 };
+{
+  g: h
+}
 
 ---
 
@@ -116,7 +143,9 @@ Objects
   (expression_statement (object
     (pair (identifier) (string))
     (pair (string) (identifier))
-    (pair (identifier) (number)))))
+    (pair (number) (number))))
+  (expression_statement (object
+    (pair (identifier) (identifier)))))
 
 ============================================
 Objects with shorthand properties
@@ -179,7 +208,7 @@ Objects with method definitions
       (identifier)
       (formal_parameters)
       (statement_block
-        (yield_statement (identifier))))
+        (expression_statement (yield_expression (identifier)))))
     (method_definition
       (reserved_identifier)
       (formal_parameters)
@@ -232,33 +261,47 @@ class Foo extends require('another-class') {
 ---
 
 (program
-  (expression_statement
-    (class
-      (identifier)
-      (class_body
-        (method_definition
-          (identifier)
-          (formal_parameters (identifier))
-          (statement_block (return_statement (identifier))))
-        (method_definition
-          (identifier)
-          (formal_parameters (identifier))
-          (statement_block (return_statement (identifier))))
-        (method_definition
-          (identifier)
-          (formal_parameters (identifier))
-          (statement_block (return_statement (identifier)))))))
+  (class
+    (identifier)
+    (class_body
+      (method_definition
+        (identifier)
+        (formal_parameters (identifier))
+        (statement_block (return_statement (identifier))))
+      (method_definition
+        (identifier)
+        (formal_parameters (identifier))
+        (statement_block (return_statement (identifier))))
+      (method_definition
+        (identifier)
+        (formal_parameters (identifier))
+        (statement_block (return_statement (identifier))))))
 
-  (expression_statement
-    (class
-      (identifier)
-      (function_call (identifier) (arguments (string)))
-      (class_body
-        (method_definition
-          (identifier)
-          (formal_parameters)
-          (statement_block
-            (expression_statement (function_call (super) (arguments)))))))))
+  (class
+    (identifier)
+    (class_heritage (function_call (identifier) (arguments (string))))
+    (class_body
+      (method_definition
+        (identifier)
+        (formal_parameters)
+        (statement_block
+          (expression_statement (function_call (super) (arguments))))))))
+
+============================================
+Class Property Fields
+============================================
+
+class Foo {
+	static foo = 2
+}
+
+---
+
+(program
+  (class
+    (identifier)
+    (class_body
+      (public_field_definition (identifier) (number)))))
 
 ============================================
 Arrays
@@ -268,6 +311,8 @@ Arrays
 [ "item1" ];
 [ "item1", ];
 [ "item1", item2 ];
+[ , item2 ];
+[ item2 = 5 ];
 
 ---
 
@@ -275,7 +320,9 @@ Arrays
   (expression_statement (array))
   (expression_statement (array (string)))
   (expression_statement (array (string)))
-  (expression_statement (array (string) (identifier))))
+  (expression_statement (array (string) (identifier)))
+  (expression_statement (array (identifier)))
+  (expression_statement (array (assignment (identifier) (number)))))
 
 ============================================
 Functions
@@ -356,8 +403,8 @@ Generator Functions
       (identifier)
       (formal_parameters (identifier) (identifier))
       (statement_block
-        (yield_statement)
-        (yield_statement (identifier)))))))
+        (expression_statement (yield_expression))
+        (expression_statement (yield_expression (identifier))))))))
 
 ============================================
 Property access
@@ -497,23 +544,21 @@ async (a) => { return foo; };
 ---
 
 (program
-  (expression_statement
-    (function
-      (identifier)
-      (formal_parameters)
-      (statement_block)))
+  (function
+    (identifier)
+    (formal_parameters)
+    (statement_block))
   (expression_statement
     (object
       (method_definition
         (identifier)
         (formal_parameters)
         (statement_block))))
-  (expression_statement
-    (class (identifier) (class_body
-      (method_definition
-        (identifier)
-        (formal_parameters)
-        (statement_block)))))
+  (class (identifier) (class_body
+    (method_definition
+      (identifier)
+      (formal_parameters)
+      (statement_block))))
   (expression_statement
     (arrow_function
       (formal_parameters (identifier))
@@ -717,13 +762,19 @@ a = void b()
 Math assignment operators
 ==============================================
 
-w ^= 1;
-x += 2;
-y.z *= 3;
+s |= 1;
+t %= 2;
+w ^= 3;
+x += 4;
+y.z *= 5;
 
 ---
 
 (program
+  (expression_statement
+    (math_assignment (identifier) (number)))
+  (expression_statement
+    (math_assignment (identifier) (number)))
   (expression_statement
     (math_assignment (identifier) (number)))
   (expression_statement
@@ -765,3 +816,110 @@ typeof a == b && c instanceof d
       (type_op (identifier))
       (identifier))
     (type_op (identifier) (identifier)))))
+
+==============================================
+Simple JSX elements
+==============================================
+
+a = <div className='b' tabIndex=1 />;
+b = <div>a <span>b</span> c</div>;
+
+---
+
+(program
+  (expression_statement (assignment
+    (identifier)
+    (jsx_self_closing_element
+      (identifier)
+      (jsx_attribute (identifier) (string))
+      (jsx_attribute (identifier) (number)))))
+  (expression_statement (assignment
+    (identifier)
+    (jsx_element
+      (jsx_opening_element (identifier))
+      (jsx_text)
+      (jsx_element
+        (jsx_opening_element (identifier))
+        (jsx_text)
+        (jsx_closing_element (identifier)))
+      (jsx_text)
+      (jsx_closing_element (identifier))))))
+
+==============================================
+Expressions within JSX elements
+==============================================
+
+a = <a b c={d}> e {f} g </a>
+h = <i>{...j}</i>
+
+---
+
+(program
+  (expression_statement (assignment
+    (identifier)
+    (jsx_element
+      (jsx_opening_element (identifier)
+        (jsx_attribute (identifier))
+        (jsx_attribute (identifier) (jsx_expression (identifier))))
+      (jsx_text)
+      (jsx_expression (identifier))
+      (jsx_text)
+      (jsx_closing_element (identifier)))))
+  (expression_statement (assignment
+    (identifier)
+    (jsx_element
+      (jsx_opening_element (identifier))
+      (jsx_expression (spread_element (identifier)))
+      (jsx_closing_element (identifier))))))
+
+
+==============================================
+Expressions with rest elements
+==============================================
+
+foo(...rest)
+
+---
+
+(program
+  (expression_statement
+    (function_call (identifier) (arguments (rest_argument (identifier))))))
+
+==============================================
+Math expressions
+==============================================
+
+(foo - bar) / baz
+
+---
+
+(program
+  (expression_statement
+    (math_op (math_op (identifier) (identifier)) (identifier))))
+
+
+==============================================
+Non-breaking spaces as whitespace
+==============================================
+
+⁠// Type definitions for Dexie v1.4.1
+﻿// Project: https://github.com/dfahlander/Dexie.js
+​// Definitions by: David Fahlander <http://github.com/dfahlander>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+---
+
+(program (comment) (comment) (comment) (comment))
+
+==============================================
+Yield expressions
+==============================================
+
+yield db.users.where('[endpoint+email]')
+
+---
+
+(program
+  (expression_statement
+    (yield_expression
+      (function_call (member_access (member_access (identifier) (identifier)) (identifier)) (arguments (string))))))

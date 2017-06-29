@@ -1,15 +1,88 @@
 =====================================
-Numbers
+Integers
 =====================================
 
-123.4
+-1
 0xDEAD
+0XDEAD
+1j
+-1j
+0o123
+0O123
+0b001
+0B001
+1_1
+0B1_1
+0O1_1
+0L
 
 ---
 
 (module
-  (expression_statement (number))
-  (expression_statement (number)))
+  (expression_statement (unary_operator (integer)))
+  (expression_statement (integer))
+  (expression_statement (integer))
+  (expression_statement (integer))
+  (expression_statement (unary_operator (integer)))
+  (expression_statement (integer))
+  (expression_statement (integer))
+  (expression_statement (integer))
+  (expression_statement (integer))
+  (expression_statement (integer))
+  (expression_statement (integer))
+  (expression_statement (integer))
+  (expression_statement (integer)))
+
+=====================================
+Floats
+=====================================
+
+-.6_6
++.1_1
+123.4123
+123.123J
+1_1.3_1
+1_1.
+1e+3_4j
+.3e1_4
+1_0.l
+.1l
+
+---
+
+(module
+  (expression_statement (unary_operator (float)))
+  (expression_statement (unary_operator (float)))
+  (expression_statement (float))
+  (expression_statement (float))
+  (expression_statement (float))
+  (expression_statement (float))
+  (expression_statement (float))
+  (expression_statement (float))
+  (expression_statement (float))
+  (expression_statement (float)))
+
+
+=====================================
+Scientific Notation Floats
+=====================================
+
+1e322
+1e-3
+1e+3
+1.8e10
+1.e10
+-1e10
+
+---
+
+(module
+  (expression_statement (float))
+  (expression_statement (float))
+  (expression_statement (float))
+  (expression_statement (float))
+  (expression_statement (float))
+  (expression_statement (unary_operator (float))))
 
 =====================================
 Strings
@@ -20,10 +93,19 @@ Strings
 r'hi'
 ur"bye"
 b'sup'
+`1`
+"\\"
+"/"
+"multiline \
+string"
 
 ---
 
 (module
+  (expression_statement (string))
+  (expression_statement (string))
+  (expression_statement (string))
+  (expression_statement (string))
   (expression_statement (string))
   (expression_statement (string))
   (expression_statement (string))
@@ -64,18 +146,49 @@ Multi-line strings
 =====================================
 
 """
-Hi "hello"
-This is documentation
+A double quote hello,
+without double or single quotes.
+"""
+
+"""
+A double quote "hello",
+with double quotes.
+"""
+
+"""
+A double quote 'hello',
+with single quotes.
 """
 
 '''
-Hello again.
-It is me.
+A single quote hello,
+without double or single quotes.
 '''
+
+'''
+A single quote 'hello',
+with single quotes.
+'''
+
+'''
+A single quote "hello",
+with double quotes.
+'''
+
+"""
+A double quote hello\n\
+with an escaped newline\n\
+and another escaped newline\n\
+"""
 
 ---
 
 (module
+  (expression_statement (string))
+  (expression_statement (string))
+  (expression_statement (string))
+  (expression_statement (string))
+  (expression_statement (string))
   (expression_statement (string))
   (expression_statement (string)))
 
@@ -100,6 +213,8 @@ List comprehensions
 =====================================
 
 [a + b for (a, b) in items]
+[a for b in c for a in b]
+[a for b in lambda: True, lambda: False if True]
 
 ---
 
@@ -110,7 +225,18 @@ List comprehensions
       (identifier))
     (variables
       (tuple (identifier) (identifier)))
-    (identifier))))
+    (identifier)))
+  (expression_statement (list_comprehension
+    (identifier)
+    (variables (identifier))
+    (identifier)
+    (variables (identifier))
+    (identifier)))
+  (expression_statement (list_comprehension
+    (identifier)
+    (variables (identifier))
+    (lambda (true))
+    (lambda (conditional_expression (false) (true))))))
 
 =====================================
 Dictionaries
@@ -123,8 +249,8 @@ Dictionaries
 
 (module
   (expression_statement (dictionary
-    (pair (identifier) (number))
-    (pair (identifier) (number))))
+    (pair (identifier) (integer))
+    (pair (identifier) (integer))))
   (expression_statement (dictionary)))
 
 =====================================
@@ -132,14 +258,17 @@ Dictionary comprehensions
 =====================================
 
 {a: b for a, b in items}
+{a: b for c in d for e in items}
 
 ---
 
 (module
   (expression_statement (dictionary_comprehension
-    (pair (identifier) (identifier))
-    (variables (identifier) (identifier))
-    (identifier))))
+    (identifier)
+    (identifier) (variables (identifier) (identifier)) (identifier)))
+  (expression_statement (dictionary_comprehension
+    (identifier)
+    (identifier) (variables (identifier)) (identifier) (variables (identifier)) (identifier))))
 
 =====================================
 Sets
@@ -160,6 +289,7 @@ Set comprehensions
 =====================================
 
 {a[b][c] for a, b, c in items}
+{r for s in qs for n in ms}
 
 ---
 
@@ -167,7 +297,9 @@ Set comprehensions
   (expression_statement (set_comprehension
     (subscript (subscript (identifier) (identifier)) (identifier))
     (variables (identifier) (identifier) (identifier))
-    (identifier))))
+    (identifier)))
+  (expression_statement (set_comprehension
+    (identifier) (variables (identifier)) (identifier) (variables (identifier)) (identifier))))
 
 =====================================
 Tuples
@@ -188,6 +320,7 @@ Generator expression
 
 (a[b][c] for a, b, c in items)
 dict((a, b) for a, b in d)
+(a for b in c for d in e,)
 
 ---
 
@@ -201,4 +334,10 @@ dict((a, b) for a, b in d)
     (generator_expression
       (tuple (identifier) (identifier))
       (variables (identifier) (identifier))
-      (identifier)))))
+      (identifier))))
+  (expression_statement (generator_expression
+    (identifier)
+    (variables (identifier))
+    (identifier)
+    (variables (identifier))
+    (identifier))))

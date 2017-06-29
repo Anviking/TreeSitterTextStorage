@@ -1,5 +1,6 @@
 module TreeSitterRuntime [extern_c] {
     header "Carthage/Checkouts/tree-sitter/include/tree_sitter/runtime.h"
+    header "Carthage/Checkouts/tree-sitter/include/tree_sitter/parser.h"
     umbrella "Carthage/Checkouts/tree-sitter/include"
 
     //umbrella "src/runtime"

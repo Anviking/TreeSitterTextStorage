@@ -614,7 +614,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_simple_type"
+          "name": "_type"
         }
       ]
     },
@@ -1402,8 +1402,16 @@
         {
           "type": "SYMBOL",
           "name": "block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "empty_statement"
         }
       ]
+    },
+    "empty_statement": {
+      "type": "STRING",
+      "value": ";"
     },
     "_simple_statement": {
       "type": "CHOICE",
@@ -4079,24 +4087,12 @@
                 "value": "/*"
               },
               {
-                "type": "REPEAT",
-                "content": {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "PATTERN",
-                      "value": "[^\\*]"
-                    },
-                    {
-                      "type": "PATTERN",
-                      "value": "\\*[^\\/]"
-                    }
-                  ]
-                }
+                "type": "PATTERN",
+                "value": "[^*]*\\*+([^\\/*][^*]*\\*+)*"
               },
               {
                 "type": "STRING",
-                "value": "*/"
+                "value": "/"
               }
             ]
           }
