@@ -12,15 +12,15 @@ import Foundation
 
 
 extension Node {
-    fileprivate func write(to attributedString: NSMutableAttributedString, language: Language, theme: ColorTheme, font: UIFont, length: Int) {
+    internal func write(to attributedString: NSMutableAttributedString, language: Language, theme: ColorTheme, font: UIFont, length: Int) {
         
         // FIXME: Don't pass -1 as location, make location optional instead
         var copy = self
         guard symbol != 0,
             let tokenType = language.symbol.tokenType(for: &copy, at: -1),
-            language.metadata(for: symbol).structural,
+            //language.metadata(for: symbol).structural,
             let color = theme[tokenType],
-            self.start < UInt32(length) && self.end < UInt32(length) && self.range.count > 0
+            self.start < UInt32(length) && self.end <= UInt32(length) && self.range.count > 0
             else {
                 children.forEach { $0.write(to: attributedString, language: language, theme: theme, font: font, length: length) }
                 return

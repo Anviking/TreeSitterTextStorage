@@ -22,6 +22,8 @@
 		8F6D735A1F04E32500730432 /* Symbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6D734D1F04E2B500730432 /* Symbol.swift */; };
 		8FCB842A1F066FE200DFDC69 /* runtime.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FF6CCFA1F04D4DF00D91121 /* runtime.a */; };
 		8FCB842B1F066FEE00DFDC69 /* json.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F6D73161F04D79D00730432 /* json.c */; };
+		8FCB842C1F06717900DFDC69 /* cpp.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F6D73151F04D79C00730432 /* cpp.c */; };
+		8FCB842D1F06717D00DFDC69 /* c.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F6D731A1F04D79F00730432 /* c.c */; };
 		8FF6CCBB1F04D49400D91121 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF6CCBA1F04D49400D91121 /* AppDelegate.swift */; };
 		8FF6CCBD1F04D49400D91121 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF6CCBC1F04D49400D91121 /* MasterViewController.swift */; };
 		8FF6CCBF1F04D49400D91121 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF6CCBE1F04D49400D91121 /* DetailViewController.swift */; };
@@ -429,8 +431,10 @@
 				8F6D73311F04D7B300730432 /* c.swift in Sources */,
 				8F6D73571F04E32500730432 /* JLTokenType.swift in Sources */,
 				8F6D735A1F04E32500730432 /* Symbol.swift in Sources */,
+				8FCB842C1F06717900DFDC69 /* cpp.c in Sources */,
 				8F6D73561F04E32500730432 /* JLColorTheme.swift in Sources */,
 				8FCB842B1F066FEE00DFDC69 /* json.c in Sources */,
+				8FCB842D1F06717D00DFDC69 /* c.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

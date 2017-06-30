@@ -43,8 +43,8 @@ extension Node {
         return ts_node_end_point(self)
     }
     
-    public var range: CountableClosedRange<UInt32> {
-        return start ... end
+    public var range: CountableRange<UInt32> {
+        return start ..< end
     }
     
     public func stringInDocument(_ document: OpaquePointer) -> String {

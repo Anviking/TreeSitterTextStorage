@@ -31,6 +31,8 @@ public enum Language {
         switch self {
         case .json:
             return Json.self
+        case .cpp:
+            return Cpp.self
         default: fatalError()
         }
     }
