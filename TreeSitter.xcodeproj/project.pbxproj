@@ -29,6 +29,7 @@
 		8FCB84341F067B8900DFDC69 /* cpp.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8FCB84331F067B8900DFDC69 /* cpp.txt */; };
 		8FCB84371F067D1F00DFDC69 /* TextStorageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCB84351F067D1E00DFDC69 /* TextStorageHelper.swift */; };
 		8FCB84381F067D1F00DFDC69 /* TextStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCB84361F067D1E00DFDC69 /* TextStorage.swift */; };
+		8FCB843A1F06829600DFDC69 /* InputTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCB84391F06829600DFDC69 /* InputTests.swift */; };
 		8FF6CCBB1F04D49400D91121 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF6CCBA1F04D49400D91121 /* AppDelegate.swift */; };
 		8FF6CCBD1F04D49400D91121 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF6CCBC1F04D49400D91121 /* MasterViewController.swift */; };
 		8FF6CCBF1F04D49400D91121 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF6CCBE1F04D49400D91121 /* DetailViewController.swift */; };
@@ -118,6 +119,7 @@
 		8FCB84331F067B8900DFDC69 /* cpp.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = cpp.txt; sourceTree = "<group>"; };
 		8FCB84351F067D1E00DFDC69 /* TextStorageHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextStorageHelper.swift; path = "../../../Downloads/TreeSitterTextStorage-master/TreeSitter/TextStorageHelper.swift"; sourceTree = "<group>"; };
 		8FCB84361F067D1E00DFDC69 /* TextStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextStorage.swift; path = "../../../Downloads/TreeSitterTextStorage-master/TreeSitter/TextStorage.swift"; sourceTree = "<group>"; };
+		8FCB84391F06829600DFDC69 /* InputTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTests.swift; sourceTree = "<group>"; };
 		8FF6CCB71F04D49400D91121 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FF6CCBA1F04D49400D91121 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8FF6CCBC1F04D49400D91121 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
@@ -250,6 +252,7 @@
 			isa = PBXGroup;
 			children = (
 				8FF6CCE21F04D4C100D91121 /* TreeSitterTests.swift */,
+				8FCB84391F06829600DFDC69 /* InputTests.swift */,
 				8FF6CCE41F04D4C100D91121 /* Info.plist */,
 			);
 			path = TreeSitterTests;
@@ -470,6 +473,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FCB843A1F06829600DFDC69 /* InputTests.swift in Sources */,
 				8FF6CCE31F04D4C100D91121 /* TreeSitterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
