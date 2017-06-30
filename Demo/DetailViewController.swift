@@ -7,19 +7,29 @@
 //
 
 import UIKit
+import TreeSitter
 
 class DetailViewController: UIViewController {
 
-    @IBOutlet weak var detailDescriptionLabel: UILabel!
+    var sample: Sample!
+    var delegate: !
+    var textView: UITextView = {
+        let document = Document(text: str, language: .c)
+        tokenizer = TextStorageDelegate(document: document)
+        let textView = UITextView(frame: frame)
+        textView.text = str
+        textView.textStorage.delegate = tokenizer
+        
+        
+        textView.backgroundColor = ColorTheme.dusk[.background]
+        textView.autocapitalizationType = .none
+        textView.autocorrectionType = .no
+        self.view = textView
+    }()
 
-
-    func configureView() {
-        // Update the user interface for the detail item.
-        if let detail = detailItem {
-            if let label = detailDescriptionLabel {
-                label.text = detail.description
-            }
-        }
+    override func loadView() {
+        let textView
+        self.view = textView
     }
 
     override func viewDidLoad() {
