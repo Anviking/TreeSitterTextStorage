@@ -27,6 +27,8 @@
 		8FCB842F1F06793D00DFDC69 /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCB842E1F06793D00DFDC69 /* Sample.swift */; };
 		8FCB84311F067B6700DFDC69 /* json.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8FCB84301F067B6700DFDC69 /* json.txt */; };
 		8FCB84341F067B8900DFDC69 /* cpp.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8FCB84331F067B8900DFDC69 /* cpp.txt */; };
+		8FCB84371F067D1F00DFDC69 /* TextStorageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCB84351F067D1E00DFDC69 /* TextStorageHelper.swift */; };
+		8FCB84381F067D1F00DFDC69 /* TextStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCB84361F067D1E00DFDC69 /* TextStorage.swift */; };
 		8FF6CCBB1F04D49400D91121 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF6CCBA1F04D49400D91121 /* AppDelegate.swift */; };
 		8FF6CCBD1F04D49400D91121 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF6CCBC1F04D49400D91121 /* MasterViewController.swift */; };
 		8FF6CCBF1F04D49400D91121 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF6CCBE1F04D49400D91121 /* DetailViewController.swift */; };
@@ -114,6 +116,8 @@
 		8FCB842E1F06793D00DFDC69 /* Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sample.swift; sourceTree = "<group>"; };
 		8FCB84301F067B6700DFDC69 /* json.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = json.txt; sourceTree = "<group>"; };
 		8FCB84331F067B8900DFDC69 /* cpp.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = cpp.txt; sourceTree = "<group>"; };
+		8FCB84351F067D1E00DFDC69 /* TextStorageHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextStorageHelper.swift; path = "../../../Downloads/TreeSitterTextStorage-master/TreeSitter/TextStorageHelper.swift"; sourceTree = "<group>"; };
+		8FCB84361F067D1E00DFDC69 /* TextStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextStorage.swift; path = "../../../Downloads/TreeSitterTextStorage-master/TreeSitter/TextStorage.swift"; sourceTree = "<group>"; };
 		8FF6CCB71F04D49400D91121 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FF6CCBA1F04D49400D91121 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8FF6CCBC1F04D49400D91121 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
@@ -231,6 +235,8 @@
 				8F6D73491F04E2B500730432 /* Language.swift */,
 				8F6D734B1F04E2B500730432 /* Node.swift */,
 				8F6D73511F04E2B500730432 /* NSAttributedString.swift */,
+				8FCB84361F067D1E00DFDC69 /* TextStorage.swift */,
+				8FCB84351F067D1E00DFDC69 /* TextStorageHelper.swift */,
 				8F6D734D1F04E2B500730432 /* Symbol.swift */,
 				8F6D73141F04D78300730432 /* Languages */,
 				8FF6CCF11F04D4DF00D91121 /* binding.xcodeproj */,
@@ -443,8 +449,10 @@
 				8F6D73291F04D7B300730432 /* json.swift in Sources */,
 				8F6D73591F04E32500730432 /* NSAttributedString.swift in Sources */,
 				8F6D732F1F04D7B300730432 /* cpp.swift in Sources */,
+				8FCB84381F067D1F00DFDC69 /* TextStorage.swift in Sources */,
 				8F6D73541F04E32500730432 /* Document.swift in Sources */,
 				8F6D73521F04E2CB00730432 /* Language.swift in Sources */,
+				8FCB84371F067D1F00DFDC69 /* TextStorageHelper.swift in Sources */,
 				8F6D73581F04E32500730432 /* Node.swift in Sources */,
 				8F6D732D1F04D7B300730432 /* go.swift in Sources */,
 				8F6D73551F04E32500730432 /* Extensions.swift in Sources */,

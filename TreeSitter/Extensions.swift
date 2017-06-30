@@ -24,8 +24,8 @@ extension NSRange {
         return range.contains(index)
     }
     
-    var uint32range: CountableClosedRange<UInt32> {
-        return UInt32(location) ... UInt32(location + length)
+    var uint32range: CountableRange<UInt32> {
+        return UInt32(location) ..< UInt32(location + length + 1)
     }
     
     init(_ uint32range: CountableClosedRange<UInt32>) {

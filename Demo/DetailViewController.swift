@@ -11,45 +11,40 @@ import TreeSitter
 
 class DetailViewController: UIViewController {
 
-    var sample: Sample!
-    var delegate: !
-    var textView: UITextView = {
-        let document = Document(text: str, language: .c)
-        tokenizer = TextStorageDelegate(document: document)
-        let textView = UITextView(frame: frame)
-        textView.text = str
-        textView.textStorage.delegate = tokenizer
-        
+    var sample: Sample? {
+        didSet {
+            guard let sample = sample else {
+                textView.text = ""
+                return
+                
+            }
+            let document = Document(text: sample.code, language: sample.language)
+            delegate = TextStorageDelegate(document: document)
+            
+            textView.text = sample.code
+            textView.textStorage.delegate = delegate
+        }
+    }
+    var delegate: TextStorageDelegate!
+    var textView: UITextView = UITextView(frame: .zero)
+
+    override func loadView() {
         
         textView.backgroundColor = ColorTheme.dusk[.background]
         textView.autocapitalizationType = .none
         textView.autocorrectionType = .no
-        self.view = textView
-    }()
-
-    override func loadView() {
-        let textView
+        
         self.view = textView
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        configureView()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    var detailItem: NSDate? {
-        didSet {
-            // Update the view.
-            configureView()
-        }
-    }
-
-
 }
 
